@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --stitch: #e8d5a3;
+  --rust:   #c0392b;
+  --fade:   #b8cce4;
+  --light:  #f0ebe0;
+  --dark:   #1a2a3a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: linear-gradient(160deg, #5577aa 0%, #3d5f96 45%, #2c4f82 100%);
+  color: #f0ebe0;
+  min-height: 100vh;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg, transparent, transparent 4px,
+    rgba(0,0,0,0.04) 4px, rgba(0,0,0,0.04) 8px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stitch-line {
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg, #e8d5a3 0px, #e8d5a3 8px, transparent 8px, transparent 14px
+  );
+  opacity: 0.3;
+}
+
+.card-denim {
+  background: rgba(25,50,88,0.5);
+  border: 1px dashed rgba(232,213,163,0.25);
+  border-radius: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.card-denim:hover {
+  border-color: #e8d5a3;
+  background: rgba(25,50,88,0.7);
+}

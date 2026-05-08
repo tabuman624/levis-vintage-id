@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "guide": "Guide",
+    "legal": "Legal",
+    "identify": "Identify Now"
+  },
+  "top": {
+    "eyebrow": "AI Vintage Identification Service",
+    "title": "LEVI'S",
+    "subtitle": "VINTAGE ID.",
+    "desc": "Just take a photo. AI instantly identifies the era, model number & factory.",
+    "ctaPrimary": "Identify for Free",
+    "ctaSecondary": "See How It Works"
+  },
+  "identify": {
+    "eyebrow": "AI Identification",
+    "title": "LEVI'S VINTAGE ID.",
+    "desc": "Upload photos to identify era, model number & factory with AI",
+    "apiSection": "GEMINI API KEY",
+    "apiHint": "Get a free key at Google AI Studio. Your key is never stored.",
+    "uploadSection": "UPLOAD PHOTOS — More photos = higher accuracy",
+    "analyzeBtn": "IDENTIFY NOW",
+    "analyzing": "Analyzing...",
+    "resultTitle": "VINTAGE REPORT",
+    "confidenceHigh": "CONFIDENCE: HIGH",
+    "confidenceMid": "CONFIDENCE: MID",
+    "confidenceLow": "CONFIDENCE: LOW",
+    "labels": {
+      "era": "ESTIMATED ERA",
+      "model": "MODEL NUMBER",
+      "factory": "FACTORY",
+      "country": "COUNTRY",
+      "rarity": "RARITY"
+    },
+    "reasoning": "■ Reasoning",
+    "ebayBtn": "Find on eBay",
+    "mercariBtn": "Search Mercari",
+    "disclaimer": "※ Results are AI estimates only. No accuracy guaranteed. This service is independent of Levi Strauss & Co.",
+    "slots": ["Red Tab\n(req.)", "Care Label\n(req.)", "Zipper\n(req.)", "Button Back\n(key)", "Stitching\n(key)", "Selvedge\n(opt.)", "Patch\n(opt.)", "Other"],
+    "tips": {
+      "eyebrow": "PHOTO TIPS",
+      "items": [
+        { "title": "RED TAB", "desc": "Close-up so text is clearly readable" },
+        { "title": "CARE LABEL", "desc": "Shoot entire inner tag in good light" },
+        { "title": "ZIPPER STAMP", "desc": "Macro shot at angle showing stamp" },
+        { "title": "BUTTON BACK", "desc": "Show the number stamped on back" }
+      ]
+    },
+    "errors": {
+      "noPhoto": "Please upload at least one photo",
+      "api": "API error: "
+    }
+  },
+  "guide": {
+    "eyebrow": "Photo Guide for Better Accuracy",
+    "title": "What to Shoot, and How.",
+    "desc": "AI accuracy depends heavily on photo quality and which details you capture."
+  },
+  "legal": {
+    "eyebrow": "Legal Information",
+    "title": "Privacy Policy & Disclaimer"
+  }
+}

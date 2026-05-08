@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "guide": "撮影ガイド",
+    "legal": "法的情報",
+    "identify": "今すぐ鑑定"
+  },
+  "top": {
+    "eyebrow": "AI ヴィンテージ鑑定サービス",
+    "title": "LEVI'S",
+    "subtitle": "VINTAGE ID.",
+    "desc": "写真を撮るだけ。年代・型番・製造工場をAIが即座に鑑定します。",
+    "ctaPrimary": "無料で鑑定する",
+    "ctaSecondary": "使い方を見る"
+  },
+  "identify": {
+    "eyebrow": "AI 鑑定",
+    "title": "LEVI'S VINTAGE ID.",
+    "desc": "写真をアップロードして、年代・型番・製造工場をAIが判定します",
+    "apiSection": "GEMINI API KEY",
+    "apiHint": "Google AI Studio で無料取得できます。キーはサーバーに送信されません。",
+    "uploadSection": "写真をアップロード（複数可・多いほど精度UP）",
+    "analyzeBtn": "鑑定スタート",
+    "analyzing": "AIが鑑定中...",
+    "resultTitle": "鑑定レポート",
+    "confidenceHigh": "信頼度: 高",
+    "confidenceMid": "信頼度: 中",
+    "confidenceLow": "信頼度: 低",
+    "labels": {
+      "era": "推定年代",
+      "model": "型番",
+      "factory": "製造工場",
+      "country": "製造国",
+      "rarity": "希少性"
+    },
+    "reasoning": "■ 判定根拠",
+    "ebayBtn": "eBayで類似品を見る",
+    "mercariBtn": "メルカリで検索",
+    "disclaimer": "※ 本鑑定はAIによる推定です。正確性を保証するものではありません。本サービスはLevi Strauss & Co.とは無関係の独立サービスです。",
+    "slots": ["赤タブ\n(必須)", "ケアラベル\n(必須)", "ジッパー\n(必須)", "ボタン裏\n(重要)", "ステッチ\n(重要)", "セルビッジ\n(任意)", "パッチ\n(任意)", "その他"],
+    "tips": {
+      "eyebrow": "撮影のコツ",
+      "items": [
+        { "title": "赤タブ", "desc": "文字がはっきり読めるよう接写で" },
+        { "title": "ケアラベル", "desc": "裏タグ全体を明るい場所で撮影" },
+        { "title": "ジッパー刻印", "desc": "刻印が見える角度でマクロ撮影" },
+        { "title": "ボタン裏", "desc": "数字の刻印が見えるよう撮影" }
+      ]
+    },
+    "errors": {
+      "noPhoto": "写真を1枚以上アップロードしてください",
+      "api": "エラーが発生しました: "
+    }
+  },
+  "guide": {
+    "eyebrow": "鑑定精度を上げる撮影ガイド",
+    "title": "どこを、どう撮るか。",
+    "desc": "AIの鑑定精度は写真の品質と撮影ポイントに大きく左右されます。"
+  },
+  "legal": {
+    "eyebrow": "法的情報",
+    "title": "プライバシーポリシー・免責事項"
+  }
+}

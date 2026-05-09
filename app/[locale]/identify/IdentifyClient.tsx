@@ -159,7 +159,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
                   >
                     {t('eBayで類似品を見る','Find on eBay')}
                   </a>
-                  
+                  <a
                     href={MERCARI_LINK}
                     target="_blank"
                     rel="nofollow noopener noreferrer"

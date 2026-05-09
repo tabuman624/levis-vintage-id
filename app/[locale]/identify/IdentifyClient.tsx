@@ -151,7 +151,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
                   {t('類似品を探す','Find Similar Items')}
                 </p>
                 <div className="flex gap-3 flex-wrap">
-                  
+                  <a
                     href={ebaySearchUrl}
                     target="_blank"
                     rel="nofollow noopener noreferrer"

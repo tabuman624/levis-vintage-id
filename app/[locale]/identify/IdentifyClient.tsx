@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
+
+const MERCARI_LINK = "https://px.a8.net/svt/ejp?a8mat=4B3MEQ+DIF60I+5LNQ+5YJRM";
+const EBAY_BASE = "https://www.ebay.com/sch/i.html?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339152643&toolid=10001&mkevt=1&_nkw=";
 
 export default function IdentifyClient({ locale }: { locale: string }) {
   const t = (ja: string, en: string) => locale === 'ja' ? ja : en;
@@ -53,6 +55,14 @@ export default function IdentifyClient({ locale }: { locale: string }) {
     ? 'border-stitch text-stitch bg-stitch/10'
     : 'border-rust text-red-400 bg-rust/10';
 
+  const ebaySearchUrl = result
+    ? `${EBAY_BASE}${encodeURIComponent('levis ' + (result.model || '') + ' ' + (result.era || '') + ' vintage')}`
+    : `${EBAY_BASE}levis+vintage+big+e`;
+
+  const mercariSearchUrl = result
+    ? `https://jp.mercari.com/search/?keyword=${encodeURIComponent('リーバイス ' + (result.model || '') + ' ヴィンテージ')}&utm_source=affi&utm_medium=affi&utm_campaign=a8`
+    : MERCARI_LINK;
+
   return (
     <>
       <Header locale={locale} />
@@ -69,7 +79,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
         <p className="font-mono text-[10px] tracking-[3px] text-stitch/80 uppercase mb-3">{t('写真をアップロード（多いほど精度UP）','UPLOAD PHOTOS — More = better accuracy')}</p>
         <div className="grid grid-cols-4 gap-2 mb-6">
           {images.map((img, i) => (
-            <div key={i} className={`aspect-square rounded-md flex flex-col items-center justify-center relative overflow-hidden cursor-pointer transition-all ${img ? 'border border-stitch/60' : 'border border-dashed border-stitch/25 bg-denim-deep/30 hover:border-stitch/50'}`}>
+            <div key={i} className={`aspect-square rounded-md flex flex-col items-center justify-center relative overflow-hidden cursor-pointer transition-all ${img ? 'border border-stitch/60' : 'border border-dashed border-stitch/25 bg-[#1a2a3a]/30 hover:border-stitch/50'}`}>
               {img ? (
                 <>
                   <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover rounded-md" />
@@ -134,17 +144,31 @@ export default function IdentifyClient({ locale }: { locale: string }) {
                   {result.reasoning}
                 </p>
               </div>
-              <div className="px-6 pb-5 flex gap-3 flex-wrap border-t border-stitch/10 pt-4">
-                <a href={`https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(result.model+' '+result.era)}`}
-                  target="_blank" rel="noopener noreferrer"
-                  className="font-mono text-[10px] border border-stitch/25 text-stitch hover:bg-stitch/10 rounded px-4 py-2 transition-colors">
-                  {t('eBayで類似品を見る','Find on eBay')}
-                </a>
-                <a href={`https://jp.mercari.com/search/?keyword=${encodeURIComponent(result.model+' ヴィンテージ')}`}
-                  target="_blank" rel="noopener noreferrer"
-                  className="font-mono text-[10px] border border-rust/25 text-red-400 hover:bg-rust/10 rounded px-4 py-2 transition-colors">
-                  {t('メルカリで検索','Search Mercari')}
-                </a>
+
+              {/* アフィリエイトリンク */}
+              <div className="px-6 pb-5 border-t border-stitch/10 pt-4">
+                <p className="font-mono text-[9px] tracking-[2px] text-stitch/70 uppercase mb-3">
+                  {t('類似品を探す','Find Similar Items')}
+                </p>
+                <div className="flex gap-3 flex-wrap">
+                  
+                    href={ebaySearchUrl}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    className="font-mono text-[10px] border border-stitch/25 text-stitch hover:bg-stitch/10 rounded px-4 py-2 transition-colors"
+                  >
+                    {t('eBayで類似品を見る','Find on eBay')}
+                  </a>
+                  
+                    href={MERCARI_LINK}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    className="font-mono text-[10px] border border-rust/25 text-red-400 hover:bg-rust/10 rounded px-4 py-2 transition-colors"
+                  >
+                    {t('メルカリで検索','Search Mercari')}
+                  </a>
+                </div>
+                <img src="https://www10.a8.net/0.gif?a8mat=4B3MEQ+DIF60I+5LNQ+5YJRM" width="1" height="1" alt="" style={{display:'block'}} />
               </div>
             </div>
             <p className="font-mono text-[9px] text-fade/50 text-center mt-4 leading-relaxed">

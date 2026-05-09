@@ -15,8 +15,8 @@ export default function IdentifyClient({ locale }: { locale: string }) {
   const [error, setError] = useState('');
 
   const slots = locale === 'ja'
-    ? ['赤タブ\n(必須)','ケアラベル\n(必須)','ジッパー\n(必須)','ボタン裏\n(重要)','ステッチ\n(重要)','セルビッジ\n(任意)','パッチ\n(任意)','その他']
-    : ['Red Tab\n(req.)','Care Label\n(req.)','Zipper\n(req.)','Button Back\n(key)','Stitching\n(key)','Selvedge\n(opt.)','Patch\n(opt.)','Other'];
+    ? ['赤タブ\n(必須・両面)','ケアラベル\n(必須・全体)','ジッパー/\nボタンフライ','ボタン裏\n(刻印番号)','バックポケット\n(ステッチ+リベット)','アウトシーム\nセルビッジ','パッチ\n(ウエスト裏)','その他\n(シンチ・糸色等)']
+    : ['Red Tab\n(req.·both)','Care Label\n(req.·full)','Zipper/\nButton Fly','Button Back\n(stamp)','Back Pocket\n(stitch+rivet)','Outseam/\nSelvedge','Patch\n(waistband)','Other\n(cinch·thread)'];
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
     const file = e.target.files?.[0];

@@ -252,7 +252,7 @@ export const ARTICLES: Article[] = [
       },
       {
         headingJa: 'インシーム・バックポケットステッチによる年代判定',
-        headingEen: 'Inseam & Back Pocket Stitch Dating',
+        headingEn: 'Inseam & Back Pocket Stitch Dating',
         headingEn: 'Inseam & Back Pocket Stitch Dating',
         bodyJa: 'アウトシーム以外のステッチも年代判定に役立ちます。インシーム（内側縫い目）シングルステッチ→1980年代前半以前の特徴。バックポケットシングルロックステッチ（内側）→1978年以前。バックポケットダブルロックステッチ→1978年以降。ウエストバンド内側チェーンステッチ→1970年以降の特徴。これらのステッチの違いは肉眼で確認できますが、接写撮影が必要です。スマートフォンのマクロモードで内側縫い目を撮影することで、AI鑑定の精度も向上します。',
         bodyEn: "Stitching beyond the outseam also aids dating. Inseam (inner seam) single stitch = characteristic of pre-early 1980s. Back pocket single lock stitch (inside) = pre-1978. Back pocket double lock stitch = post-1978. Waistband interior chain stitch = characteristic from 1970 onward. These stitch differences are visible to the naked eye but require close-up photography. Using smartphone macro mode to photograph interior seams also improves AI identification accuracy.",

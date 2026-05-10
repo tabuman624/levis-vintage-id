@@ -1,9 +1,53 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 import { ARTICLES, getArticle } from '@/lib/articles';
+
+const BASE_URL = 'https://levis-vintage-id.vercel.app';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string; slug: string }> }
+): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const article = getArticle(slug);
+  if (!article) return {};
+
+  const isJa = locale === 'ja';
+  const title = isJa ? article.titleJa : article.titleEn;
+  const desc = isJa ? article.descJa : article.descEn;
+  const url = isJa
+    ? `${BASE_URL}/articles/${slug}`
+    : `${BASE_URL}/en/articles/${slug}`;
+
+  return {
+    title: `${title} | LEVI'S VINTAGE ID.`,
+    description: desc,
+    keywords: article.tags,
+    openGraph: {
+      title: `${title} | LEVI'S VINTAGE ID.`,
+      description: desc,
+      url,
+      siteName: "LEVI'S VINTAGE ID.",
+      locale: isJa ? 'ja_JP' : 'en_US',
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | LEVI'S VINTAGE ID.`,
+      description: desc,
+    },
+    alternates: {
+      canonical: url,
+      languages: {
+        'ja': `${BASE_URL}/articles/${slug}`,
+        'en': `${BASE_URL}/en/articles/${slug}`,
+      },
+    },
+  };
+}
 
 export function generateStaticParams() {
   return ARTICLES.flatMap((a) => [
@@ -33,8 +77,6 @@ export default async function ArticlePage({
       <Header locale={locale} />
       <StitchLine />
       <div className="relative z-10 max-w-3xl mx-auto px-6 py-16">
-
-        {/* Breadcrumb */}
         <nav style={{display:'flex',gap:'8px',marginBottom:'32px',fontFamily:'DM Mono,monospace',fontSize:'10px',color:'#b8cce4'}}>
           <Link href={p('/')} style={{color:'#b8cce4',textDecoration:'none'}}>TOP</Link>
           <span style={{opacity:0.4}}>/</span>
@@ -43,7 +85,6 @@ export default async function ArticlePage({
           <span style={{opacity:0.7}}>{t(article.titleJa, article.titleEn)}</span>
         </nav>
 
-        {/* Article header */}
         <div style={{marginBottom:'48px'}}>
           <p style={{fontFamily:'DM Mono,monospace',fontSize:'9px',letterSpacing:'3px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'16px'}}>
             {t(article.catJa, article.catEn)}
@@ -60,7 +101,6 @@ export default async function ArticlePage({
           </div>
         </div>
 
-        {/* Sections */}
         <div style={{marginBottom:'48px'}}>
           {article.sections.map((section, i) => (
             <div key={i} style={{marginBottom:'40px'}}>
@@ -74,7 +114,6 @@ export default async function ArticlePage({
           ))}
         </div>
 
-        {/* CTA */}
         <div style={{background:'rgba(25,50,88,0.5)',border:'1px dashed rgba(232,213,163,0.25)',borderRadius:'8px',padding:'32px',textAlign:'center',marginBottom:'48px'}}>
           <p style={{fontSize:'13px',color:'#b8cce4',marginBottom:'20px',lineHeight:1.8,fontWeight:300}}>
             {t('写真をアップロードするだけで年代・型番・製造工場をAIが判定します','Upload photos and AI instantly identifies era, model & factory')}
@@ -84,7 +123,6 @@ export default async function ArticlePage({
           </Link>
         </div>
 
-        {/* Related */}
         {related.length > 0 && (
           <div>
             <p style={{fontFamily:'DM Mono,monospace',fontSize:'9px',letterSpacing:'3px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'16px',opacity:0.8}}>

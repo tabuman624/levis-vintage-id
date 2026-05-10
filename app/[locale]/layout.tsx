@@ -1,10 +1,63 @@
 import type { Metadata } from 'next';
 import '../globals.css';
 
-export const metadata: Metadata = {
-  title: "LEVI'S VINTAGE ID. — ヴィンテージリーバイス AI鑑定",
-  description: '写真をアップロードするだけで、ヴィンテージリーバイスの年代・型番・製造工場をAIが即座に鑑定。',
-};
+const BASE_URL = 'https://levis-vintage-id.vercel.app';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const isJa = locale === 'ja';
+
+  return {
+    title: isJa
+      ? "LEVI'S VINTAGE ID. | ヴィンテージリーバイスAI鑑定"
+      : "LEVI'S VINTAGE ID. | Vintage Levi's AI Identification",
+    description: isJa
+      ? '写真をアップロードするだけで、ヴィンテージリーバイスの年代・型番・製造工場をAIが即座に鑑定。Big E・501XX・セルビッジ・ケアラベル・ジッパーブランドを総合判定。完全無料。'
+      : "Upload photos and AI instantly identifies your vintage Levi's era, model number, and factory. Analyzes Big E, 501XX, selvedge, care labels, and zipper brands. Completely free.",
+    keywords: isJa
+      ? ['リーバイス', 'ヴィンテージ', '年代判定', 'Big E', '501', 'セルビッジ', 'ケアラベル', 'AI鑑定', '501XX', 'タブ']
+      : ["Levi's", 'vintage', 'dating', 'Big E', '501', 'selvedge', 'care label', 'AI identification', '501XX'],
+    authors: [{ name: "LEVI'S VINTAGE ID." }],
+    openGraph: {
+      title: isJa
+        ? "LEVI'S VINTAGE ID. | ヴィンテージリーバイスAI鑑定"
+        : "LEVI'S VINTAGE ID. | Vintage Levi's AI Identification",
+      description: isJa
+        ? '写真をアップロードするだけで、ヴィンテージリーバイスの年代・型番・製造工場をAIが即座に鑑定。完全無料。'
+        : "Upload photos and AI instantly identifies your vintage Levi's era, model, and factory. Free.",
+      url: isJa ? BASE_URL : `${BASE_URL}/en`,
+      siteName: "LEVI'S VINTAGE ID.",
+      locale: isJa ? 'ja_JP' : 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: isJa
+        ? "LEVI'S VINTAGE ID. | ヴィンテージリーバイスAI鑑定"
+        : "LEVI'S VINTAGE ID. | Vintage Levi's AI Identification",
+      description: isJa
+        ? '写真をアップロードするだけで、ヴィンテージリーバイスの年代・型番・製造工場をAIが即座に鑑定。'
+        : "Upload photos and AI instantly identifies your vintage Levi's era, model, and factory.",
+    },
+    alternates: {
+      canonical: isJa ? BASE_URL : `${BASE_URL}/en`,
+      languages: {
+        'ja': BASE_URL,
+        'en': `${BASE_URL}/en`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
+    },
+  };
+}
 
 export function generateStaticParams() {
   return [{ locale: 'ja' }, { locale: 'en' }];

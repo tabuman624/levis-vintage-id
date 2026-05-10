@@ -48,6 +48,9 @@ export async function generateMetadata(
         'en': `${BASE_URL}/en`,
       },
     },
+    verification: {
+      google: '_95CS-NMr0ZE5XMFYY1F3cY9-lARUNkN32Gy-QiyYtM',
+    },
     robots: {
       index: true,
       follow: true,

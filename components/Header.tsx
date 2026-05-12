@@ -24,7 +24,7 @@ export default function Header({ locale }: { locale: string }) {
     <header className="sticky top-0 z-50 flex justify-between items-center px-8 py-5 border-b border-white/10 bg-[#1a2a3a]/40 backdrop-blur-xl">
       {/* ロゴ → ホームへ */}
       <Link href={homeHref} className="font-playfair text-[17px] font-bold tracking-[3px] text-[#f0ebe0]">
-        <span className="text-stitch">LEVI&apos;S</span> VINTAGE ID.
+        <span className="text-rust">LEVI&apos;S</span> VINTAGE ID.
       </Link>
 
       <nav className="hidden md:flex gap-6 items-center">

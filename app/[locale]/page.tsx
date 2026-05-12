@@ -46,7 +46,7 @@ export default async function TopPage({ params }: { params: Promise<{ locale: st
           {t('AI ヴィンテージ鑑定サービス', 'AI Vintage Identification Service')}
         </p>
         <h1 style={{fontFamily:'Playfair Display,serif',fontWeight:'bold',lineHeight:1,marginBottom:'16px',fontSize:'clamp(52px,10vw,110px)'}}>
-          <span style={{color:'#e8d5a3'}}>LEVI&apos;S</span>
+          <span style={{color:'#c0392b'}}>LEVI&apos;S</span>
         </h1>
         <p style={{fontFamily:'Playfair Display,serif',fontWeight:'bold',color:'#f0ebe0',letterSpacing:'6px',marginBottom:'40px',fontSize:'clamp(28px,5vw,56px)'}}>
           VINTAGE ID.
@@ -56,7 +56,7 @@ export default async function TopPage({ params }: { params: Promise<{ locale: st
         </p>
         <div style={{display:'flex',gap:'16px',flexWrap:'wrap',justifyContent:'center'}}>
           <Link href={p('/identify')} style={{fontFamily:'DM Mono,monospace',fontSize:'12px',letterSpacing:'3px',textTransform:'uppercase',background:'#c0392b',color:'white',padding:'18px 40px',borderRadius:'4px',textDecoration:'none'}}>
-            {t('無料で鑑定する', 'Identify for Free')}
+            {t('無料でAI鑑定する', 'Identify for Free')}
           </Link>
           <Link href={p('/guide')} style={{fontFamily:'DM Mono,monospace',fontSize:'11px',letterSpacing:'2px',textTransform:'uppercase',color:'#e8d5a3',border:'1px solid rgba(232,213,163,0.3)',padding:'18px 32px',borderRadius:'4px',textDecoration:'none'}}>
             {t('使い方を見る', 'How It Works')}
@@ -110,14 +110,14 @@ export default async function TopPage({ params }: { params: Promise<{ locale: st
       {/* CTA */}
       <section className="relative z-10 text-center px-8 py-24" style={{background:'rgba(26,42,58,0.3)'}}>
         <h2 style={{fontFamily:'Playfair Display,serif',fontWeight:'bold',color:'#f0ebe0',fontSize:'clamp(24px,4vw,40px)',marginBottom:'16px'}}>
-          {t('あなたのリーバイスを', 'Identify Your')}{' '}
+          {t('あなたのLevi\'sを', 'Identify Your')}{' '}
           <span style={{color:'#e8d5a3'}}>{t('今すぐ鑑定しよう', "Levi's Now")}</span>
         </h2>
         <p style={{fontSize:'14px',color:'#b8cce4',fontWeight:300,marginBottom:'40px'}}>
           {t('写真を用意して、無料で試してみてください', 'Grab your photos and try it free')}
         </p>
         <Link href={p('/identify')} style={{display:'inline-block',fontFamily:'DM Mono,monospace',fontSize:'12px',letterSpacing:'3px',textTransform:'uppercase',background:'#c0392b',color:'white',padding:'18px 40px',borderRadius:'4px',textDecoration:'none'}}>
-          {t('無料で鑑定する →', 'Identify for Free →')}
+          {t('無料でAI鑑定する', 'Identify for Free')}
         </Link>
       </section>
 

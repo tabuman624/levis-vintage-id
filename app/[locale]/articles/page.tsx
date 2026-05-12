@@ -23,10 +23,10 @@ export default async function ArticlesPage({ params }: { params: Promise<{ local
       <StitchLine />
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-16">
         <p className="font-mono text-[10px] tracking-[4px] text-stitch uppercase mb-4">
-          {t('ヴィンテージリーバイス完全ガイド', "Vintage Levi's Complete Guide")}
+          {t('ヴィンテージリーバイス 知識ベース', "Vintage Levi's Knowledge Base")}
         </p>
         <h1 className="font-playfair font-bold text-[#f0ebe0] mb-12" style={{fontSize:'clamp(28px,5vw,44px)'}}>
-          <span className="text-stitch">LEVI&apos;S</span> {t('知識ベース','Knowledge Base')}
+          <span className="text-rust">LEVI&apos;S</span> {t('知識ベース','Knowledge Base')}
         </h1>
         {catOrder.map(cat => {
           const articles = ARTICLES.filter(a =>

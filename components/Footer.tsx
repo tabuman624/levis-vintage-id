@@ -18,7 +18,7 @@ export default function Footer({ locale }: { locale: string }) {
       <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-start gap-8">
         {/* ロゴ */}
         <Link href={p('/')} className="font-playfair text-sm font-bold tracking-widest text-[#f0ebe0]">
-          <span className="text-stitch">LEVI&apos;S</span> VINTAGE ID.
+          <span className="text-rust">LEVI&apos;S</span> VINTAGE ID.
         </Link>
 
         {/* リンク */}

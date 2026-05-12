@@ -22,7 +22,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
       <StitchLine />
       <div className="relative z-10 max-w-3xl mx-auto px-6 py-16">
         <p className="font-mono text-[10px] tracking-[4px] text-stitch uppercase mb-4">{t('撮影ガイド','Photo Guide')}</p>
-        <h1 className="font-playfair font-bold text-[#f0ebe0] text-4xl mb-6">{t('どこを、どう撮るか。','What to Shoot, and How.')}</h1>
+        <h1 className="font-playfair font-bold text-[#f0ebe0] text-4xl mb-6">{t('撮影のポイント','Photography Points')}</h1>
         <p className="text-sm text-fade font-light leading-loose mb-12">{t('AIの鑑定精度は写真の品質と撮影ポイントに大きく左右されます。','AI accuracy depends heavily on photo quality and which details you capture.')}</p>
         <div className="space-y-4">
           {guides.map((g) => (

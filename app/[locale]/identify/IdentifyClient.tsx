@@ -82,7 +82,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
         <div className="text-center mb-14">
           <p className="font-mono text-[10px] tracking-[4px] text-stitch uppercase mb-4">{t('AI 鑑定','AI IDENTIFICATION')}</p>
           <h1 className="font-playfair font-bold text-[#f0ebe0] mb-4" style={{fontSize:'clamp(28px,5vw,48px)'}}>
-            <span className="text-stitch">LEVI&apos;S</span> VINTAGE ID.
+            <span className="text-rust">LEVI&apos;S</span> VINTAGE ID.
           </h1>
           <p className="text-sm text-fade font-light">{t('写真をアップロードして、年代・型番・製造工場をAIが判定します','Upload photos to identify era, model & factory with AI')}</p>
         </div>
@@ -119,7 +119,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
               <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               {t('AIが鑑定中...','Analyzing...')}
             </span>
-          ) : t('鑑定スタート','IDENTIFY NOW')}
+          ) : t('無料でAI鑑定する', 'Identify for Free')}
         </button>
 
         {result && (

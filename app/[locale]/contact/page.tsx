@@ -75,7 +75,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
         <div style={{textAlign:'center'}}>
           <Link href={p('/identify')} style={{display:'inline-block',background:'#c0392b',color:'white',fontFamily:'DM Mono,monospace',fontSize:'12px',letterSpacing:'3px',textTransform:'uppercase',textDecoration:'none',padding:'14px 32px',borderRadius:'4px'}}>
-            {t('AI鑑定を試す', 'Try AI Identification')}
+            {t('無料でAI鑑定する', 'Identify for Free')}
           </Link>
         </div>
       </div>

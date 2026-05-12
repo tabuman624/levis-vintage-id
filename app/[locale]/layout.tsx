@@ -11,14 +11,14 @@ export async function generateMetadata(
 
   return {
     title: isJa
-      ? "LEVI'S VINTAGE ID. | ヴィンテージリーバイスAI鑑定"
-      : "LEVI'S VINTAGE ID. | Vintage Levi's AI Identification",
+      ? "リーバイス年代判定・AI鑑定 | LEVI'S VINTAGE ID."
+      : "Vintage Levi's AI Identification | LEVI'S VINTAGE ID.",
     description: isJa
       ? '写真をアップロードするだけで、ヴィンテージリーバイスの年代・型番・製造工場をAIが即座に鑑定。Big E・501XX・セルビッジ・ケアラベル・ジッパーブランドを総合判定。完全無料。'
       : "Upload photos and AI instantly identifies your vintage Levi's era, model number, and factory. Analyzes Big E, 501XX, selvedge, care labels, and zipper brands. Completely free.",
     keywords: isJa
-      ? ['リーバイス', 'ヴィンテージ', '年代判定', 'Big E', '501', 'セルビッジ', 'ケアラベル', 'AI鑑定', '501XX', 'タブ']
-      : ["Levi's", 'vintage', 'dating', 'Big E', '501', 'selvedge', 'care label', 'AI identification', '501XX'],
+      ? ['リーバイス', 'ヴィンテージリーバイス', 'リーバイス年代判定', 'リーバイス鑑定', 'Big E', 'ビッグE', 'リーバイス501', 'セルビッジ', 'ケアラベル', 'AI鑑定', '501XX', '赤タブ', 'リーバイス古着', 'ヴィンテージデニム', 'リーバイス見分け方', 'リーバイス型番', 'リーバイス507', 'リーバイス557', 'トラッカージャケット']
+      : ["Levi's vintage", "vintage Levi's dating", "Levi's identification", 'Big E', 'selvedge denim', 'care label dating', 'AI identification', '501XX', 'TALON zipper', 'red tab', 'vintage denim', "Levi's 501"],
     authors: [{ name: "LEVI'S VINTAGE ID." }],
     openGraph: {
       title: isJa

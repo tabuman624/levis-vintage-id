@@ -49,7 +49,7 @@ export async function generateMetadata(
       },
     },
     verification: {
-      google: '_95CS-NMr0ZE5XMFYY1F3cY9-lARUNkN32Gy-QiyYtM',
+      google: '-IPdQxoTo5OJ79rp_aBX2IYMIGdaPSd01E040g8iDjQ',
     },
     robots: {
       index: true,

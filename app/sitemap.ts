@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { ARTICLES } from '@/lib/articles';
 
-const BASE_URL = 'https://levis-vintage-id.vercel.app';
+const BASE_URL = 'https://levis-id.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [

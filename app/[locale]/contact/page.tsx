@@ -1,10 +1,8 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
+import ContactForm from '@/components/ContactForm';
 import Link from 'next/link';
-
-// Google FormsのURLをここに設定してください
-const GOOGLE_FORM_URL = 'https://forms.google.com/your-form-url-here';
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -29,25 +27,12 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           )}
         </p>
 
-        {/* お問い合わせボタン */}
-        <div style={{background:'rgba(25,50,88,0.5)',border:'1px dashed rgba(232,213,163,0.25)',borderRadius:'8px',padding:'40px',marginBottom:'32px',textAlign:'center'}}>
-          <p style={{fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'16px'}}>
+        {/* お問い合わせフォーム */}
+        <div style={{background:'rgba(25,50,88,0.5)',border:'1px dashed rgba(232,213,163,0.25)',borderRadius:'8px',padding:'36px',marginBottom:'40px'}}>
+          <p style={{fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'24px'}}>
             {t('お問い合わせフォーム', 'Contact Form')}
           </p>
-          <p style={{fontSize:'13px',color:'rgba(184,204,228,0.8)',fontWeight:300,lineHeight:1.8,marginBottom:'24px'}}>
-            {t(
-              'Googleフォームよりお問い合わせいただけます。',
-              'Please use the Google Form below to contact us.'
-            )}
-          </p>
-          <a
-            href={GOOGLE_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{display:'inline-block',background:'#c0392b',color:'white',fontFamily:'DM Mono,monospace',fontSize:'12px',letterSpacing:'3px',textTransform:'uppercase',textDecoration:'none',padding:'14px 32px',borderRadius:'4px'}}
-          >
-            {t('フォームを開く', 'Open Contact Form')}
-          </a>
+          <ContactForm locale={locale} />
         </div>
 
         {/* よくある質問 */}

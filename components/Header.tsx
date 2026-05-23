@@ -36,13 +36,13 @@ export default function Header({ locale }: { locale: string }) {
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('記事一覧', 'Articles')}
         </Link>
-        <Link href={locale === 'ja' ? '/contact' : '/en/contact'}
+        <Link href={locale === 'ja' ? '/faq' : '/en/faq'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
-          {t('お問い合わせ', 'Contact')}
+          FAQ
         </Link>
-        <Link href={locale === 'ja' ? '/legal' : '/en/legal'}
+        <Link href={locale === 'ja' ? '/about' : '/en/about'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
-          {t('法的情報', 'Legal')}
+          {t('このサービスについて', 'About')}
         </Link>
         <Link href={locale === 'ja' ? '/identify' : '/en/identify'}
           className="font-mono text-[10px] tracking-widest text-[#1a2a3a] bg-stitch px-4 py-2 rounded hover:bg-[#f0ebe0] transition-colors uppercase">

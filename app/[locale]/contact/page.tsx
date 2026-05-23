@@ -3,6 +3,9 @@ import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 import Link from 'next/link';
 
+// Google FormsのURLをここに設定してください
+const GOOGLE_FORM_URL = 'https://forms.google.com/your-form-url-here';
+
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = (ja: string, en: string) => locale === 'ja' ? ja : en;
@@ -21,25 +24,35 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         </h1>
         <p style={{fontSize:'14px',color:'#b8cce4',fontWeight:300,lineHeight:2,marginBottom:'48px'}}>
           {t(
-            '鑑定結果のご質問、誤りのご報告、ご意見・ご要望がございましたらお気軽にお問い合わせください。',
-            'For questions about identification results, error reports, or any feedback, please feel free to contact us.'
+            '鑑定結果に関するご質問、誤りのご報告、ご意見・ご要望などお気軽にご連絡ください。通常2〜5営業日以内にご返信いたします。',
+            'Feel free to reach out with questions about identification results, error reports, or any feedback. We typically respond within 2–5 business days.'
           )}
         </p>
 
-        <div style={{background:'rgba(25,50,88,0.5)',border:'1px dashed rgba(232,213,163,0.25)',borderRadius:'8px',padding:'32px',marginBottom:'32px'}}>
-          <p style={{fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'12px'}}>
-            {t('お問い合わせ方法', 'How to Contact')}
+        {/* お問い合わせボタン */}
+        <div style={{background:'rgba(25,50,88,0.5)',border:'1px dashed rgba(232,213,163,0.25)',borderRadius:'8px',padding:'40px',marginBottom:'32px',textAlign:'center'}}>
+          <p style={{fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'16px'}}>
+            {t('お問い合わせフォーム', 'Contact Form')}
           </p>
-          <p style={{fontSize:'14px',color:'rgba(240,235,224,0.85)',fontWeight:300,lineHeight:2}}>
+          <p style={{fontSize:'13px',color:'rgba(184,204,228,0.8)',fontWeight:300,lineHeight:1.8,marginBottom:'24px'}}>
             {t(
-              '現在、メールフォームを準備中です。お問い合わせはAI鑑定ページのフィードバック機能をご利用いただくか、しばらくお待ちください。',
-              'Our contact form is currently being set up. For now, please use the feedback feature on the AI identification page, or check back soon.'
+              'Googleフォームよりお問い合わせいただけます。',
+              'Please use the Google Form below to contact us.'
             )}
           </p>
+          <a
+            href={GOOGLE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{display:'inline-block',background:'#c0392b',color:'white',fontFamily:'DM Mono,monospace',fontSize:'12px',letterSpacing:'3px',textTransform:'uppercase',textDecoration:'none',padding:'14px 32px',borderRadius:'4px'}}
+          >
+            {t('フォームを開く', 'Open Contact Form')}
+          </a>
         </div>
 
+        {/* よくある質問 */}
         <div style={{background:'rgba(25,50,88,0.5)',border:'1px dashed rgba(232,213,163,0.25)',borderRadius:'8px',padding:'32px',marginBottom:'32px'}}>
-          <p style={{fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'12px'}}>
+          <p style={{fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'20px'}}>
             {t('よくある質問', 'FAQ')}
           </p>
           {[
@@ -47,7 +60,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               qJa: 'AI鑑定の精度はどのくらいですか？',
               qEn: 'How accurate is the AI identification?',
               aJa: '複数の鑑定ポイント（赤タブ・ケアラベル・ジッパー等）の写真を組み合わせることで精度が上がります。写真が鮮明なほど、また多いほど正確な判定が可能です。',
-              aEn: 'Accuracy improves with more identification points (red tab, care label, zipper, etc.). Clearer photos and more points submitted together yield more accurate results.',
+              aEn: 'Accuracy improves with more identification points (red tab, care label, zipper, etc.). Clearer and more photos yield more accurate results.',
             },
             {
               qJa: 'アップロードした写真はどうなりますか？',
@@ -58,11 +71,17 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             {
               qJa: '鑑定結果の保証はありますか？',
               qEn: 'Are identification results guaranteed?',
-              aJa: '本サービスの鑑定結果はAIによる推定であり、正確性を保証するものではありません。真贋鑑定は行っておりません。',
-              aEn: 'Results are AI estimates only and are not guaranteed for accuracy. We do not authenticate genuineness.',
+              aJa: '本サービスの鑑定結果はAIによる推定であり、正確性を保証するものではありません。真贋鑑定は行っておりません。高額品の取引は専門家への相談を推奨します。',
+              aEn: 'Results are AI estimates only and are not guaranteed for accuracy. We do not authenticate genuineness. For high-value transactions, consult an expert.',
+            },
+            {
+              qJa: 'Levi Strauss & Co.の公式サービスですか？',
+              qEn: 'Is this an official Levi Strauss & Co. service?',
+              aJa: 'いいえ。本サービスはLevi Strauss & Co.とは無関係の独立したサービスです。',
+              aEn: "No. This is an independent service with no affiliation with Levi Strauss & Co.",
             },
           ].map((faq, i) => (
-            <div key={i} style={{marginBottom: i < 2 ? '24px' : '0', paddingBottom: i < 2 ? '24px' : '0', borderBottom: i < 2 ? '1px solid rgba(232,213,163,0.1)' : 'none'}}>
+            <div key={i} style={{marginBottom: i < 3 ? '24px' : '0', paddingBottom: i < 3 ? '24px' : '0', borderBottom: i < 3 ? '1px solid rgba(232,213,163,0.1)' : 'none'}}>
               <p style={{fontSize:'13px',color:'#e8d5a3',fontWeight:500,marginBottom:'8px'}}>
                 Q. {t(faq.qJa, faq.qEn)}
               </p>

@@ -107,6 +107,42 @@ export default async function TopPage({ params }: { params: Promise<{ locale: st
 
       <StitchLine />
 
+      {/* About Vintage Levi's */}
+      <section className="relative z-10 max-w-4xl mx-auto px-8 py-24">
+        <p style={{fontFamily:'DM Mono,monospace',fontSize:'9px',letterSpacing:'4px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'12px',opacity:0.8}}>
+          {t('ヴィンテージLevi\'sとは', "About Vintage Levi's")}
+        </p>
+        <h2 style={{fontFamily:'Playfair Display,serif',fontWeight:'bold',color:'#f0ebe0',fontSize:'36px',marginBottom:'24px'}}>
+          {t('150年の歴史を持つ世界初のジーンズ', "The World's First Jeans — 150 Years of History")}
+        </h2>
+        <p style={{fontSize:'14px',color:'rgba(240,235,224,0.8)',fontWeight:300,lineHeight:2.1,marginBottom:'20px'}}>
+          {t(
+            'Levi\'sは1873年にリーバイ・ストラウスとジェイコブ・デービスによって特許取得されたリベット補強ジーンズに始まります。501は世界初のジーンズモデルであり、現在も製造が続く最長寿アパレル品のひとつです。1950年代にマーロン・ブランドやジェームズ・ディーンが着用し世界的に広まり、ロックカルチャーとともにアイコンへと成長しました。',
+            "Levi's originated in 1873 when Levi Strauss and Jacob Davis patented rivet-reinforced work pants. The 501 is the world's first jeans model and one of the longest continuously produced garments in history. In the 1950s, Marlon Brando and James Dean brought them global fame, and they grew into a cultural icon alongside rock music."
+          )}
+        </p>
+        <p style={{fontSize:'14px',color:'rgba(240,235,224,0.8)',fontWeight:300,lineHeight:2.1,marginBottom:'32px'}}>
+          {t(
+            'ヴィンテージLevi\'sの鑑定ポイントは、赤タブ・ケアラベル・ジッパーブランド・ボタン刻印・セルビッジなど多岐にわたります。1971年以前の「Big E」（両面大文字タブ）・1981年以前の「セルビッジデニム」・1937年以前の「シンチバック」など、年代ごとに固有のディテールがあり、それらを読み解くことで製造年代・型番・工場を特定できます。',
+            "Vintage Levi's identification involves many points: red tab, care label, zipper brand, button stamps, selvedge, and more. Each era has unique details — 'Big E' (both-sides uppercase tab) pre-1971, selvedge denim pre-1981, cinch back pre-1937. Reading these details reveals the manufacturing era, model, and factory."
+          )}
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { yearJa: '1873年', yearEn: '1873', labelJa: 'リベットジーンズ特許取得', labelEn: 'Riveted Jeans Patented' },
+            { yearJa: '1936年', yearEn: '1936', labelJa: '赤タブ（Big E）導入', labelEn: 'Red Tab (Big E) Introduced' },
+            { yearJa: '1971年', yearEn: '1971', labelJa: 'Small e移行・ヴィンテージの分岐点', labelEn: 'Small e Transition — The Vintage Divide' },
+          ].map((item) => (
+            <div key={item.yearJa} className="card-denim p-6 text-center">
+              <div style={{fontFamily:'Playfair Display,serif',fontWeight:'bold',color:'#e8d5a3',fontSize:'28px',marginBottom:'8px'}}>{t(item.yearJa, item.yearEn)}</div>
+              <p style={{fontSize:'12px',color:'#b8cce4',fontWeight:300,lineHeight:1.7}}>{t(item.labelJa, item.labelEn)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <StitchLine />
+
       {/* CTA */}
       <section className="relative z-10 text-center px-8 py-24" style={{background:'rgba(26,42,58,0.3)'}}>
         <h2 style={{fontFamily:'Playfair Display,serif',fontWeight:'bold',color:'#f0ebe0',fontSize:'clamp(24px,4vw,40px)',marginBottom:'16px'}}>

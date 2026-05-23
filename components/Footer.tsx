@@ -5,12 +5,14 @@ export default function Footer({ locale }: { locale: string }) {
   const p = (path: string) => locale === 'ja' ? path : `/en${path}`;
 
   const links = [
-    { path: '/',          labelJa: 'トップ',       labelEn: 'Top' },
-    { path: '/identify',  labelJa: 'AI鑑定',       labelEn: 'Identify' },
-    { path: '/guide',     labelJa: '撮影ガイド',   labelEn: 'Guide' },
-    { path: '/articles',  labelJa: '記事一覧',     labelEn: 'Articles' },
-    { path: '/contact',   labelJa: 'お問い合わせ', labelEn: 'Contact' },
-    { path: '/legal',     labelJa: '法的情報',     labelEn: 'Legal' },
+    { path: '/',          labelJa: 'トップ',             labelEn: 'Top' },
+    { path: '/identify',  labelJa: 'AI鑑定',             labelEn: 'Identify' },
+    { path: '/guide',     labelJa: '撮影ガイド',         labelEn: 'Guide' },
+    { path: '/articles',  labelJa: '記事一覧',           labelEn: 'Articles' },
+    { path: '/faq',       labelJa: 'よくある質問',       labelEn: 'FAQ' },
+    { path: '/about',     labelJa: 'このサービスについて', labelEn: 'About' },
+    { path: '/contact',   labelJa: 'お問い合わせ',       labelEn: 'Contact' },
+    { path: '/legal',     labelJa: 'プライバシーポリシー', labelEn: 'Privacy Policy' },
   ];
 
   return (

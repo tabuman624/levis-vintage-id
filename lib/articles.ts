@@ -821,6 +821,130 @@ export const ARTICLES: Article[] = [
       },
     ],
   },
+  // ── 価値・希少性 ────────────────────────────────────────────────
+  {
+    slug: 'article-price',
+    catJa: '価値・希少性', catEn: 'Value & Rarity',
+    titleJa: 'ヴィンテージLevi\'sの価格相場完全ガイド｜Big E・501XX・年代別の市場価格',
+    titleEn: "Vintage Levi's Price Guide — Big E, 501XX & Era-by-Era Market Values",
+    descJa: 'Big E・501XX・セルビッジ・年代別の価格帯をeBay・メルカリの相場から解説。コンディションによる価格差・希少性の見方も。',
+    descEn: "Big E, 501XX, selvedge, and era-by-era price ranges from eBay and Mercari data. How condition and rarity affect market value.",
+    tags: ['価格相場', 'Big E', '501XX', 'eBay', 'メルカリ'],
+    sections: [
+      {
+        headingJa: 'ヴィンテージLevi\'sの価格を決める5つの要素',
+        headingEn: "5 Factors That Determine Vintage Levi's Price",
+        bodyJa: 'ヴィンテージLevi\'sの市場価格は主に5つの要素によって決まります。①年代：古いほど希少性が高く高値になる傾向がありますが、コンディションが伴わなければ価格は下がります。②型番：501が最も人気で、Big E期501の完品は特に高値で取引されます。③コンディション：シミ・色落ち・破れ・ダメージの有無が価格に最も直接的に影響します。④希少な仕様の有無：Big E・セルビッジ・本革パッチ・SF工場製・クロッチリベットなど希少なディテールがあるほど価値が上がります。⑤サイズ：現代人に着用しやすい32〜34インチのウエストサイズは需要が高く、極端に小さいまたは大きいサイズは相場が下がることがあります。',
+        bodyEn: "Vintage Levi's market price is determined primarily by five factors. ①Era: older generally means rarer and higher-priced, but poor condition offsets this. ②Model: the 501 is most popular, with Big E era 501s in excellent condition commanding particularly high prices. ③Condition: staining, fading, tears, and damage most directly impact price. ④Rare specifications: Big E, selvedge, leather patch, SF factory, crotch rivets — more rare details mean higher value. ⑤Size: waist sizes 32–34 that modern wearers can fit are in higher demand; extreme sizes can lower market price.",
+      },
+      {
+        headingJa: '年代・仕様別の価格帯目安',
+        headingEn: 'Price Ranges by Era and Specification',
+        bodyJa: '以下はeBay・メルカリ等での実勢価格の目安です（2025年頃の相場・コンディションにより大幅に変動します）。1930〜1940年代（501XX・シンチバック・クロッチリベット）：$1,500〜$10,000以上（コンディション次第）。1950年代前半（501XX・本革パッチ・Big E）：$500〜$5,000。1950年代後半（Jacronパッチ・Big E・セルビッジ）：$200〜$1,500。1960年代（Big E全盛・セルビッジ）：$150〜$800。1971年頃（Big E末期・Small e初期）：$100〜$400。1970年代（Small e・セルビッジ）：$80〜$300。1981〜1985年（セルビッジ最終期）：$60〜$200。これらはあくまで目安であり、ブランド人気・市場動向・個体のコンディションにより大幅に異なります。',
+        bodyEn: "The following are market price reference ranges from eBay and Mercari (circa 2025 — varies significantly with condition). 1930s–1940s (501XX, cinch back, crotch rivets): $1,500–$10,000+ (highly condition-dependent). Early 1950s (501XX, leather patch, Big E): $500–$5,000. Late 1950s (Jacron patch, Big E, selvedge): $200–$1,500. 1960s (Big E prime, selvedge): $150–$800. Around 1971 (late Big E/early Small e): $100–$400. 1970s (Small e, selvedge): $80–$300. 1981–1985 (final selvedge era): $60–$200. These are guidelines only — market trends, individual condition, and brand timing can cause substantial variation.",
+      },
+      {
+        headingJa: 'コンディション評価と価格への影響',
+        headingEn: 'Condition Grading and Price Impact',
+        bodyJa: 'ヴィンテージ市場でのコンディション評価は大きく5段階に分かれ、価格に直接影響します。Deadstock / NOS（未着用品）：定価の3〜10倍の価値がつくことも。ミントコンディション（ほぼ未使用・シミ・破れなし）：参考価格の80〜100%。エクセレント（若干の使用感あり・大きなダメージなし）：参考価格の50〜80%。グッド（使用感あり・若干のダメージあり）：参考価格の30〜50%。フェア/プア（大きなダメージ・ひどい色落ち）：参考価格の10〜30%。同じ年代・型番でもコンディションによって価格が5〜10倍以上変わることは珍しくありません。購入前のコンディション確認が最も重要です。',
+        bodyEn: "Vintage market condition grading directly affects price across roughly five levels. Deadstock/NOS (unworn): can command 3–10x reference price. Mint (near unused, no stains or tears): 80–100% of reference. Excellent (light wear, no major damage): 50–80% of reference. Good (noticeable wear, minor damage): 30–50% of reference. Fair/Poor (significant damage, heavy fading): 10–30% of reference. Price differences of 5–10x for the same era and model based on condition alone are not unusual. Condition verification before purchase is the single most important step.",
+      },
+      {
+        headingJa: '日本市場（メルカリ）とグローバル市場（eBay）の違い',
+        headingEn: 'Japanese Market (Mercari) vs. Global Market (eBay)',
+        bodyJa: '日本のメルカリとグローバルなeBayでは価格相場に差が生じることがあります。一般的な傾向として、eBayはグローバルな競争入札により希少品は高値がつきやすい一方、一般的なコンディションの品は競争が多く安くなる場合も。メルカリは日本語圏のみのため買い手が限定される反面、日本人バイヤーがセルビッジや年代に特別な価値を見出すため、希少仕様の品は相応の価格がつくことがあります。特にBig E・セルビッジ・Big E末期への理解が深い日本市場では、正確な情報を付記した出品が適切な評価につながります。',
+        bodyEn: "Price discrepancies between Japanese Mercari and global eBay can arise. Generally, eBay's global competitive bidding drives rare items higher, while common-condition pieces face heavy competition. Mercari's Japanese-only audience limits buyers, but Japanese buyers place special value on selvedge and era details, so rare specifications can command fair prices. In Japan's market — where understanding of Big E, selvedge, and late Big E is particularly deep — listings with accurate information tend to receive appropriate valuations.",
+      },
+      {
+        headingJa: '価格を見誤らないための注意点',
+        headingEn: 'Tips to Avoid Mispricing',
+        bodyJa: '価格判断で注意すべき点を挙げます。①Levis Vintage Clothing（LVC）の復刻品は本物と混同されやすく、誤って高値がつくことがある。②出品者がBig Eを自称していても、写真から確認することが必要。③写真が少ない・不鮮明な出品は、ダメージを隠している可能性がある。④「1950年代」などの年代表記は出品者の主観であることが多く、鑑定ポイントで裏付けが必要。⑤AI鑑定は年代推定の参考として有効ですが、高額品の購入判断には専門家の意見も参考にすることを推奨します。正確な情報と複数ポイントの確認が、適正価格での取引につながります。',
+        bodyEn: "Key cautions for price judgment. ①Levis Vintage Clothing (LVC) reproductions are easily confused with originals and may be overpriced. ②Even if a seller claims Big E, verify from photos. ③Listings with few or unclear photos may be concealing damage. ④Era claims like '1950s' often reflect seller opinion — verify with identification points. ⑤AI identification is useful as a dating reference, but for high-value purchases, consulting an expert is recommended. Accurate information and multi-point verification lead to fair-value transactions.",
+      },
+    ],
+  },
+  {
+    slug: 'article-fake',
+    catJa: '価値・希少性', catEn: 'Value & Rarity',
+    titleJa: '偽物・復刻品の見分け方｜LVC・現代品とヴィンテージの違いを徹底解説',
+    titleEn: "Spotting Fakes & Reproductions — LVC, Modern Pieces vs. True Vintage Levi's",
+    descJa: 'Levis Vintage Clothing（LVC）復刻品・現代品・本物ヴィンテージの見分け方。赤タブ・ケアラベル・縫製の違いから偽物を識別する方法。',
+    descEn: "How to tell apart Levis Vintage Clothing (LVC) reproductions, modern pieces, and genuine vintage. Identifying fakes from red tab, care label, and stitching differences.",
+    tags: ['偽物', 'LVC', '復刻品', '真贋', '見分け方'],
+    sections: [
+      {
+        headingJa: 'ヴィンテージLevi\'s鑑定で混同される3つのカテゴリ',
+        headingEn: "3 Categories Confused in Vintage Levi's Identification",
+        bodyJa: 'ヴィンテージLevi\'sの鑑定では、以下の3つを混同しないことが重要です。①本物のヴィンテージ（Genuine Vintage）：実際に製造された年代物のLevi\'s。②Levis Vintage Clothing（LVC）：リーバイス社が公式に復刻した復刻品。本物に酷似した仕様で製造されており、セルビッジ・Big E風デザインが使われています。③現代の一般品またはフェイク：LVCではなく、ヴィンテージに見せかけた偽造品や年代を偽った出品。特にLVCは公式の復刻品であるため「本物ではないが偽物でもない」特殊な位置づけにあります。価格差は年代・コンディション次第ですが、LVCを本物ヴィンテージとして売買することは問題があります。',
+        bodyEn: "Vintage Levi's identification requires distinguishing three categories. ①Genuine Vintage: actual period Levi's manufactured in the stated era. ②Levis Vintage Clothing (LVC): officially licensed Levi's reproductions, manufactured to closely replicate originals with selvedge and Big E-style designs. ③Modern general items or fakes: non-LVC pieces misrepresented as vintage, or counterfeit items. LVC holds a special position as 'not genuine vintage but also not fake.' Price differences depend on era and condition, but selling LVC as genuine vintage is problematic.",
+      },
+      {
+        headingJa: 'LVC（Levis Vintage Clothing）の見分け方',
+        headingEn: 'Identifying LVC (Levis Vintage Clothing)',
+        bodyJa: 'LVCは本物ヴィンテージに非常によく似た仕様を持つため、知識がないと見分けが難しい場合があります。LVC固有の識別ポイント：ケアラベルに「LEVIS VINTAGE CLOTHING」の表記あり。「MADE IN JAPAN」または「MADE IN USA」の表記があり現代の縫製技術が使われている。タグに「LVC」または「VINTAGE CLOTHING」の記載。ロットナンバーが2000年代以降のもの（例：「S501XX」の再現品）。インターネットや専門書でLVCのロットナンバーを調べることで、復刻品かどうかを確認できます。LVC自体は品質の高い製品ですが、本物ヴィンテージとして購入・販売する場合は識別が必要です。',
+        bodyEn: "LVC closely resembles genuine vintage and can be difficult to distinguish without knowledge. LVC-specific identification points: care label reads 'LEVIS VINTAGE CLOTHING.' Labeled 'MADE IN JAPAN' or 'MADE IN USA' with modern construction techniques. Tag includes 'LVC' or 'VINTAGE CLOTHING.' Lot numbers from the 2000s onward (e.g., S501XX reproductions). Checking LVC lot numbers against internet references or reference books can confirm reproduction status. LVC is a high-quality product in its own right, but identification is essential when buying or selling as genuine vintage.",
+      },
+      {
+        headingJa: '偽造品（フェイク）の見分け方',
+        headingEn: 'Identifying Counterfeit (Fake) Items',
+        bodyJa: '完全な偽造品（ヴィンテージを模倣した非公式品）を見分けるためのポイントです。赤タブの縫製：本物は均一で精密な縫製ですが、偽造品は縫い目が雑な場合が多い。リベットの素材：本物は銅製ですが、偽造品は安価な金属で質感が異なります。デニムの生地感：本物ヴィンテージは独特のセルビッジ生地や風合いを持ちます。ステッチの整合性：本物はアルキュエートステッチが左右対称で精密ですが、偽造品は非対称や歪みが見られることが多い。パッチの素材：本革パッチの偽造は素材感で見分けられることが多い（接着剤の跡・不自然な硬さ等）。ケアラベルの言語：1971年以前に英語以外のケアラベルがあれば年代と矛盾します。複数のポイントを総合的に確認することが重要です。',
+        bodyEn: "Key points for identifying complete counterfeits (non-official vintage imitations). Red tab stitching: genuine pieces have even, precise stitching; fakes often show uneven seams. Rivet material: genuine uses copper; fakes use cheaper metals with different texture. Denim fabric: genuine vintage has distinctive selvedge fabric and texture. Stitch consistency: genuine arcuate stitching is symmetrical and precise; fakes often show asymmetry or distortion. Patch material: leather patch fakes can often be detected by material feel (adhesive residue, unnatural stiffness, etc.). Care label language: any non-English care label dated pre-1971 contradicts known history. Comprehensive multi-point verification is essential.",
+      },
+      {
+        headingJa: '年代改ざんを見抜く方法',
+        headingEn: 'Detecting Era Misrepresentation',
+        bodyJa: '出品者が年代を偽る場合のパターンと見抜き方を説明します。よくある改ざん：実際は1970年代のSmall eなのに「Big E」と表記する。Jacronパッチを本革パッチと誤記または偽装する。ケアラベルを後から縫い直す（ラベルの縫い跡に不自然さがある）。見抜くポイント：赤タブの両面を必ず確認（片面のみ大文字でも裏が小文字ならSmall e）。ケアラベルの縫い付け位置・縫い糸が他の縫製と一致するか確認。複数のポイントが同じ年代を示しているか整合性を確認。例えば「1950年代」を主張しながらYKKジッパーがあればありえない（YKKは1970年代〜）。年代表記と鑑定ポイントの整合性を確認することが最大の防衛手段です。',
+        bodyEn: "Common era misrepresentation patterns and how to detect them. Common falsifications: labeling a 1970s Small e as 'Big E'; misrepresenting or disguising a Jacron patch as leather; re-sewing a care label afterward (look for unnatural stitching at the label). Detection points: always check both sides of the red tab (even if one side is uppercase, lowercase on the reverse = Small e). Check whether care label stitching thread and position match the rest of the construction. Verify that multiple identification points agree on the same era. For example, a '1950s' claim alongside a YKK zipper is impossible (YKK = 1970s+). Verifying consistency between era claims and identification points is the primary defense.",
+      },
+      {
+        headingJa: 'AI鑑定の活用と限界',
+        headingEn: 'Using AI Identification — Capabilities and Limits',
+        bodyJa: 'AI鑑定は年代・型番の推定において有力なツールですが、偽造品の検出には一定の限界があります。AIが得意なこと：複数の鑑定ポイントを組み合わせた年代推定。赤タブ・ケアラベル・ジッパーブランドの特定。年代と指標の整合性チェック。AIが苦手なこと：微細な縫製の質を判断すること。本革と人工皮革の質感判断。後付けパーツの検出（縫い跡の微細な違い）。AI鑑定の結果が「1950年代Big E」であっても、偽造品がその特徴を模倣している可能性は否定できません。高額品の購入においてはAI鑑定を参考にしながらも、実物の確認や専門家への相談を必ず組み合わせてください。',
+        bodyEn: "AI identification is a powerful tool for era and model estimation, but has inherent limits for counterfeit detection. AI strengths: multi-point era estimation combining multiple identification factors; identifying red tab, care label, and zipper brand; cross-checking era consistency across indicators. AI limitations: assessing subtle stitching quality; distinguishing genuine leather from synthetic by texture; detecting added replacement parts (subtle stitching differences). Even if AI identifies '1950s Big E,' the possibility of a counterfeit mimicking those features cannot be ruled out. For high-value purchases, combine AI identification as a reference with physical inspection and expert consultation.",
+      },
+    ],
+  },
+  {
+    slug: 'article-wash',
+    catJa: '売買', catEn: 'Buy & Sell',
+    titleJa: 'ヴィンテージLevi\'sの洗い方・保管方法完全ガイド｜価値を保つためのケア',
+    titleEn: "Complete Guide to Washing & Storing Vintage Levi's — Preserving Value",
+    descJa: 'セルビッジデニムの正しい洗い方から乾燥・保管方法まで。ヴィンテージLevi\'sの価値を損なわないためのケア全解説。',
+    descEn: "From proper selvedge denim washing to drying and storage. Complete care guide to preserve your vintage Levi's value.",
+    tags: ['洗い方', '保管', 'セルビッジ', 'デニムケア', '価値保持'],
+    sections: [
+      {
+        headingJa: 'なぜヴィンテージデニムのケアが重要か',
+        headingEn: "Why Vintage Denim Care Matters",
+        bodyJa: 'ヴィンテージLevi\'sは製造から30〜90年が経過した繊細な衣類です。誤ったケアにより価値が大幅に下がることがあります。一度縮んだセルビッジデニムは元に戻りません。また強い洗剤や高温乾燥により、独特の色落ちやインディゴの美しさが失われることがあります。ヴィンテージデニムのケアには「できるだけ洗わない・洗う場合は丁寧に・絶対に乾燥機にかけない」という三原則が基本となります。また購入後に初めて洗う際は縮みを想定したサイズ確認が重要です。セルビッジデニムは特に縮みが大きく、ウエストで2〜3cm縮むことがあります。',
+        bodyEn: "Vintage Levi's are delicate garments that are 30–90 years old. Improper care can significantly reduce their value. Shrunken selvedge denim cannot be restored. Strong detergents or high-heat drying can destroy the distinctive fading and indigo beauty. The three principles of vintage denim care are: 'wash as little as possible, wash gently when necessary, never use a tumble dryer.' When washing for the first time after purchase, account for potential shrinkage. Selvedge denim shrinks significantly — waist may shrink 2–3cm.",
+      },
+      {
+        headingJa: '洗う前の確認事項',
+        headingEn: 'Pre-Wash Checklist',
+        bodyJa: '洗う前に以下を確認してください。①ケアラベルの指示：1971年以降の個体はケアラベルに洗濯方法が記載されています。指示に従うことが基本です。②縮みの許容範囲：セルビッジデニムは特に縮みやすく、ウエスト・股下ともに2〜3cmの縮みを見込んでください。③染み・ダメージの有無：染みがある場合は部分洗いを先に試してください。④タグ・パッチの状態：本革パッチは水に浸けると劣化する場合があります。パッチ部分を濡らさないよう注意してください。⑤インディゴの色落ちリスク：ヴィンテージデニムは色落ちするため、他の衣類と一緒に洗わないでください。',
+        bodyEn: "Check the following before washing. ①Care label instructions: post-1971 pieces have washing instructions on the care label — follow them as the baseline. ②Shrinkage tolerance: selvedge denim shrinks significantly; expect 2–3cm shrinkage in both waist and inseam. ③Stains and damage: if stains are present, test spot cleaning first. ④Tag and patch condition: leather patches can deteriorate when wet — take care not to soak the patch area. ⑤Indigo bleed risk: vintage denim bleeds, so never wash with other clothing.",
+      },
+      {
+        headingJa: '正しい洗い方：手洗い（推奨）',
+        headingEn: 'Correct Washing Method: Hand Wash (Recommended)',
+        bodyJa: 'ヴィンテージLevi\'sの洗い方として最も安全なのは手洗いです。手順：①洗面台や浴槽に30℃以下のぬるま湯を張ります。②デニム専用洗剤または中性洗剤を少量（通常の半分以下）溶かします。③ジーンズを裏返しにして浸けます（色落ち防止）。④押し洗いで全体をやさしく洗います（こすらない）。⑤しっかりすすぎます（2〜3回）。⑥ゆっくりと引き上げ、タオルで軽く水気を取ります（絞らない）。⑦日陰の風通しの良い場所に吊るして自然乾燥させます。特に本革パッチがある個体はパッチを濡らさないよう注意してください。また初回洗いは必ず単独で行い、他の衣類との色移りを防いでください。',
+        bodyEn: "Hand washing is the safest method for vintage Levi's. Steps: ①Fill a sink or bathtub with lukewarm water (under 30°C). ②Dissolve a small amount of denim-specific detergent or mild detergent (less than half normal quantity). ③Turn jeans inside out and submerge (prevents color bleed). ④Gently press-wash throughout (no rubbing). ⑤Rinse thoroughly (2–3 times). ⑥Lift out slowly and press gently with a towel to remove moisture (no wringing). ⑦Hang in a shaded, well-ventilated area to air dry. If a leather patch is present, avoid wetting the patch area. Always wash alone on the first wash to prevent color transfer.",
+      },
+      {
+        headingJa: '洗濯機使用時の注意点',
+        headingEn: 'Using a Washing Machine',
+        bodyJa: '手洗いが難しい場合は洗濯機を使用できますが、以下の点に注意してください。必ず裏返しにする。デリケートコース（弱水流）を選択する。水温は30℃以下（冷水が最も安全）。洗剤は少量のデニム専用洗剤または中性洗剤のみ（蛍光増白剤・漂白剤は絶対に使わない）。脱水は最短・最弱で行う（または脱水なしでタオルで水気を取る）。ネットに入れて洗う（摩耗防止）。絶対に避けること：乾燥機の使用（縮み・型崩れの原因）。熱湯（40℃以上）での洗濯（生地を傷める）。強い洗剤・漂白剤の使用。他の衣類との一緒洗い。',
+        bodyEn: "If hand washing isn't practical, a washing machine can be used with these precautions. Always turn inside out. Use delicate cycle (gentle agitation). Water temperature under 30°C (cold water is safest). Only use a small amount of denim detergent or mild soap (absolutely no optical brighteners or bleach). Minimize spin cycle duration and intensity (or skip spin and press with towel instead). Use a mesh laundry bag (prevents abrasion). Absolutely avoid: tumble dryer (causes shrinkage and distortion), hot water above 40°C (damages fabric), strong detergents or bleach, washing with other clothing.",
+      },
+      {
+        headingJa: '乾燥・保管方法',
+        headingEn: 'Drying and Storage',
+        bodyJa: '乾燥は日陰の風通しの良い場所に吊るして自然乾燥させます。直射日光は色落ちと生地劣化の原因になるため避けてください。ウエストバンドをハンガーに掛けて吊るすと型崩れしにくいです。完全に乾いていない状態での保管はカビの原因になります。保管時の注意点：直射日光を避けた乾燥した場所に保管する。折り畳む場合はシワが入りにくいよう軽く折る。ハンガー保管の場合は厚みのあるハンガーを使用する（細いハンガーはウエストに跡がつくことがある）。防虫剤は直接生地に触れないようにする（変色の原因）。長期保管の場合は年に1〜2回取り出して風通しをする。本革パッチのある個体は乾燥が強い場所では革が割れることがあるため、適度な湿度管理も重要です。',
+        bodyEn: "Dry by hanging in a shaded, well-ventilated area. Avoid direct sunlight as it causes fading and fabric deterioration. Hanging from the waistband prevents distortion. Storage while still damp causes mold. Storage precautions: store in a dry location away from direct sunlight; fold gently to minimize creases; use thick hangers if hanging (thin hangers can mark the waistband); ensure mothballs or insect repellent don't directly contact fabric (causes discoloration); air out once or twice a year for long-term storage. For pieces with leather patches, manage humidity — excessive dryness can crack leather.",
+      },
+    ],
+  },
 ];
 
 export function getArticle(slug: string): Article | undefined {

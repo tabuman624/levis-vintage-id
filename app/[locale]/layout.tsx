@@ -89,6 +89,34 @@ export default async function LocaleLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9006140407795306"
           crossOrigin="anonymous"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "LEVI'S VINTAGE ID.",
+              "url": "https://levis-id.com",
+              "description": locale === 'ja'
+                ? "写真をアップロードするだけでヴィンテージLevi'sの年代・型番・製造工場をAIが鑑定する無料サービス。"
+                : "Free AI service that identifies vintage Levi's era, model, and factory from your photos.",
+              "inLanguage": locale === 'ja' ? "ja" : "en",
+              "publisher": {
+                "@type": "Organization",
+                "name": "LEVI'S VINTAGE ID.",
+                "url": "https://levis-id.com"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://levis-id.com/articles"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>

@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 import { ARTICLES, getArticle } from '@/lib/articles';
 
-const BASE_URL = 'https://levis-vintage-id.vercel.app';
+const BASE_URL = 'https://levis-id.com';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }
@@ -72,8 +72,44 @@ export default async function ArticlePage({
     .filter((a) => a.catJa === article.catJa && a.slug !== slug)
     .slice(0, 4);
 
+  const isJa = locale === 'ja';
+  const articleUrl = isJa
+    ? `${BASE_URL}/articles/${slug}`
+    : `${BASE_URL}/en/articles/${slug}`;
+  const publishedDate = article.publishedAt ?? '2026-04-01';
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: isJa ? article.titleJa : article.titleEn,
+    description: isJa ? article.descJa : article.descEn,
+    url: articleUrl,
+    datePublished: publishedDate,
+    dateModified: '2026-05-24',
+    inLanguage: isJa ? 'ja' : 'en',
+    author: {
+      '@type': 'Organization',
+      name: "LEVI'S VINTAGE ID.",
+      url: BASE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: "LEVI'S VINTAGE ID.",
+      url: BASE_URL,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': articleUrl,
+    },
+    keywords: article.tags.join(', '),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header locale={locale} />
       <StitchLine />
       <div className="relative z-10 max-w-3xl mx-auto px-6 py-16">
@@ -92,13 +128,16 @@ export default async function ArticlePage({
           <h1 style={{fontFamily:'Playfair Display,serif',fontSize:'clamp(26px,4.5vw,42px)',fontWeight:'bold',color:'#f0ebe0',lineHeight:1.2,marginBottom:'20px'}}>
             {t(article.titleJa, article.titleEn)}
           </h1>
-          <div style={{display:'flex',gap:'8px',flexWrap:'wrap'}}>
+          <div style={{display:'flex',gap:'8px',flexWrap:'wrap',marginBottom:'16px'}}>
             {article.tags.map((tag) => (
               <span key={tag} style={{fontFamily:'DM Mono,monospace',fontSize:'9px',color:'#1a2a3a',background:'rgba(232,213,163,0.8)',padding:'3px 10px',borderRadius:'2px'}}>
                 {tag}
               </span>
             ))}
           </div>
+          <p style={{fontFamily:'DM Mono,monospace',fontSize:'9px',color:'rgba(184,204,228,0.5)',letterSpacing:'1px'}}>
+            {isJa ? `公開：${publishedDate.replace(/-/g,'.')}　更新：2026.05.24` : `Published: ${publishedDate}  Updated: 2026-05-24`}
+          </p>
         </div>
 
         <div style={{marginBottom:'48px'}}>

@@ -11,8 +11,9 @@ export const metadata: Metadata = {
 
 export default async function FaqPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = (ja: string, en: string) => locale === 'ja' ? ja : en;
-  const p = (path: string) => locale === 'ja' ? path : `/en${path}`;
+  const isJa = locale === 'ja';
+  const t = (ja: string, en: string) => isJa ? ja : en;
+  const p = (path: string) => isJa ? path : `/en${path}`;
 
   const faqs = [
     {
@@ -119,8 +120,27 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
     },
   ];
 
+  // FAQPage JSON-LD（全カテゴリのQ&Aを平坦化）
+  const allFaqs = faqs.flatMap(cat => cat.items);
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: allFaqs.map(item => ({
+      '@type': 'Question',
+      name: isJa ? item.qJa : item.qEn,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: isJa ? item.aJa : item.aEn,
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header locale={locale} />
       <StitchLine />
       <div className="relative z-10 max-w-3xl mx-auto px-6 py-16">

@@ -172,9 +172,14 @@ export default async function ArticlePage({
               {t('Big E・セルビッジ・TALONなど鑑定用語を28語解説','28 identification terms explained — Big E, selvedge, TALON & more')}
             </p>
           </div>
-          <Link href={p('/glossary')} style={{flexShrink:0,fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',textTransform:'uppercase',color:'#b8cce4',border:'1px solid rgba(184,204,228,0.3)',borderRadius:'4px',padding:'8px 16px',textDecoration:'none',whiteSpace:'nowrap'}}>
-            {t('用語集を見る →','View Glossary →')}
-          </Link>
+          <div style={{display:'flex',gap:'8px',flexWrap:'wrap'}}>
+            <Link href={p('/glossary')} style={{flexShrink:0,fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',textTransform:'uppercase',color:'#b8cce4',border:'1px solid rgba(184,204,228,0.3)',borderRadius:'4px',padding:'8px 16px',textDecoration:'none',whiteSpace:'nowrap'}}>
+              {t('用語集 →','Glossary →')}
+            </Link>
+            <Link href={p('/timeline')} style={{flexShrink:0,fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',textTransform:'uppercase',color:'#b8cce4',border:'1px solid rgba(184,204,228,0.3)',borderRadius:'4px',padding:'8px 16px',textDecoration:'none',whiteSpace:'nowrap'}}>
+              {t('年表 →','Timeline →')}
+            </Link>
+          </div>
         </div>
 
         {related.length > 0 && (

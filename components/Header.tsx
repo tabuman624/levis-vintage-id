@@ -36,6 +36,10 @@ export default function Header({ locale }: { locale: string }) {
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('記事一覧', 'Articles')}
         </Link>
+        <Link href={locale === 'ja' ? '/timeline' : '/en/timeline'}
+          className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
+          {t('年表', 'Timeline')}
+        </Link>
         <Link href={locale === 'ja' ? '/glossary' : '/en/glossary'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('用語集', 'Glossary')}

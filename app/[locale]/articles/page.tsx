@@ -61,6 +61,22 @@ export default async function ArticlesPage({ params }: { params: Promise<{ local
           );
         })}
         <div className="stitch-line my-8" />
+
+        {/* 用語集バナー */}
+        <div className="card-denim p-6 mb-6 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p className="font-mono text-[9px] tracking-[3px] text-stitch/70 uppercase mb-1">
+              {t('用語が分からない場合は','Not sure about a term?')}
+            </p>
+            <p className="text-sm text-[#f0ebe0] font-light">
+              {t('Big E・セルビッジ・TALONなど鑑定用語28語を解説した用語集があります。','28 identification terms explained — Big E, selvedge, TALON, and more.')}
+            </p>
+          </div>
+          <Link href={p('/glossary')} className="flex-shrink-0 font-mono text-[10px] tracking-[2px] uppercase border border-stitch/40 text-stitch px-5 py-2.5 rounded hover:bg-stitch/10 transition-colors whitespace-nowrap">
+            {t('用語集を見る →', 'View Glossary →')}
+          </Link>
+        </div>
+
         <div className="card-denim p-10 text-center">
           <h2 className="font-playfair font-bold text-[#f0ebe0] text-2xl mb-3">
             {t('知識が揃ったら','Ready?')} <span className="text-stitch">{t('AI鑑定を試してみよう','Try AI Identification')}</span>

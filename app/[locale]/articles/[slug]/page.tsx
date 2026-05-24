@@ -162,6 +162,21 @@ export default async function ArticlePage({
           </Link>
         </div>
 
+        {/* 用語集バナー */}
+        <div style={{background:'rgba(25,50,88,0.35)',border:'1px dashed rgba(184,204,228,0.2)',borderRadius:'8px',padding:'20px 24px',marginBottom:'32px',display:'flex',flexWrap:'wrap',alignItems:'center',justifyContent:'space-between',gap:'12px'}}>
+          <div>
+            <p style={{fontFamily:'DM Mono,monospace',fontSize:'9px',letterSpacing:'3px',color:'#b8cce4',textTransform:'uppercase',marginBottom:'4px'}}>
+              {t('用語を調べる','Look up terms')}
+            </p>
+            <p style={{fontSize:'13px',color:'#f0ebe0',fontWeight:300}}>
+              {t('Big E・セルビッジ・TALONなど鑑定用語を28語解説','28 identification terms explained — Big E, selvedge, TALON & more')}
+            </p>
+          </div>
+          <Link href={p('/glossary')} style={{flexShrink:0,fontFamily:'DM Mono,monospace',fontSize:'10px',letterSpacing:'2px',textTransform:'uppercase',color:'#b8cce4',border:'1px solid rgba(184,204,228,0.3)',borderRadius:'4px',padding:'8px 16px',textDecoration:'none',whiteSpace:'nowrap'}}>
+            {t('用語集を見る →','View Glossary →')}
+          </Link>
+        </div>
+
         {related.length > 0 && (
           <div>
             <p style={{fontFamily:'DM Mono,monospace',fontSize:'9px',letterSpacing:'3px',color:'#e8d5a3',textTransform:'uppercase',marginBottom:'16px',opacity:0.8}}>

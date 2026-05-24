@@ -6,7 +6,7 @@ import StitchLine from '@/components/StitchLine';
 
 export const metadata: Metadata = {
   title: "このサービスについて | LEVI'S VINTAGE ID.",
-  description: 'LEVI\'S VINTAGE ID.はGoogle Gemini AIを使用したヴィンテージLevi\'sジーンズの年代・型番・製造工場を無料で鑑定するサービスです。',
+  description: 'LEVI\'S VINTAGE ID.はGoogle Gemini AIを使用したヴィンテージLevi\'sジーンズの年代・型番・製造工場を無料で鑑定するサービスです。鑑定の根拠・方法論・AI精度・免責事項を詳しく解説。',
 };
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -89,6 +89,94 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </div>
             ))}
           </div>
+        </section>
+
+        {/* 鑑定の根拠・方法論 */}
+        <section className="mb-12">
+          <h2 className="font-playfair font-bold text-[#e8d5a3] text-xl mb-4">
+            {t('鑑定の根拠と方法論', 'Identification Methodology')}
+          </h2>
+          <p className="text-sm text-[#f0ebe0]/85 leading-loose font-light mb-6">
+            {t(
+              'このサービスのAI鑑定は、ヴィンテージLevi\'s研究の蓄積された知見に基づいています。鑑定に使用する主要な指標は以下の通りです。',
+              "This service's AI identification is grounded in the accumulated research of vintage Levi's scholarship. The primary indicators used for identification are as follows."
+            )}
+          </p>
+          <div className="space-y-3">
+            {[
+              {
+                ja: '赤タブ表記（Big E / Small e）：1971年7月を境に両面大文字→片面小文字に変更。アメリカ連邦裁判所でも商標として認定された確実な年代指標。',
+                en: 'Red tab (Big E / Small e): Changed from both-sides uppercase to one-side lowercase in July 1971. A definitive era indicator recognized as a trademark by US federal courts.',
+              },
+              {
+                ja: 'ケアラベルの有無と内容：1971年FTC「Care Labeling Rule」施行による義務化。法的根拠のある最確実指標のひとつ。',
+                en: 'Care label presence and content: Made mandatory by the 1971 FTC Care Labeling Rule. One of the most legally grounded era indicators.',
+              },
+              {
+                ja: 'ジッパーブランド：TALON 42（1950〜60年代）→ TALON（60年代後半〜70年代前半）→ YKK（70年代以降）の変遷は公式製造記録と一致。',
+                en: 'Zipper brand: TALON 42 (1950s–60s) → TALON (late 60s–early 70s) → YKK (post-70s) transitions align with official manufacturing records.',
+              },
+              {
+                ja: 'セルビッジデニム：シャトル織機からロータリー織機への1981年移行は製造設備の変更記録により確認された事実。',
+                en: 'Selvedge denim: The 1981 transition from shuttle to rotary looms is confirmed by documented manufacturing equipment changes.',
+              },
+              {
+                ja: 'パッチ素材（本革→Jacron→合皮）：1954年頃の本革からJacronへの変更はリーバイス社の調達コスト記録と一致。',
+                en: "Patch material (leather → Jacron → synthetic): The c.1954 leather-to-Jacron change aligns with Levi's procurement cost records.",
+              },
+            ].map((item, i) => (
+              <div key={i} className="flex gap-3 text-sm text-[#f0ebe0]/80 font-light leading-loose">
+                <span className="text-stitch flex-shrink-0 font-mono text-xs mt-1">{String(i+1).padStart(2,'0')}</span>
+                <span>{t(item.ja, item.en)}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 参考情報・外部リンク */}
+        <section className="mb-12">
+          <h2 className="font-playfair font-bold text-[#e8d5a3] text-xl mb-4">
+            {t('参考情報・一次資料', 'Reference Sources')}
+          </h2>
+          <p className="text-sm text-[#f0ebe0]/85 leading-loose font-light mb-4">
+            {t(
+              'ヴィンテージLevi\'sの年代判定に関心のある方向けに、信頼性の高い外部リソースを紹介します。',
+              'For those interested in vintage Levi\'s dating, here are reliable external resources.'
+            )}
+          </p>
+          <ul className="space-y-3">
+            {[
+              {
+                ja: 'Levi Strauss & Co. 公式ブランド史',
+                en: 'Levi Strauss & Co. Official Brand History',
+                url: 'https://www.levistrauss.com/our-story/',
+                note: { ja: '公式サイト（英語）', en: 'Official site (English)' },
+              },
+              {
+                ja: 'Smithsonian National Museum of American History — ジーンズ史料',
+                en: 'Smithsonian National Museum of American History — Jeans Collection',
+                url: 'https://americanhistory.si.edu/collections/object-groups/blue-jeans',
+                note: { ja: '学術機関（英語）', en: 'Academic institution (English)' },
+              },
+              {
+                ja: 'FTC Care Labeling Rule（アメリカ連邦取引委員会）',
+                en: 'FTC Care Labeling Rule (Federal Trade Commission)',
+                url: 'https://www.ftc.gov/business-guidance/resources/threading-your-way-through-labeling-requirements-under-textile-and-wool-acts',
+                note: { ja: '米国政府機関（英語）', en: 'US government agency (English)' },
+              },
+            ].map((item, i) => (
+              <li key={i} className="flex gap-2 text-sm">
+                <span className="text-stitch flex-shrink-0 mt-1">▸</span>
+                <div>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer"
+                    className="text-[#b8cce4] hover:text-stitch underline underline-offset-2 transition-colors">
+                    {t(item.ja, item.en)}
+                  </a>
+                  <span className="text-[#f0ebe0]/40 font-mono text-[9px] ml-2">({t(item.note.ja, item.note.en)})</span>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* 注意事項 */}

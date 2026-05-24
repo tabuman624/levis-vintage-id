@@ -9,6 +9,7 @@ export default function Footer({ locale }: { locale: string }) {
     { path: '/identify',  labelJa: 'AI鑑定',             labelEn: 'Identify' },
     { path: '/guide',     labelJa: '撮影ガイド',         labelEn: 'Guide' },
     { path: '/articles',  labelJa: '記事一覧',           labelEn: 'Articles' },
+    { path: '/glossary',  labelJa: '用語集',             labelEn: 'Glossary' },
     { path: '/faq',       labelJa: 'よくある質問',       labelEn: 'FAQ' },
     { path: '/about',     labelJa: 'このサービスについて', labelEn: 'About' },
     { path: '/contact',   labelJa: 'お問い合わせ',       labelEn: 'Contact' },

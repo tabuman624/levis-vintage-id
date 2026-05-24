@@ -44,6 +44,10 @@ export default function Header({ locale }: { locale: string }) {
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('用語集', 'Glossary')}
         </Link>
+        <Link href={locale === 'ja' ? '/chart' : '/en/chart'}
+          className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
+          {t('判定チャート', 'Chart')}
+        </Link>
         <Link href={locale === 'ja' ? '/faq' : '/en/faq'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           FAQ

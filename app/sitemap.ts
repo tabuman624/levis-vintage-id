@@ -21,6 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/en/glossary`, priority: 0.6 },
     { url: `${BASE_URL}/timeline`, priority: 0.7 },
     { url: `${BASE_URL}/en/timeline`, priority: 0.6 },
+    { url: `${BASE_URL}/chart`, priority: 0.7 },
+    { url: `${BASE_URL}/en/chart`, priority: 0.6 },
     { url: `${BASE_URL}/legal`, priority: 0.3 },
     { url: `${BASE_URL}/en/legal`, priority: 0.3 },
     { url: `${BASE_URL}/contact`, priority: 0.3 },

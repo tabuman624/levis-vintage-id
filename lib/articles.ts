@@ -99,6 +99,12 @@ export const ARTICLES: Article[] = [
         bodyJa: 'オレンジタブ（1969〜1999年）はBig Eとは異なる廉価ライン向けのオレンジ色タブで、ベルボトム（646）などファッション向けモデルに使用されました。現在は廃止されており一定のコレクター人気があります。注意点として1969〜1971年の短期間はBig Eのオレンジタブが存在します。つまりオレンジタブでもBig E（両面大文字）であれば1969〜1971年の可能性があります。ホワイトタブは特定の限定モデルに使用されています。オレンジタブとSmall eの赤タブを混同しないよう注意してください。オレンジタブのBig E期は特に希少でコレクター価値が高いです。',
         bodyEn: "The orange tab (1969–1999) is an orange-colored tab for budget-line models like the bellbottom 646 — distinct from Big E. Now discontinued with its own collector following. Important note: Big E orange tabs (both sides uppercase) existed briefly from 1969–1971. This means an orange tab with Big E lettering suggests 1969–1971. White tabs appear on specific limited models. Be careful not to confuse orange tab with Small e red tab. Big E era orange tabs are especially rare with high collector value.",
       },
+      {
+        headingJa: '赤タブの撮影・確認方法と鑑定への活用',
+        headingEn: 'How to Photograph the Red Tab for Identification',
+        bodyJa: '赤タブを正確に鑑定するための撮影方法を解説します。まずタブをポケットから引き出し、両面が見えるようにしてください。接写（マクロモード）で文字がはっきり読めるよう撮影し、必ず表裏2枚を用意します。光の当て方は斜め上からが基本で、文字が浮き上がって見えます。撮影後はAI鑑定に活用してください。タブの文字が「LEVIS」の大文字か「Levis」の小文字かを確認することで、1971年を境とした年代の分岐を瞬時に判定できます。商標Rの有無・タブの向き（縦か横か）も合わせて確認することで、さらに細かい年代推定が可能です。',
+        bodyEn: "Photography tips for accurate red tab identification. Pull the tab out from the pocket so both sides are visible. Use macro mode to shoot both sides clearly — two photos (front and back) are essential. Light from a diagonal angle above makes the text stand out. After photographing, use AI identification to analyze results. Confirming whether the text reads uppercase 'LEVIS' or lowercase 'Levis' instantly determines the pre/post-1971 era divide. Also check for the trademark R and tab orientation (vertical or horizontal) for even finer era estimates.",
+      },
     ],
   },
   {
@@ -187,6 +193,12 @@ export const ARTICLES: Article[] = [
         bodyJa: '1984年頃から3桁の日付コードがケアラベルに記載されるようになりました。例：「127」＝1987年12月（最初の1〜2桁が月・最後の1桁が年の下1桁）。1993年以降は4桁の日付コードに変更されました。例：「1295」＝1995年12月（最初の2桁が月・最後の2桁が年）。バーコードやQRコードが付いているケアラベルは1990年代以降の製品です。「MADE IN USA」の表記がケアラベルにある場合は2002年以前（バレンシア工場閉鎖）。「www.levi.com」などのURLが記載されていれば2000年代以降確定です。これらのコードを読み解けば、ケアラベル単体でも±2〜3年の精度で年代判定できます。',
         bodyEn: "From around 1984, 3-digit date codes appeared on care labels. Example: '127' = December 1987 (first 1–2 digits = month, last digit = year's last digit). From 1993, this changed to 4-digit codes. Example: '1295' = December 1995 (first 2 digits = month, last 2 digits = year). Care labels with barcodes or QR codes date to the 1990s onward. 'MADE IN USA' on the care label means pre-2002 (Valencia factory closed). URLs like 'www.levi.com' confirm post-2000s. Decoding these codes enables ±2–3 year accuracy from the care label alone.",
       },
+      {
+        headingJa: 'ケアラベルの撮影方法と鑑定への活用',
+        headingEn: 'Photographing Care Labels and Using Them in Identification',
+        bodyJa: 'ケアラベルを鑑定に活用するためには鮮明な写真撮影が重要です。撮影のコツ：ケアラベルを平らに広げてから撮影する（折り目があると文字が読みにくい）。スマートフォンのマクロモードで接写し、すべての文字が判読できる鮮明さで撮影する。フラッシュを使う場合は反射に注意し、自然光または間接光が最適。ケアラベルが複数枚重なっている場合はすべてを別々に撮影する。ケアラベルが褪色・破損している場合は斜め光で撮影すると文字が浮き上がることがある。AI鑑定への活用：ケアラベルの写真は赤タブと並んで最も重要な鑑定写真です。ケアラベルの内容（言語・数字コード・ロゴ）が読み取れる鮮明な写真を必ず含めてください。ケアラベルなしの状態（1971年以前の個体）の場合は「ケアラベルなし」の旨を写真のキャプションや説明に明記することで、AIが1971年以前と判断しやすくなります。ケアラベルの内容と他のポイント（タブ・ジッパー・セルビッジ）の整合性を確認することで、年代判定の信頼性が大幅に向上します。',
+        bodyEn: "Clear photo technique is essential for using care labels in identification. Photography tips: flatten the care label before shooting (creases make text hard to read); use smartphone macro mode for close-ups, ensuring all text is legible; natural or indirect light is ideal if using flash (watch for glare); photograph all care labels separately if multiple are present; angled lighting may bring up text on faded or damaged labels. Using in AI identification: care label photos are the most important identification photos alongside the red tab. Always include a clear photo showing care label content (language, number codes, logos). For pre-1971 pieces without a care label, noting 'no care label present' in the caption or description helps the AI determine pre-1971 dating. Verifying consistency between care label content and other points (tab, zipper, selvedge) significantly improves the reliability of era assessment.",
+      },
     ],
   },
   {
@@ -227,6 +239,12 @@ export const ARTICLES: Article[] = [
         headingEn: 'Era Features and Value',
         bodyJa: '1967〜1971年（70505・Big E期）：TALONジッパー・Big Eタブ・ケアラベルなし・セルビッジ・オレンジ/黄色アルキュエート糸。最も希少で価値が高い。1971〜1975年：Small eタブ・英語のみケアラベル・TALONまたはYKKジッパー・セルビッジ継続。1975〜1981年：多言語ケアラベル・YKKジッパー・セルビッジ・3桁日付コード（1984年〜）。1981〜1986年：セルビッジなし・オレンジオーバーロック（1981〜1984年）または白オーバーロック（1985年〜）。1986年〜：バットウィングロゴ入りケアラベル・YKKジッパー。Big E期の70505は501のBig Eに次ぐコレクター人気で、コンディション・セルビッジ・タブの状態がそのまま価格に反映されます。',
         bodyEn: "1967–1971 (70505, Big E): TALON zipper, Big E tab, no care label, selvedge, orange/yellow arcuate thread — rarest and most valuable. 1971–1975: Small e tab, English-only care label, TALON or YKK, selvedge continuing. 1975–1981: multilingual care label, YKK, selvedge, 3-digit date codes (from 1984). 1981–1986: no selvedge, orange overlock (1981–84) or white overlock (from 1985). Post-1986: batwing logo care label, YKK zipper. The Big E 70505 holds the second most coveted collector status after the Big E 501 — condition, selvedge presence, and tab condition directly translate to price.",
+      },
+      {
+        headingJa: '505の購入・鑑定チェックポイント',
+        headingEn: '505 Purchase and Identification Checkpoints',
+        bodyJa: '505を購入・鑑定する際の実践的なチェックポイントです。最初にフライを確認してボタンフライか（501）ジッパーフライか（505）を判断します。505であればジッパーブランドを確認します。次にウエストバンド内側または裏ポケット上部のタグで「505」または「70505」の品番を確認します。「70505」とあればBig E期（1967〜1971年）の可能性があるので赤タブとケアラベルで確認します。Big Eタブ（両面大文字）かつケアラベルがなければ1971年以前の70505確定です。さらにセルビッジ・ジッパーブランド・アルキュエート糸色を確認することで年代が絞れます。購入時の注意：505の「70505」品番タグは外れたり入れ替えられることがあります。タグの縫製状態も確認してください（自然な縫製跡か新しく縫い付けた痕跡がないか）。AI鑑定では505のジッパーフライ写真・タブ写真・ケアラベルの有無・セルビッジを組み合わせた複数写真で精度が上がります。',
+        bodyEn: "Practical checkpoints for purchasing or identifying a 505. First confirm the fly: button fly = 501, zipper fly = 505. If a 505, note the zipper brand. Then check the inside waistband or back pocket tag for '505' or '70505.' If '70505' appears, it may be Big E era (1967–1971) — verify with red tab and care label. Big E tab (both sides uppercase) + no care label = confirmed pre-1971 70505. Further narrow with selvedge, zipper brand, and arcuate thread color. Purchase cautions: the '70505' model number tag can fall off or be swapped — check the stitching around the tag (natural existing stitching vs. newly sewn evidence). For AI identification, submitting multiple photos covering the zipper fly, tab, care label presence/absence, and selvedge improves accuracy.",
       },
     ],
   },
@@ -269,6 +287,12 @@ export const ARTICLES: Article[] = [
         bodyJa: 'セルビッジデニムがヴィンテージ市場で高い評価を受けるのは4つの理由があります。①年代証明：1985年以前の製品であることが確実になります。②生地の品質：シャトル織機のデニムは緻密で独特の風合いと堅牢性を持ちます。③希少性：現在では大量生産のセルビッジデニムを製造できるメーカーが限られています。④コレクター文化：特に日本のデニム愛好家がセルビッジに特別な価値を見出しています。日本では「セルビッジデニム＝品質の証」という認識が定着しており、セルビッジの有無で市場価値が大きく変わることがあります。セルビッジの「赤耳」（赤いライン）は特に高い評価を受けます。',
         bodyEn: "Selvedge commands premium prices in the vintage market for four main reasons. ①Era proof: confirms pre-1985 manufacture with certainty. ②Fabric quality: shuttle-loom denim is denser with distinctive texture and durability. ③Rarity: manufacturers capable of large-scale selvedge denim production are now limited. ④Collector culture: Japanese denim enthusiasts especially place special value on selvedge. In Japan, 'selvedge = quality' is well established, and presence or absence can significantly shift market value. The 'red ear' (red line on the selvedge edge) is particularly highly regarded.",
       },
+      {
+        headingJa: 'セルビッジ・非セルビッジの価格差と購入時の注意',
+        headingEn: 'Selvedge vs Non-Selvedge Price Gap and Buying Tips',
+        bodyJa: '同じ年代・型番・コンディションでもセルビッジの有無で価格が大きく変わることがあります。特に1970年代（Small e期）では、セルビッジありとセルビッジなしで数千円〜1万円以上の差がつくケースも珍しくありません。購入時に必ず裾の内側を写真で確認してください。出品写真に裾折り返しの写真がない場合は出品者に追加写真を依頼するのが基本です。また「セルビッジあり」と記載されていても実際には非セルビッジだったというトラブルも存在します。写真で白い耳（ミミ）と赤・白のラインが確認できるか自分の目で確かめることが重要です。LVC（Levis Vintage Clothing）の復刻品も高品質なセルビッジを使用しているため、年代と素材の整合性も確認してください。',
+        bodyEn: "Price differences between selvedge and non-selvedge can be significant even for the same era, model, and condition. For 1970s Small e era pieces, a selvedge premium of several thousand to over ¥10,000 is not uncommon. Always verify the inner hem via photos before purchasing. If the listing doesn't include a folded-hem photo, request one from the seller. 'Listed as selvedge but actually non-selvedge' disputes do occur — visually confirm the white ear and colored line yourself from the photos. LVC (Levis Vintage Clothing) reproductions also use high-quality selvedge, so verifying consistency between claimed era and materials is important.",
+      },
     ],
   },
   {
@@ -309,6 +333,12 @@ export const ARTICLES: Article[] = [
         headingEn: 'How to Photograph the Stamp',
         bodyJa: 'ボタン裏の刻印は小さく摩耗していることが多く、正しい撮影方法が重要です。まずウエストバンドからボタンを引き出し裏面が見えるようにします。スマートフォンのライトを刻印に対して斜め45度程度から当てます（斜め光で凸凹が浮き上がる）。マクロモードで接写し数字が判読できる状態で撮影します。刻印が薄い場合は角度を変えながら複数枚撮影し最も鮮明なものを使用します。フロントの全ボタン（通常5個）を確認することで確実性が増し、複数のボタンに同じ番号が確認できれば信頼性も上がります。3桁刻印は比較的読みやすいですが、1桁刻印は摩耗していることが多いため特に斜め光が有効です。',
         bodyEn: "Button back stamps are small and often worn — correct photography technique is critical. Pull the button from the waistband to expose the back. Hold a phone light at roughly 45 degrees to the stamp (angled light makes the relief stand out). Use macro mode to shoot close-up, ensuring the number is legible in the frame. For faint stamps, try multiple angles and use the sharpest result. Checking all front buttons (usually five) increases certainty — confirming the same number on multiple buttons improves reliability. 3-digit stamps are relatively readable; single-digit stamps are often worn and especially benefit from angled lighting.",
+      },
+      {
+        headingJa: 'ボタン刻印と市場価値の関係',
+        headingEn: 'Button Stamps and Market Value',
+        bodyJa: 'ボタン刻印の種類は市場価値に直接影響することがあります。SF工場（1番・2番）の刻印がある個体はリーバイス発祥地製であることを示し、同じ年代・型番・コンディションの他工場製と比べて高い評価を受ける傾向があります。ただし、ボタン刻印だけで価値が決まるわけではなく、タブ・ケアラベル・セルビッジ・コンディションとの総合評価が基本です。1桁刻印の個体は1970年代中頃以前の製造を示すため、Small eタブ・ケアラベルありとの組み合わせは矛盾なく整合するかを確認することが重要です。整合性が取れていれば鑑定の信頼性が上がります。3桁刻印は1980〜2002年の後期アメリカ製を示し、コレクター価値は1桁より低いですが「Made in USA」の証明として一定の需要があります。購入・売却時にはボタン刻印をアピールポイントとして記載し、工場名を明示すると付加価値を伝えやすくなります。',
+        bodyEn: "Button stamp type can directly affect market value. Pieces stamped with SF factory numbers (1 or 2) indicate manufacturing at the birthplace of Levis and tend to command premiums over same-era, same-condition examples from other factories. However, stamps alone don't determine value — overall assessment with tab, care label, selvedge, and condition is essential. Single-digit stamps indicate pre-mid-1970s manufacturing, so verifying consistency with Small e tab or care label is important for a reliable assessment. 3-digit stamps indicate later American-made pieces from 1980–2002, with lower collector value than single-digit, but still carrying demand as proof of 'Made in USA' origin. When buying or selling, noting the factory stamp and naming the factory adds communicable value to the listing.",
       },
     ],
   },
@@ -351,6 +381,12 @@ export const ARTICLES: Article[] = [
         bodyJa: '1950年代のリーバイスは製造から70年以上が経過しており良好なコンディションの個体は年々減少しています。価値の評価ポイント：本革パッチの残存状態・Big Eタブの鮮明さ・セルビッジの状態・ジッパーブランド・リベットの種類。注意点：①偽造・改造品：本革パッチを後付けしたものや、年代を偽って出品されるケースがあります。複数のポイントの整合性を必ず確認してください。②LVC復刻品：Levis Vintage Clothingの復刻品は本物と酷似しているため要注意です。③写真だけでの断定は危険：AI鑑定は参考程度に留め、高額品は専門家への相談を推奨します。',
         bodyEn: "1950s Levis are now 70+ years old and good-condition examples grow rarer each year. Value assessment points: leather patch condition, Big E tab clarity, selvedge condition, zipper brand, rivet type. Cautions: ①Fakes and alterations — leather patches can be added later, and era misrepresentation occurs. Always verify consistency across multiple points. ②LVC reproductions — Levis Vintage Clothing reproductions closely resemble genuine vintage, requiring careful verification. ③Photo-only identification has limits — use AI identification as a reference, and for high-value pieces consider consulting an expert.",
       },
+      {
+        headingJa: '1950年代リーバイス鑑定の実践まとめ',
+        headingEn: 'Practical 1950s Identification Summary',
+        bodyJa: '1950年代を効率よく判定するための実践的なチェックポイントをまとめます。最重要ポイント（1950年代前半の判定）：①パッチ素材→本革＝1954年以前（本革確認で50年代前半の強い証拠）。②赤タブ→両面大文字Big E（1936〜1971年）→ケアラベルなしと組み合わせれば1971年以前確定。③ジッパーブランド（505等）→Conmar・Scovill・Eagle＝1950年代前半の強い示唆。TALON 42→1950〜60年代の指標。④クロッチリベット（有無）→あり＝1937〜1964年。⑤バックポケットリベット→隠しリベットあり＝1937〜1964年。これらの組み合わせで「1950年代前半か後半か」を判定します。本革パッチ＋Big E＋ケアラベルなし＋Conmarジッパー＋クロッチリベットがすべて揃えば1950年代前半の最高評価クラスです。AI鑑定では写真が多いほど精度が上がりますが、この年代の個体は専門家への相談を必ず組み合わせてください。',
+        bodyEn: "Practical checkpoints for efficient 1950s identification. Most important points (early 1950s identification): ①Patch material → leather = pre-1954 (leather confirmed = strong early 1950s evidence). ②Red tab → both sides uppercase Big E (1936–1971) → combined with no care label confirms pre-1971. ③Zipper brand (505 etc.) → Conmar, Scovill, Eagle = strong early 1950s indicator; TALON 42 = 1950s–60s indicator. ④Crotch rivet (presence/absence) → present = 1937–1964. ⑤Back pocket rivet → hidden rivet = 1937–1964. These combinations determine 'early or late 1950s.' Leather patch + Big E + no care label + Conmar zipper + crotch rivet all present = early 1950s top valuation class. More photos improve AI identification accuracy, but for pieces of this age, always combine AI results with expert consultation.",
+      },
     ],
   },
   {
@@ -391,6 +427,12 @@ export const ARTICLES: Article[] = [
         headingEn: '1960s Value and the Importance of Yellow Thread',
         bodyJa: '1960年代のリーバイスはBig E全盛期の中核として高いコレクター人気を誇ります。特に価値が高い組み合わせ：TALON 42＋Big E＋ケアラベルなし＋セルビッジ→1960年代前半の可能性大（最高評価）。TALON（42なし）＋Big E＋ケアラベルなし＋セルビッジ→1960年代後半の可能性（高評価）。黄色/レモン色のアルキュエートステッチ糸は特に希少で、黄色糸が確認できる個体はコレクターから特別視されます。Vステッチも残存していれば評価がさらに上がります。Big Eオレンジタブ（1969〜1971年）は短期間のみ存在した超希少仕様として別格の評価を受けます。',
         bodyEn: "1960s Levis command strong collector interest as the core of the Big E prime era. Highest-value combinations: TALON 42 + Big E + no care label + selvedge = likely early 1960s (maximum valuation). TALON no 42 + Big E + no care label + selvedge = likely late 1960s (high valuation). Lemon/yellow arcuate thread is particularly rare — examples with visible yellow thread are especially prized by collectors. V-stitch presence adds further value. Big E orange tab (1969–1971) is a separate ultra-rare specification from this brief window.",
+      },
+      {
+        headingJa: '1960年代リーバイスの鑑定実践まとめ',
+        headingEn: 'Practical 1960s Identification Summary',
+        bodyJa: '1960年代を効率よく判定するための実践手順をまとめます。まず最優先で確認するのは赤タブです。Big E（大文字）であれば1971年以前が確定します。次にケアラベルを確認します。ケアラベルが存在しなければ1971年以前が確定です。この2点でまず「Big E期」の特定ができます。次にジッパーブランドを確認します。TALON 42であれば1960年代前半〜中頃が強く示唆されます。TALON（42なし）であれば1960年代後半〜1970年代前半の可能性があります。セルビッジの有無も確認します。セルビッジがあれば1981年以前の確認となります。さらに精密化するにはアルキュエートの糸色（黄色→1970年代中頃以前）とVステッチの有無（あり→1969年以前）を組み合わせます。これらを総合するとBig E×TALON 42×セルビッジ×黄色糸×Vステッチすべてが揃えば1965年以前の可能性が非常に高く、最高評価クラスの鑑定結果となります。',
+        bodyEn: "A practical summary for efficiently identifying 1960s pieces. Start with the red tab — Big E (uppercase) confirms pre-1971. Next check for a care label — absent confirms pre-1971. These two points establish the Big E era. Then examine the zipper brand: TALON 42 strongly suggests early-to-mid 1960s; TALON without 42 indicates late 1960s to early 1970s. Confirm selvedge presence, which confirms pre-1981. For further precision, combine arcuate thread color (yellow = pre-mid-1970s) and V-stitch presence (yes = pre-1969). Put together: Big E + TALON 42 + selvedge + yellow thread + V-stitch all present = very high probability of pre-1965, placing the piece in the top valuation tier.",
       },
     ],
   },
@@ -433,6 +475,12 @@ export const ARTICLES: Article[] = [
         bodyJa: '1981年にロータリー織機へ完全移行し、セルビッジが廃止されました。1981年以降はアウトシームのオーバーロックステッチ色で年代を絞り込めます。オレンジ色オーバーロック→1981〜1984年。白色オーバーロック→1985〜1993年（バットウィングロゴ入りケアラベルは1986年以降）。3桁日付コード（例：127＝1987年12月）→1984〜1992年頃。4桁日付コード（例：1295＝1995年12月）→1993年以降。これらの指標を組み合わせることで、セルビッジなしのモデルでも±2〜3年の精度で年代判定ができます。',
         bodyEn: "1981 saw the full rotary loom transition and end of selvedge. Post-1981 uses outseam overlock color for precision dating. Orange overlock = 1981–1984. White overlock = 1985–1993 (batwing logo care label from 1986+). 3-digit date code (e.g. 127 = December 1987) = c.1984–1992. 4-digit date code (e.g. 1295 = December 1995) = post-1993. Combining these indicators enables ±2–3 year precision dating even on non-selvedge models.",
       },
+      {
+        headingJa: '1970年代リーバイスの鑑定まとめと実践手順',
+        headingEn: '1970s Identification Summary and Practical Steps',
+        bodyJa: '1970年代を効率よく鑑定するための実践手順です。まず赤タブを確認します。両面大文字Big Eであれば1971年以前（1970〜1971年前半）の最終Big E期です。片面小文字であればSmall e（1971年7月以降）。次にケアラベルを確認します。英語のみ表記→1971〜1975年頃。英語＋スペイン語等の多言語→1975年頃以降。ケアラベル先頭行「SF 207」→1978年以前。ジッパーブランドを確認します。TALON→70年代前半。YKK→1970年代中期以降。次にセルビッジを確認します。セルビッジあり→1981年以前。セルビッジなし→1981年以降。これらを組み合わせることで多くの1970年代モデルを5〜10年単位で精密に判定できます。1978年以降はバックポケットのダブルロックステッチが確認できれば追加の証拠となります。鑑定が難しい場合はこのサービスのAI鑑定機能を活用してください。',
+        bodyEn: "Practical steps for efficient 1970s identification. Start with the red tab: both sides uppercase Big E = pre-1971 final Big E era (1970 to early 1971); one side lowercase = Small e (post-July 1971). Next, check the care label: English only = c.1971–1975; English + Spanish or multilingual = from c.1975; 'SF 207' on the top line = pre-1978. Check the zipper brand: TALON = early 1970s; YKK = mid-1970s onward. Then confirm selvedge: present = pre-1981; absent = post-1981. Combining these narrows most 1970s pieces to within 5–10 years. Post-1978 pieces can be further confirmed by double lock stitch on the back pocket. For difficult cases, use this service's AI identification feature.",
+      },
     ],
   },
   {
@@ -474,6 +522,12 @@ export const ARTICLES: Article[] = [
         bodyJa: '購入時：Big Eが確認できる写真（赤タブ両面・ケアラベルなし）が揃っているか確認する。写真が不鮮明・不足している出品者には追加写真を依頼する。高額品は写真のみでなく実物確認または専門家への相談を組み合わせる。LVC（Levis Vintage Clothing）の復刻品はBig E風のタブを持つため注意が必要。ケアラベルに「LEVIS VINTAGE CLOTHING」とあればLVC。売却時：「Big E確認済み（赤タブ両面写真あり）」と記載すると信頼性が上がり高値がつきやすい。ケアラベルなしの写真も掲載することで買い手の信頼を得られる。写真が多いほど（7〜10枚）落札率・成約率が上がる傾向がある。年代は「推定1960年代」など推定である旨を明記し誇大表記を避ける。',
         bodyEn: "Buying tips: verify photos confirming Big E (both tab sides, no care label). Request additional photos from sellers with unclear or insufficient images. For high-value pieces, combine photo review with physical inspection or expert consultation. LVC (Levis Vintage Clothing) reproductions may have Big E-style tabs — care labels reading 'LEVIS VINTAGE CLOTHING' confirm LVC. Selling tips: stating 'Big E confirmed (both-sides tab photos included)' builds credibility and commands higher prices. Including photos of the absent care label area builds buyer trust. More photos (7–10) tend to increase bid rate and transaction success. Always state era as estimated (e.g., 'estimated 1960s') to avoid misrepresentation claims.",
       },
+      {
+        headingJa: 'Big EをAI鑑定で確認する方法',
+        headingEn: 'Using AI Identification to Verify Big E',
+        bodyJa: 'AI鑑定はBig E判定の補助として有効に活用できます。AI鑑定でBig Eを判定するために提出すべき写真：①赤タブ表面（大文字「LEVIS」が確認できるか）・②赤タブ裏面（裏面も大文字かどうか）・③ケアラベルの有無（存在しないことの確認）・④ジッパーブランド（TALON等の刻印）・⑤全体写真（セルビッジ・縫製の確認）。これらを揃えて提出することでAIが年代を総合的に推定します。ただしAI鑑定は年代推定のサポートツールであり、真贋鑑定には対応していません。Big Eと判定された場合でも、高額の取引においては専門家の実物確認を組み合わせることを推奨します。AI鑑定の結果に「Big E期の可能性が高い」という推定が出れば、複数の写真でその一致を確認してから判断することが重要です。',
+        bodyEn: "AI identification is a useful supplement for Big E verification. Photos to submit for AI Big E identification: ①red tab front (can uppercase 'LEVIS' be confirmed?), ②red tab back (is the back also uppercase?), ③care label area (confirming absence), ④zipper brand stamp (TALON etc.), ⑤overall photo (selvedge and stitching verification). Submitting these together enables comprehensive AI era estimation. However, AI identification is a supporting tool for era estimation — it does not authenticate authenticity. Even if the AI indicates 'likely Big E era,' physical verification by an expert is recommended for high-value transactions. When AI results indicate high probability of Big E, confirming consistency across multiple photos before making a decision is key.",
+      },
     ],
   },
   {
@@ -514,6 +568,12 @@ export const ARTICLES: Article[] = [
         headingEn: 'Rarity Comparison with Other Factory Stamps',
         bodyJa: '工場刻印の希少性はSF（1・2番）が最高ですが、他の工場刻印も年代判定の補助指標として重要です。刻印1番（Valencia Street・SF）：最希少・ブランド発祥地。刻印2番（22nd Street・SF）：最希少・SF第2工場。刻印3番（Sioux City・Iowa）：中程度の希少性。刻印4番（Amarillo・Texas）：標準的な希少性。刻印5番（Blackstone・Virginia）：標準的な希少性。刻印6番（El Paso・Texas）：標準的な希少性。3桁刻印（例：230・453等）：1980年代〜2002年のアメリカ製後期に多い。アルファベット刻印（M・W等）：海外工場製（1990年代以降）。刻印の種類自体も年代の補助指標となります。SF刻印（1・2番）＋Big Eタブ＋ケアラベルなしの組み合わせは最も価値が高い条件のひとつです。',
         bodyEn: "SF stamps (1 and 2) are the rarest, but other factory stamps are important supplementary dating indicators. Stamp 1 (Valencia Street, SF): rarest, brand birthplace. Stamp 2 (22nd Street, SF): rarest, SF second factory. Stamp 3 (Sioux City, Iowa): moderate rarity. Stamp 4 (Amarillo, Texas): standard rarity. Stamp 5 (Blackstone, Virginia): standard rarity. Stamp 6 (El Paso, Texas): standard rarity. 3-digit stamps (e.g. 230, 453): common in late US-made pieces, 1980s–2002. Letter stamps (M, W, etc.): overseas factory (1990s+). Stamp type itself is a supplementary era indicator. SF stamp (1 or 2) + Big E tab + no care label is one of the highest-value combinations.",
+      },
+      {
+        headingJa: 'SF工場刻印と資産価値：長期的な見方',
+        headingEn: 'SF Factory Stamps and Long-Term Asset Value',
+        bodyJa: 'SF工場製リーバイスのコレクター価値は長期的に見ても安定しています。理由は明確です。①新たに製造されることがない：SF工場はすでに閉鎖されており、今後SF刻印の本物が増えることはありません。②歴史的価値の普遍性：リーバイスの創業地という歴史的意味は時代によって変わりません。③世界的な需要：特に日本・欧州のコレクターがSF工場製に高い価値を置いており、国際市場でも評価されています。実用的なアドバイス：SF工場刻印は販売時の説明に必ず明記してください。「Valencia Street工場（刻印1番）」「22nd Street工場（刻印2番）」と具体的に記載することで、知識のある買い手からの評価が上がります。また刻印が摩耗していて判読が難しい場合は、斜め光での写真撮影を複数枚行い最も鮮明なものを提供することで信頼性を高められます。コレクション目的での購入の場合は保管状態に注意し、長期的なコンディション維持を心がけてください。',
+        bodyEn: "The collector value of SF factory Levis remains stable from a long-term perspective. The reasons are clear: ①No new production possible — SF factories are closed; genuine SF-stamped pieces will never increase in supply. ②Timeless historical significance — the meaning of the brand's founding location doesn't change with time. ③Global demand — particularly Japanese and European collectors place high value on SF factory pieces, with recognition in international markets. Practical advice: always note the SF factory stamp in sales descriptions. Specifying 'Valencia Street factory (stamp 1)' or '22nd Street factory (stamp 2)' by name raises evaluation from knowledgeable buyers. If wear makes the stamp difficult to read, taking multiple angled-light photos and providing the clearest result improves credibility. For collection purposes, maintain careful storage conditions to preserve long-term condition.",
       },
     ],
   },
@@ -644,6 +704,12 @@ export const ARTICLES: Article[] = [
         bodyJa: 'メルカリでのよくあるトラブルと対処法を解説します。「商品説明と異なる」：購入者からクレームが入った場合はまず丁寧に話し合いを。それでも解決しない場合はメルカリ事務局に連絡してください。写真と説明で正確な情報を提供していれば返品要求は通りにくくなります。「サイズが違う」：表記サイズだけでなく実寸（ウエスト・股下・股上・ワタリ幅）を必ず記載することで防げます。「届いたら状態が悪い」：梱包時の写真を残しておくと証明になります。プチプチ（エアキャップ）での丁寧な梱包が基本です。「評価をもらえない」：取引完了後に「お受け取り確認をお願いします」とメッセージを送ると評価率が上がります。ヴィンテージ品は「古着」のため若干の使用感・経年変化は商品説明に必ず記載してください。',
         bodyEn: "Common Mercari issues and solutions. 'Item differs from description': if a buyer complains, start with a polite conversation. Contact Mercari support if unresolved. Providing accurate photos and descriptions makes return requests harder to sustain. 'Wrong size': always state actual measurements (waist, inseam, rise, thigh width) in addition to labeled size to prevent this. 'Item arrived in poor condition': keeping packing photos as evidence helps. Careful bubble-wrap packing is the baseline. 'No review received': sending a message after transaction asking for receipt confirmation improves review rates. Since vintage items are 'used clothing,' always disclose any wear or patina in the item description.",
       },
+      {
+        headingJa: 'メルカリ・eBay・ヤフオク：プラットフォーム比較',
+        headingEn: 'Mercari vs eBay vs Yahoo Auctions: Platform Comparison',
+        bodyJa: 'ヴィンテージLevi\'sを国内で売買する際の主要プラットフォームを比較します。メルカリ：最大のユーザー数・スマホ操作が簡単・固定価格制（即売れ）・コメント交渉あり・匿名配送可・国内限定。eBay（国際）：世界最大のヴィンテージ市場・海外バイヤーへのアクセス・Big E等希少品は海外価格が大幅に高いことが多い・英語対応必要・関税・国際発送の知識が必要。ヤフオク：オークション形式で相場より高く売れる可能性・古くからのヴィンテージ愛好家が多い・入札競争で希少品は高値がつきやすい・落札手数料あり。実用的な使い分け：一般的なSmall e・1980〜90年代モデルはメルカリ。Big E・SF工場・501XXなど希少品はeBayやヤフオクが高値になる傾向。国内完結を優先するならメルカリ＋ヤフオク両方に出品し反応を見るのが効果的です。',
+        bodyEn: "A comparison of major platforms for vintage Levi's trading in Japan. Mercari: largest user base, simple smartphone operation, fixed-price format (instant sales), comment negotiation, anonymous shipping available, domestic only. eBay (international): world's largest vintage market, access to overseas buyers, rare Big E pieces often fetch significantly higher prices internationally, requires English communication and knowledge of customs and international shipping. Yahoo Auctions: auction format can yield above-market prices, attracts veteran vintage collectors, rare items can spark bidding wars, seller fee applies. Practical usage: Small e and 1980–90s models work well on Mercari; for Big E, SF factory, and 501XX rarities, eBay and Yahoo Auctions tend to achieve higher prices. Prioritizing domestic simplicity: listing on both Mercari and Yahoo Auctions to gauge response is effective.",
+      },
     ],
   },
   {
@@ -769,6 +835,12 @@ export const ARTICLES: Article[] = [
         bodyJa: '1955年頃から本革パッチがJacron（革風ボール紙）に変更されましたが、「Every Garment Guaranteed」スローガンが継続し、Big Eタブ・ケアラベルなし・セルビッジデニムは変わりません。1962年に「Every Garment Guaranteed」が廃止され501XX時代が幕を閉じます。品番上のXXサフィックスはこの時代も継続しており、コレクターは「Late XX」として区別することがあります。TALON 42ジッパー（505等）・Big Eタブ・Jacronパッチの組み合わせが典型的なディテールです。',
         bodyEn: "From around 1955, the leather patch was replaced by Jacron (leather-like cardboard), but the 'Every Garment Guaranteed' slogan continued, with Big E tab, no care label, and selvedge unchanged. The slogan was removed in 1962, closing the 501XX era. The XX suffix continued through this period, with collectors sometimes distinguishing these as 'Late XX.' TALON 42 zipper (on 505 etc.) + Big E tab + Jacron patch is the typical detail combination.",
       },
+      {
+        headingJa: '501XXの購入・鑑定ガイドと注意事項',
+        headingEn: '501XX Purchase & Identification Guide',
+        bodyJa: '501XXは市場に出回ること自体が稀なため、購入・鑑定には慎重な確認が必要です。購入時の確認ポイント：①本革パッチの真偽（後付けの偽革パッチが存在します）。②Big Eタブ両面写真（片面しか写っていない場合は要追加確認）。③ケアラベルの有無（501XXであればケアラベルは存在しない）。④ジッパーブランド（ジッパーフライモデルの場合）。⑤複数ポイントの整合性（年代が矛盾していないか）。LVC（Levis Vintage Clothing）の復刻品は501XXを模した品も多く、ケアラベルに「LEVIS VINTAGE CLOTHING」の表記があればLVCです。501XXと主張する高額品は写真だけで判断せず、実物確認や専門家への相談を組み合わせることを強く推奨します。AI鑑定は複数ポイントの写真を提出することで年代推定の参考になりますが、501XXの真贋鑑定は専門家の判断が不可欠です。',
+        bodyEn: "501XX pieces are rare even to encounter on the market, requiring careful verification for any purchase or identification. Purchase verification points: ①leather patch authenticity (post-added fake patches exist); ②Big E tab photo of both sides (request additional photos if only one side shown); ③care label presence (genuine 501XX will have none); ④zipper brand (for zipper-fly associated models); ⑤multi-point consistency (no era contradictions). LVC reproductions include 501XX-inspired pieces — 'LEVIS VINTAGE CLOTHING' on the care label confirms LVC. For high-value 501XX claims, never rely on photos alone — strongly recommend combining physical inspection with expert consultation. AI identification using multiple photo points is useful as a dating reference, but expert judgment is essential for 501XX authentication.",
+      },
     ],
   },
   {
@@ -851,6 +923,18 @@ export const ARTICLES: Article[] = [
         bodyJa: '701と関連するレディースモデルには702・705・912があります。702・705は1950〜60年代に製造されたレディースモデルで、現存数が少ない希少品です。912はオレンジタブラインのスリムテーパードモデルで、オレンジタブ廉価ラインのレディース向けモデルとして展開されました。現行品では721（ハイライズスキニー）・724（ハイライズストレート）が700番台の系譜を引き継いでいます。これらと701ヴィンテージを区別するには、タブ色・ケアラベル・セルビッジを確認してください。',
         bodyEn: "Related women's models include the 702, 705, and 912. The 702 and 705 are women's models from the 1950s–60s with few surviving examples. The 912 is a slim-tapered model from the orange tab budget line for women. Today's 721 (high rise skinny) and 724 (high rise straight) carry forward the 700 series lineage. To distinguish these from vintage 701s, check tab color, care label, and selvedge.",
       },
+      {
+        headingJa: '701の市場価値と購入時の注意点',
+        headingEn: '701 Market Value and Purchase Cautions',
+        bodyJa: 'リーバイス701の市場価値は年代・コンディション・希少要素によって大きく異なります。最高評価クラスは1934〜1954年の本革パッチ×Big Eタブ×ケアラベルなし×セルビッジの個体で、状態が良ければ数万円〜それ以上の評価を受ける場合があります。Big E期（1971年以前）のセルビッジ701は501の同年代品より流通量が少なく、コレクター間での希少性は高い傾向にあります。購入時の注意点：①サイズ：701はレディース向け設計のため、同じウエスト表記でも501より細身です。実寸（ウエスト・股下・股上）を必ず確認してください。②「Student Fit」表記の有無：タグに記載されているか確認し、701と他のレディースモデルを区別する指標にしてください。③縫製の整合性：複数のディテール（タブ・ケアラベル・セルビッジ・ジッパー）が同じ年代を示しているか確認し、パーツ交換や改造がないかチェックします。④コンディション確認：股部分・裾・ポケット周辺の状態を写真で必ず確認してください。',
+        bodyEn: "Market value for the Levis 701 varies significantly by era, condition, and rarity factors. Top tier pieces are 1934–1954 leather patch + Big E tab + no care label + selvedge examples, which can command tens of thousands of yen or more in good condition. Big E era (pre-1971) selvedge 701s circulate less frequently than equivalent 501s, making them comparatively rare among collectors. Purchase cautions: ①Size: the 701's women's-specific design means the same waist measurement runs slimmer than the 501 — always confirm actual measurements (waist, inseam, rise). ②'Student Fit' label: verify its presence on the tag as a key marker distinguishing the 701 from other women's models. ③Consistency: confirm that multiple details (tab, care label, selvedge, zipper) point to the same era and check for part replacements or alterations. ④Condition: always review photos of the crotch area, hem, and pockets carefully.",
+      },
+      {
+        headingJa: '701をAI鑑定に出す際のポイント',
+        headingEn: 'Tips for AI Identifying the 701',
+        bodyJa: '701をAI鑑定に出す際は以下の写真が特に重要です。まずタグ類の撮影が最優先です。「Student Fit」「701」という型番表記が確認できる内側のタグ・ウエストバンド内側のタグを鮮明に撮影してください。次に赤タブです。大文字Big Eか小文字かを判別できるよう、タブの表裏両面を撮影します。ケアラベルがある場合は全文が読めるよう接写してください。ジッパーのブランド刻印（TALON・YKK等）も撮影します。セルビッジがある場合は裾の折り返し部分を撮影してください。これら複数のポイントをカバーした5〜7枚の写真を提出することで、AI鑑定の精度が大幅に向上します。701は501に比べて鑑定事例が少ないため、AIに「レディースモデル」「701の可能性あり」と事前に伝えることで判定精度が上がります。',
+        bodyEn: "For AI identification of the 701, the following photos are especially important. Tag photography is the top priority — photograph the interior tag showing 'Student Fit' and '701' model number clearly, along with the waistband interior tag. Next, photograph the red tab: both front and back sides clearly enough to distinguish uppercase Big E from lowercase. If a care label exists, take a close-up covering the full text. Photograph the zipper brand stamp (TALON, YKK, etc.). If selvedge is present, photograph the turned-up hem area. Submitting 5–7 photos covering these multiple points significantly improves AI identification accuracy. Since the 701 has fewer documented identification cases than the 501, informing the AI upfront that this is 'likely a women's model' or '701' can improve result precision.",
+      },
     ],
   },
   {
@@ -891,6 +975,12 @@ export const ARTICLES: Article[] = [
         headingEn: 'Jacket Dating Priority Order',
         bodyJa: 'デニムジャケットの年代判定は以下の優先順位で行うと効率的です。最重要（どちらか一方で即判定）：①赤タブ（Big E→1971年以前・Small e→1971年以降）・②ケアラベルの有無（なし→1971年以前確定）。重要（年代を10年単位で絞る）：③ジッパーブランド（Scovill→1950年代以前・TALON 42→1950〜60年代・TALON→60年代後半〜70年代前半・YKK→70年代以降）・④セルビッジ有無（あり→1985年以前）。補助（さらに精密化）：⑤ポケット構成でType判定・⑥アウトシームオーバーロック色・⑦リベット状態・⑧パッチ素材。',
         bodyEn: "Efficient jacket dating follows this priority order. Most important (either alone enables instant dating): ①red tab (Big E = pre-1971, Small e = post-1971), ②care label presence (absent = confirmed pre-1971). Important (narrows to within a decade): ③zipper brand (Scovill = pre-1950s, TALON 42 = 1950s–60s, TALON = late 60s–early 70s, YKK = post-1970s), ④selvedge presence (present = pre-1985). Supporting (further precision): ⑤pocket configuration for Type identification, ⑥outseam overlock color, ⑦rivet condition, ⑧patch material.",
+      },
+      {
+        headingJa: 'リーバイスジャケットの市場価値と購入ガイド',
+        headingEn: 'Levis Jacket Market Value and Purchase Guide',
+        bodyJa: 'リーバイスデニムジャケットの市場価値はType・年代・コンディションによって大きく異なります。市場価値の目安：Type1（506XX・Big E）：$3,000〜$15,000以上（コンディション次第）。Type2（507XX・Big E）：$2,000〜$10,000以上。Type3（557XX）Big E期：$300〜$2,000。Type3（557XX）Small e期：$100〜$500。購入時の確認事項：①タブ・ケアラベルの整合性（Big Eを主張しているのにケアラベルがある場合は要注意）。②ジッパーブランドとの一致確認。③セルビッジの有無（1985年以前なら基本的にあるはず）。④縫製の状態（特に袖付け・ポケット縫製の均一性）。⑤裏地の状態（ブランケットライナーの残存状態・変色）。LVC（Levis Vintage Clothing）はType1・2・3すべての復刻品を製造しているため、ケアラベルの確認は必須です。「LEVIS VINTAGE CLOTHING」の表記があればLVCです。Type1・2の出品はまれなため、市場に出た際には慎重に複数のポイントを確認してから購入判断をしてください。',
+        bodyEn: "Levis denim jacket market value varies significantly by Type, era, and condition. General market value ranges: Type 1 (506XX, Big E): $3,000–$15,000+ (condition-dependent). Type 2 (507XX, Big E): $2,000–$10,000+. Type 3 (557XX) Big E era: $300–$2,000. Type 3 (557XX) Small e era: $100–$500. Purchase verification: ①Tab and care label consistency (be cautious if Big E is claimed but a care label is present). ②Confirm zipper brand matches era claim. ③Selvedge presence (should be present for pre-1985). ④Stitching condition (especially sleeve attachment and pocket stitching uniformity). ⑤Lining condition (blanket liner survival, discoloration). LVC produces reproductions of all three Types — checking for 'LEVIS VINTAGE CLOTHING' on the care label is mandatory. Type 1 and 2 listings are rare; when they appear, carefully verify multiple points before purchase.",
       },
     ],
   },
@@ -934,6 +1024,12 @@ export const ARTICLES: Article[] = [
         headingEn: '1980s Value and Made in USA',
         bodyJa: '1980年代のLevi\'sはBig E期ほどの希少性はないものの、Made in USAの最終期として一定の需要があります。特に価値が高い仕様：セルビッジあり（1985年以前）・オレンジオーバーロック（1981〜1984年）・日付コードが読める・ケアラベルが鮮明。Made in USA表記がケアラベルにあれば2002年以前の確定です。一般的な価格帯：セルビッジあり1980年代前半：$60〜$200程度。セルビッジなし1980年代：$30〜$100程度。コンディションがよく、オリジナルのヘムが残っていると評価が上がります。チェーンステッチのヘムはシングルステッチより価値が高く、裾上げ済みのものは価値が下がります。',
         bodyEn: "1980s Levis don't command Big E rarity, but Made in USA final era status maintains steady demand. Higher-value specs: selvedge present (pre-1985), orange overlock (1981–1984), readable date codes, clear care label. 'Made in USA' on the care label confirms pre-2002. General price ranges: 1980s with selvedge: $60–$200. 1980s without selvedge: $30–$100. Good condition with original hem increases valuation. Chain-stitched hems are valued above single-stitch, and altered/hemmed pieces lose value.",
+      },
+      {
+        headingJa: '1980年代リーバイス鑑定の実践まとめ',
+        headingEn: '1980s Identification Practical Summary',
+        bodyJa: '1980年代を効率よく特定するための実践的な手順をまとめます。まず赤タブを確認します。Small e（片面小文字）であれば1971年以降→次にケアラベルで絞り込みます。次にセルビッジを確認します。セルビッジあり→1985年以前。セルビッジなし→1981年以降。セルビッジなしの場合はアウトシームのオーバーロック色を確認します。オレンジ→1981〜1984年。白→1985〜1993年。ケアラベルにバットウィングロゴあり→1986年以降確定。ケアラベルの日付コードを確認します。3桁コード（例：127）→1984〜1992年。4桁コード（例：1295）→1993年以降。「Made in USA」表記→2002年以前確定。これらを組み合わせると1980年代のどの時期かを±3年以内の精度で特定できます。AI鑑定に提出する写真は、ケアラベル全体（日付コード・バットウィングロゴ・言語数が読める）・アウトシーム（オーバーロック色が確認できる）・赤タブ・全体写真の4〜5枚が最低限必要です。',
+        bodyEn: "Practical steps for efficient 1980s identification. First check the red tab: Small e (one side lowercase) = post-1971 → narrow further with care label. Next confirm selvedge: present = pre-1985; absent = post-1981. If no selvedge, check outseam overlock color: orange = 1981–1984; white = 1985–1993. Batwing logo on care label = confirmed post-1986. Check care label date code: 3-digit (e.g. 127) = 1984–1992; 4-digit (e.g. 1295) = post-1993; 'Made in USA' = confirmed pre-2002. Combining these narrows the 1980s period to within ±3 years. Minimum photos for AI identification: full care label (showing date code, batwing logo, and language count), outseam (showing overlock color), red tab, and overall — at least 4–5 photos.",
       },
     ],
   },
@@ -1187,6 +1283,12 @@ export const ARTICLES: Article[] = [
         bodyJa: '価格判断で注意すべき点を挙げます。①Levis Vintage Clothing（LVC）の復刻品は本物と混同されやすく、誤って高値がつくことがある。②出品者がBig Eを自称していても、写真から確認することが必要。③写真が少ない・不鮮明な出品は、ダメージを隠している可能性がある。④「1950年代」などの年代表記は出品者の主観であることが多く、鑑定ポイントで裏付けが必要。⑤AI鑑定は年代推定の参考として有効ですが、高額品の購入判断には専門家の意見も参考にすることを推奨します。正確な情報と複数ポイントの確認が、適正価格での取引につながります。',
         bodyEn: "Key cautions for price judgment. ①Levis Vintage Clothing (LVC) reproductions are easily confused with originals and may be overpriced. ②Even if a seller claims Big E, verify from photos. ③Listings with few or unclear photos may be concealing damage. ④Era claims like '1950s' often reflect seller opinion — verify with identification points. ⑤AI identification is useful as a dating reference, but for high-value purchases, consulting an expert is recommended. Accurate information and multi-point verification lead to fair-value transactions.",
       },
+      {
+        headingJa: 'AI鑑定を活用した適正価格判断の方法',
+        headingEn: 'Using AI Identification for Accurate Price Assessment',
+        bodyJa: 'AI鑑定を価格判断に活用するための実践ガイドです。購入前の活用法：自分が購入を検討している個体の写真をAIに送信し、推定年代・型番・信頼度を確認します。AI推定年代と出品者の申告年代が一致しているかを確認することで、過大申告や誤記載を発見できる場合があります。売却前の活用法：自分が所有するヴィンテージLevi\'sをAI鑑定に送信し、年代・型番の推定を受けてから価格を設定することで、適切な価格設定ができます。AI鑑定の限界：AI鑑定は写真情報をもとにした推定であり、真贋鑑定や保証はできません。特に高額品（5万円以上）は専門家への相談も組み合わせることを推奨します。AI鑑定結果はeBayやメルカリでの相場調査と組み合わせることで、より精度の高い価格判断が可能になります。AI鑑定後に相場検索リンク（eBay・メルカリ）が表示されるので、実際の取引価格を直接確認してみてください。',
+        bodyEn: "A practical guide for using AI identification in price assessment. Before purchasing: send photos of a piece you're considering to the AI and check the estimated era, model, and confidence score. Comparing the AI's era estimate with the seller's stated era can reveal overstatements or errors. Before selling: submitting your own vintage Levi's for AI identification before pricing ensures you set an appropriate price based on objective era and model estimates. AI identification limits: AI identification is an estimate based on photo information — it cannot authenticate or guarantee authenticity. For high-value pieces (over ¥50,000), combining AI results with expert consultation is recommended. Pairing AI identification with market research on eBay and Mercari enables more accurate price judgment. After AI identification, search links for eBay and Mercari are displayed — check them directly for real transaction prices.",
+      },
     ],
   },
   {
@@ -1268,6 +1370,12 @@ export const ARTICLES: Article[] = [
         headingEn: 'Drying and Storage',
         bodyJa: '乾燥は日陰の風通しの良い場所に吊るして自然乾燥させます。直射日光は色落ちと生地劣化の原因になるため避けてください。ウエストバンドをハンガーに掛けて吊るすと型崩れしにくいです。完全に乾いていない状態での保管はカビの原因になります。保管時の注意点：直射日光を避けた乾燥した場所に保管する。折り畳む場合はシワが入りにくいよう軽く折る。ハンガー保管の場合は厚みのあるハンガーを使用する（細いハンガーはウエストに跡がつくことがある）。防虫剤は直接生地に触れないようにする（変色の原因）。長期保管の場合は年に1〜2回取り出して風通しをする。本革パッチのある個体は乾燥が強い場所では革が割れることがあるため、適度な湿度管理も重要です。',
         bodyEn: "Dry by hanging in a shaded, well-ventilated area. Avoid direct sunlight as it causes fading and fabric deterioration. Hanging from the waistband prevents distortion. Storage while still damp causes mold. Storage precautions: store in a dry location away from direct sunlight; fold gently to minimize creases; use thick hangers if hanging (thin hangers can mark the waistband); ensure mothballs or insect repellent don't directly contact fabric (causes discoloration); air out once or twice a year for long-term storage. For pieces with leather patches, manage humidity — excessive dryness can crack leather.",
+      },
+      {
+        headingJa: 'セルビッジと非セルビッジ、年代別ケアのポイント',
+        headingEn: 'Care Differences: Selvedge vs Non-Selvedge by Era',
+        bodyJa: '年代によってデニム生地の性質が異なるため、ケア方法も若干異なります。セルビッジデニム（1981年以前）：シャトル織機で織られた生地は現代のロータリー織機製より縮みやすい傾向があります。洗濯時は冷水を使用し、押し洗いを徹底してください。初回洗濯では特に大きな縮みが生じる可能性があるため、サイズに余裕がある個体を洗う際は注意が必要です。Big E期（1971年以前）：ケアラベルがない時代の製品です。洗濯表示がないため特に慎重なケアが求められます。本革パッチがある1950年代前半の個体は水への露出を最小限にしてください。1980年代以降の非セルビッジ：比較的安定した素材ですが、色落ちは現代品より進みやすいです。デニム専用洗剤の使用と裏返しでの洗濯を守ることで色の退色を防げます。どの年代でも共通して「乾燥機の使用は厳禁」「洗濯頻度を下げる」という原則は変わりません。使用後は陰干しで湿気を飛ばすだけで洗濯回数を大幅に減らせます。',
+        bodyEn: "Different eras produce different denim characteristics, requiring slightly different care. Selvedge denim (pre-1981): shuttle-loom fabric tends to shrink more than modern rotary-loom fabric. Use cold water and gentle press-washing. Expect significant shrinkage on the first wash, so take care with pieces where you rely on exact measurements. Big E era (pre-1971): no care label exists. The absence of washing instructions demands extra caution. For early 1950s pieces with leather patches, minimize water exposure entirely. Post-1980s non-selvedge: comparatively stable material but still fades more readily than modern production. Using denim detergent and washing inside out prevents significant color loss. Across all eras, the universal rules remain: never use a tumble dryer and wash as infrequently as possible. After wearing, simply hanging in the shade to air out eliminates the need for frequent washing.",
       },
     ],
   },

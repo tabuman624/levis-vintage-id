@@ -1,0 +1,381 @@
+'use client';
+import { useState } from 'react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import StitchLine from '@/components/StitchLine';
+
+const MERCARI_LINK = "https://px.a8.net/svt/ejp?a8mat=4B3MEQ+DIF60I+5LNQ+5YJRM";
+const EBAY_BASE = "https://www.ebay.com/sch/i.html?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339152643&toolid=10001&mkevt=1&_nkw=";
+
+export default function JacketIdentifyClient({ locale }: { locale: string }) {
+  const t = (ja: string, en: string) => locale === 'ja' ? ja : en;
+  const [requiredImages, setRequiredImages] = useState<(string|null)[]>([null, null]);
+  const [optionalImages, setOptionalImages] = useState<(string|null)[]>(Array(6).fill(null));
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<any>(null);
+  const [error, setError] = useState('');
+  const [recordId, setRecordId] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<'helpful' | 'not_helpful' | null>(null);
+
+  const requiredSlots = locale === 'ja'
+    ? ['正面全体\n(フロントビュー)', '赤タブ or\n内部ラベル']
+    : ['Front View\n(full body)', 'Red Tab or\nInner Label'];
+
+  const optionalSlots = locale === 'ja'
+    ? ['背面全体\n(バックビュー)', 'パッチ\n(腰部裏)', 'ボタン裏\n(刻印番号)', 'ジッパー\n(ブランド)', '胸ポケット\n(フラップ近景)', 'ケアラベル\n(洗濯表示)']
+    : ['Back View\n(full body)', 'Patch\n(rear waist)', 'Button Back\n(stamp)', 'Zipper\n(brand)', 'Chest Pocket\n(flap detail)', 'Care Label\n(washing tag)'];
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>, idx: number, isRequired: boolean) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const canvas = document.createElement('canvas');
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const MAX = 800;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+        else { w = Math.round(w * MAX / h); h = MAX; }
+      }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d')!.drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+      if (isRequired) {
+        const next = [...requiredImages];
+        next[idx] = dataUrl;
+        setRequiredImages(next);
+      } else {
+        const next = [...optionalImages];
+        next[idx] = dataUrl;
+        setOptionalImages(next);
+      }
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+  };
+
+  const analyze = async () => {
+    if (!requiredImages.some(Boolean)) {
+      setError(t('正面全体または内部ラベルの写真を1枚以上アップロードしてください', 'Please upload at least one required photo (Front View or Label)'));
+      return;
+    }
+    const photos: string[] = [];
+    const slotsUsed: string[] = [];
+    requiredImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(`required_${i}`); } });
+    optionalImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(`optional_${i}`); } });
+
+    setError(''); setLoading(true); setResult(null); setRecordId(null); setFeedback(null);
+    try {
+      const res = await fetch('/api/identify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ images: photos, slots: slotsUsed, locale, itemType: 'jacket' }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error);
+      const data = await res.json();
+      setResult(data);
+      if (data._id) setRecordId(data._id);
+      document.getElementById('result')?.scrollIntoView({ behavior: 'smooth' });
+    } catch (e: any) {
+      setError(t('エラー: ', 'Error: ') + e.message);
+    } finally { setLoading(false); }
+  };
+
+  const sendFeedback = async (value: 'helpful' | 'not_helpful') => {
+    if (!recordId || feedback) return;
+    setFeedback(value);
+    fetch('/api/identify/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: recordId, feedback: value }),
+    }).catch(() => {});
+  };
+
+  const trackClick = (platform: 'ebay' | 'mercari') => {
+    if (!recordId) return;
+    fetch('/api/identify/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: recordId, affiliate_click: platform }),
+    }).catch(() => {});
+  };
+
+  const confidenceClass = result?.confidence === 'HIGH'
+    ? 'border-green-500 text-green-400 bg-green-500/10'
+    : result?.confidence === 'MID'
+    ? 'border-stitch text-stitch bg-stitch/10'
+    : 'border-rust text-red-400 bg-rust/10';
+
+  const ebaySearchUrl = result
+    ? `${EBAY_BASE}${encodeURIComponent('levis jacket ' + (result.model || '') + ' ' + (result.era || '') + ' vintage denim')}`
+    : `${EBAY_BASE}levis+vintage+denim+jacket`;
+
+  return (
+    <>
+      <Header locale={locale} />
+      <StitchLine />
+      <div className="relative z-10 max-w-3xl mx-auto px-6 py-16">
+        <div className="text-center mb-14">
+          <p className="font-mono text-[10px] tracking-[4px] text-stitch uppercase mb-4">{t('ジャケット AI 鑑定', 'JACKET AI IDENTIFICATION')}</p>
+          <h1 className="font-playfair font-bold text-[#f0ebe0] mb-4" style={{fontSize:'clamp(26px,5vw,44px)'}}>
+            <span className="text-rust">LEVI&apos;S</span> JACKET ID.
+          </h1>
+          <p className="text-sm text-fade font-light">
+            {t(
+              'Type I〜Type III（506XX/507XX/557XX/70505）を写真から年代・型番をAIが判定します',
+              'AI identifies era and model for Type I–III jackets (506XX/507XX/557XX/70505) from your photos'
+            )}
+          </p>
+
+          {/* Type案内バッジ */}
+          <div className="flex flex-wrap justify-center gap-2 mt-5">
+            {[
+              ['Type I', '506XX', '1905〜1952'],
+              ['Type II', '507XX', '1953〜1962'],
+              ['Type III', '557XX / 70505', '1962〜'],
+            ].map(([type, model, era]) => (
+              <div key={type} className="bg-[#1a2a3a]/40 border border-stitch/20 rounded px-3 py-1.5 text-center">
+                <span className="font-mono text-[9px] text-stitch block">{type}</span>
+                <span className="font-mono text-[8px] text-rust block">{model}</span>
+                <span className="font-mono text-[7px] text-fade/60 block">{era}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 必須セクション */}
+        <div className="mb-2 flex items-center gap-2">
+          <p className="font-mono text-[10px] tracking-[3px] text-stitch/80 uppercase">{t('必須（1枚以上）', 'REQUIRED — Upload at least one')}</p>
+          <span className="font-mono text-[8px] tracking-[1px] bg-rust/20 text-rust border border-rust/30 rounded-full px-2 py-0.5">
+            {t('Type判別に必要', 'FOR TYPE ID')}
+          </span>
+        </div>
+        <div className="grid grid-cols-2 gap-2 mb-5">
+          {requiredImages.map((img, i) => (
+            <div key={i} className={`aspect-square rounded-md flex flex-col items-center justify-center relative overflow-hidden cursor-pointer transition-all ${img ? 'border border-stitch/60' : 'border border-dashed border-rust/40 bg-[#1a2a3a]/30 hover:border-rust/60'}`}>
+              {img ? (
+                <>
+                  <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover rounded-md" />
+                  <div className="absolute inset-0 bg-[#1a2a3a]/70 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center rounded-md"
+                    onClick={() => { const n=[...requiredImages]; n[i]=null; setRequiredImages(n); }}>
+                    <span className="font-mono text-[9px] text-rust">✕ {t('削除','Remove')}</span>
+                  </div>
+                </>
+              ) : (
+                <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer">
+                  <span className="text-rust/50 text-xl mb-1">＋</span>
+                  <span className="font-mono text-[8px] text-fade/70 text-center px-1 leading-tight whitespace-pre-line">{requiredSlots[i]}</span>
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFile(e, i, true)} />
+                </label>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* 任意セクション */}
+        <p className="font-mono text-[10px] tracking-[3px] text-stitch/50 uppercase mb-2">{t('任意（追加で精度UP）', 'OPTIONAL — Improves accuracy')}</p>
+        <div className="grid grid-cols-3 gap-2 mb-6">
+          {optionalImages.map((img, i) => (
+            <div key={i} className={`aspect-square rounded-md flex flex-col items-center justify-center relative overflow-hidden cursor-pointer transition-all ${img ? 'border border-stitch/60' : 'border border-dashed border-stitch/20 bg-[#1a2a3a]/20 hover:border-stitch/40'}`}>
+              {img ? (
+                <>
+                  <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover rounded-md" />
+                  <div className="absolute inset-0 bg-[#1a2a3a]/70 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center rounded-md"
+                    onClick={() => { const n=[...optionalImages]; n[i]=null; setOptionalImages(n); }}>
+                    <span className="font-mono text-[9px] text-rust">✕ {t('削除','Remove')}</span>
+                  </div>
+                </>
+              ) : (
+                <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer">
+                  <span className="text-stitch/30 text-xl mb-1">＋</span>
+                  <span className="font-mono text-[8px] text-fade/50 text-center px-1 leading-tight whitespace-pre-line">{optionalSlots[i]}</span>
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFile(e, i, false)} />
+                </label>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <p className="font-mono text-[9px] text-fade/40 text-center mb-4 leading-relaxed">
+          {t('送信することで、AI精度改善のための写真保存に同意したものとみなします。', 'By submitting, you agree to photos being stored to improve AI accuracy.')}
+        </p>
+
+        {error && <p className="text-rust font-mono text-xs mb-4 bg-rust/10 border border-rust/25 rounded px-4 py-3">{error}</p>}
+
+        <button onClick={analyze} disabled={loading || !requiredImages.some(Boolean)}
+          className="w-full py-5 rounded font-mono text-sm tracking-[4px] uppercase bg-rust text-white transition-all hover:bg-red-500 disabled:opacity-40 disabled:cursor-not-allowed mb-10">
+          {loading ? (
+            <span className="flex items-center justify-center gap-3">
+              <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              {t('AIが鑑定中...', 'Analyzing...')}
+            </span>
+          ) : t('無料でAI鑑定する', 'Identify for Free')}
+        </button>
+
+        {result && (
+          <div id="result">
+            <p className="font-mono text-[10px] tracking-[3px] text-stitch/80 uppercase mb-3">{t('鑑定結果', 'RESULT')}</p>
+            <div className="bg-[#1a2a3a]/40 border border-stitch/20 rounded-xl overflow-hidden">
+              <div className="flex items-center justify-between px-6 py-5 border-b border-stitch/10 bg-gradient-to-r from-rust/20 to-stitch/10">
+                <span className="font-playfair font-bold text-stitch text-lg">{t('鑑定レポート', 'VINTAGE REPORT')}</span>
+                <span className={`font-mono text-[10px] tracking-[2px] border rounded-full px-3 py-1 ${confidenceClass}`}>
+                  {result.confidence === 'HIGH' ? t('信頼度: 高', 'CONFIDENCE: HIGH')
+                    : result.confidence === 'MID' ? t('信頼度: 中', 'CONFIDENCE: MID')
+                    : t('信頼度: 低', 'CONFIDENCE: LOW')}
+                </span>
+              </div>
+
+              <div className="p-6 grid grid-cols-2 gap-3 mb-2">
+                {/* jacket_type を先頭に */}
+                {result.jacket_type && (
+                  <div className="col-span-2 bg-rust/10 border border-rust/25 rounded px-4 py-3">
+                    <div className="font-mono text-[8px] tracking-[2px] text-rust uppercase mb-1">{t('ジャケットタイプ', 'JACKET TYPE')}</div>
+                    <div className="text-base font-bold text-[#f0ebe0]">{result.jacket_type}</div>
+                  </div>
+                )}
+                {[
+                  { key:'era', label:t('推定年代','ERA') },
+                  { key:'model', label:t('型番','MODEL') },
+                  { key:'factory', label:t('製造工場','FACTORY') },
+                  { key:'country', label:t('製造国','COUNTRY') },
+                  { key:'rarity', label:t('希少性','RARITY') },
+                ].map(({key,label}) => (
+                  <div key={key} className="bg-[#1a2a3a]/40 border border-stitch/10 rounded px-4 py-3">
+                    <div className="font-mono text-[8px] tracking-[2px] text-stitch/70 uppercase mb-1">{label}</div>
+                    <div className="text-sm font-medium text-[#f0ebe0]">{result[key] || '—'}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="px-6 pb-4">
+                <div className="h-px bg-stitch/10 mb-4" />
+                <div className="grid grid-cols-1 gap-3 mb-4">
+                  {result.confirmed?.length > 0 && (
+                    <div className="bg-green-500/5 border border-green-500/20 rounded px-4 py-3">
+                      <div className="font-mono text-[8px] tracking-[2px] text-green-400 uppercase mb-2">{t('確定', 'CONFIRMED')}</div>
+                      <ul className="space-y-1">
+                        {result.confirmed.map((item: string, i: number) => (
+                          <li key={i} className="text-xs text-[#f0ebe0]/80 font-light flex gap-2">
+                            <span className="text-green-400 shrink-0">✓</span>{item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {result.estimated?.length > 0 && (
+                    <div className="bg-stitch/5 border border-stitch/20 rounded px-4 py-3">
+                      <div className="font-mono text-[8px] tracking-[2px] text-stitch uppercase mb-2">{t('推定', 'ESTIMATED')}</div>
+                      <ul className="space-y-1">
+                        {result.estimated.map((item: string, i: number) => (
+                          <li key={i} className="text-xs text-[#f0ebe0]/80 font-light flex gap-2">
+                            <span className="text-stitch shrink-0">〜</span>{item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {result.unknown?.length > 0 && (
+                    <div className="bg-[#1a2a3a]/30 border border-stitch/10 rounded px-4 py-3">
+                      <div className="font-mono text-[8px] tracking-[2px] text-fade/60 uppercase mb-2">{t('不明・写真不足', 'UNKNOWN')}</div>
+                      <ul className="space-y-1">
+                        {result.unknown.map((item: string, i: number) => (
+                          <li key={i} className="text-xs text-[#f0ebe0]/50 font-light flex gap-2">
+                            <span className="shrink-0">—</span>{item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                {result.next_steps && (
+                  <div className="bg-rust/5 border border-rust/20 rounded px-4 py-3 mb-4">
+                    <div className="font-mono text-[8px] tracking-[2px] text-rust uppercase mb-1">{t('精度を上げるには', 'IMPROVE ACCURACY')}</div>
+                    <p className="text-xs text-[#f0ebe0]/70 font-light leading-relaxed">→ {result.next_steps}</p>
+                  </div>
+                )}
+
+                <div className="h-px bg-stitch/10 mb-4" />
+                <p className="text-xs text-[#f0ebe0]/70 leading-loose font-light">
+                  <strong className="text-stitch/80">{t('■ 総合判定', '■ Summary')}</strong><br /><br />
+                  {result.reasoning}
+                </p>
+              </div>
+
+              {/* フィードバック */}
+              <div className="px-6 pb-5 border-t border-stitch/10 pt-4">
+                <p className="font-mono text-[9px] tracking-[2px] text-stitch/70 uppercase mb-3">
+                  {t('この結果は正確でしたか？', 'Was this result accurate?')}
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => sendFeedback('helpful')}
+                    className={`font-mono text-[10px] border rounded px-4 py-2 transition-colors ${feedback === 'helpful' ? 'bg-green-500/20 border-green-500/50 text-green-400' : 'border-stitch/20 text-fade/60 hover:border-green-500/40 hover:text-green-400'}`}
+                  >
+                    {feedback === 'helpful' ? t('✓ 正確だった', '✓ Accurate') : t('👍 正確だった', '👍 Accurate')}
+                  </button>
+                  <button
+                    onClick={() => sendFeedback('not_helpful')}
+                    className={`font-mono text-[10px] border rounded px-4 py-2 transition-colors ${feedback === 'not_helpful' ? 'bg-rust/20 border-rust/50 text-rust' : 'border-stitch/20 text-fade/60 hover:border-rust/40 hover:text-rust'}`}
+                  >
+                    {feedback === 'not_helpful' ? t('✓ 違う気がする', '✓ Not quite') : t('👎 違う気がする', '👎 Not quite')}
+                  </button>
+                </div>
+              </div>
+
+              {/* アフィリエイトリンク */}
+              <div className="px-6 pb-5 border-t border-stitch/10 pt-4">
+                <p className="font-mono text-[9px] tracking-[2px] text-stitch/70 uppercase mb-3">
+                  {t('類似品を探す', 'Find Similar Items')}
+                </p>
+                <div className="flex gap-3 flex-wrap">
+                  <a
+                    href={ebaySearchUrl}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    onClick={() => trackClick('ebay')}
+                    className="font-mono text-[10px] border border-stitch/25 text-stitch hover:bg-stitch/10 rounded px-4 py-2 transition-colors"
+                  >
+                    {t('eBayで類似品を見る', 'Find on eBay')}
+                  </a>
+                  <a
+                    href={MERCARI_LINK}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    onClick={() => trackClick('mercari')}
+                    className="font-mono text-[10px] border border-rust/25 text-red-400 hover:bg-rust/10 rounded px-4 py-2 transition-colors"
+                  >
+                    {t('メルカリで検索', 'Search Mercari')}
+                  </a>
+                </div>
+                <img src="https://www10.a8.net/0.gif?a8mat=4B3MEQ+DIF60I+5LNQ+5YJRM" width="1" height="1" alt="" style={{display:'block'}} />
+              </div>
+            </div>
+            <p className="font-mono text-[9px] text-fade/50 text-center mt-4 leading-relaxed">
+              {t('※ 本鑑定はAIによる推定です。正確性を保証するものではありません。本サービスはLevi Strauss & Co.とは無関係の独立サービスです。',
+                '※ Results are AI estimates only. Not guaranteed. Independent of Levi Strauss & Co.')}
+            </p>
+          </div>
+        )}
+
+        <div className="stitch-line my-10" />
+        <p className="font-mono text-[10px] tracking-[3px] text-stitch/80 uppercase mb-4">{t('撮影のコツ', 'PHOTO TIPS')}</p>
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            [t('正面全体', 'FRONT VIEW'), t('胸ポケット数・Vステッチが分かるよう全体を撮影', 'Show chest pockets and V-stitch from full front')],
+            [t('背面全体', 'BACK VIEW'), t('シンチバック・サイドアジャスター・脇ポケットを確認', 'Show cinch back, side adjusters, or side pockets')],
+            [t('内部ラベル', 'INNER LABEL'), t('ラベルサイズが分かるよう全体を明るい場所で撮影', 'Shoot full label in good light to show size')],
+            [t('ボタン裏', 'BUTTON BACK'), t('数字・アルファベット刻印が見えるよう撮影', 'Show the stamp number on button back')],
+          ].map(([title, desc], i) => (
+            <div key={i} className="py-3">
+              <div className="font-mono text-[9px] tracking-[1px] text-stitch mb-1">{title}</div>
+              <div className="text-[11px] text-fade font-light leading-relaxed">{desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer locale={locale} />
+    </>
+  );
+}

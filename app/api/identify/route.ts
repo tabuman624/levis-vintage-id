@@ -3,6 +3,7 @@ import { supabaseAdmin } from '@/lib/supabase-server';
 
 // ===== 型定義 =====
 interface IdentifyResult {
+  jacket_type?: string;
   era: string;
   model: string;
   factory: string;
@@ -299,9 +300,198 @@ Always note LVC if present — these are NOT vintage
 Combine multiple indicators; never rely on single feature
 `;
 
+// ===== ジャケット判定プロンプト =====
+const JACKET_PROMPT_JA = `
+あなたはLevi'sデニムジャケット（Gジャン）の専門鑑定AIです。ヴィンテージから現行品まで対応します。
+提供された写真から以下をJSON形式のみで返してください。マークダウンや説明文は一切含めないでください。
+
+{
+  "jacket_type": "Type I (506XX) / Type II (507XX) / Type III-3rd (557XX) / Type III-4th (70505) / 不明",
+  "era": "推定年代（例：1950年代前半 / 1960年代後半〜1970年代前半 / 1981年以降など）",
+  "model": "品番（506XX / 507XX / 557XX / 70505 / 不明）",
+  "factory": "製造工場（ボタン刻印から。不明なら「不明」）",
+  "country": "製造国（USA / Japan / 不明 等）",
+  "confidence": "HIGH / MID / LOW のいずれか",
+  "rarity": "希少性（例：超希少・高・中・低・現行品など）",
+  "confirmed": ["写真から確定できた根拠を箇条書き"],
+  "estimated": ["確定ではないが可能性が高い推定要素を箇条書き"],
+  "unknown": ["写真不足・判別不能な要素を箇条書き"],
+  "next_steps": "追加撮影で精度が上がる部分があれば具体的に記載。不要なら空文字。",
+  "reasoning": "判定根拠の総合コメント（3〜5文）"
+}
+
+【STEP1: Typeの判別】
+胸ポケット数を確認:
+  → 1つ（左のみ）= Type I (506XX)
+  → 2つ（左右）= Type II (507XX) または Type III
+
+背面を確認:
+  → シンチバック（プロング式金具付きベルト）あり = Type I (506XX)
+  → サイドアジャスター（両脇の絞りベルト）= Type II (507XX)
+  → アジャスターなし・シンプルな背面 = Type III
+
+Type III（3rd vs 4th）の区別:
+  → 内部ラベル大（約77×56mm）= 557XX (3rd)
+  → 内部ラベル小（約66×37mm）= 70505 (4th)
+  → ポケットフラップ下の糸がレモンイエロー = 557XX
+  → Vステッチ末端が閉じている = 557XX / 開いている = 70505
+  → サイドハンドポケット（脇ポケット）あり = 70505（1981年以降）
+
+【Type I（506XX）年代判別：1905〜1952年頃】
+赤タブなし → 1936年以前（超希少）
+赤タブ・片面「LEVIS」のみ（Rなし）→ 1936年〜Type I確認指標
+ポケットフラップなし + Big E → 1941〜1947年（WWII期）
+シンチバックル色シルバー → WWII以前
+シンチバックル色ブロンズ → 1941〜1945年（戦時素材節約）
+ドーナツボタン（ローレル模様 or プレーン）→ 1941〜1945年（WWII）
+ボタン刻印なし / ツメ / アルファベット / 1桁数字 → 506XX確認
+セルビッジデニム（プラケット裏に赤耳）→ ヴィンテージ確実
+
+【Type II（507XX）年代判別：1953〜1962年頃】
+革パッチ（Two Horse Brand）→ 1953年〜1950年代中期
+紙パッチ → 1950年代後期〜1962年
+ボタン刻印 #17 → 初期（1953年〜）
+ボタン刻印 #0 → 60年代初頭
+Big E 両面表記（Type II全期間）
+TALONジッパー（時代確認補助）
+セルビッジデニム（ヴィンテージ確実）
+ケアラベルなし（Type II全期間）
+
+【Type III-3rd（557XX）年代判別：1961〜1967年頃】
+Big E → 必ずあり
+ラベルサイズ大（約77×56mm）→ 557XX確認
+ポケット下糸色レモンイエロー → 初期（1961〜1966年頃）
+ポケット下糸色オレンジ → 後期（1966〜1967年）
+1966年頃：「557-70505」ダブルネームあり（移行期）
+バータック2本ステッチ・黄/オレンジ糸
+Vステッチ末端が閉じている
+ケアラベルなし
+TALONジッパー
+ボタン刻印1〜2桁
+
+【Type III-4th（70505）年代判別：1967年〜現在】
+1966〜1968年（移行初期）：大パッチ→小パッチ移行、レモンイエロー糸、Big E、ケアラベルなし
+1968〜1971年（Big E後期）：Big E、不均等Vの赤タブ、ケアラベルなし、オレンジ糸、TALONジッパー
+1971〜1975年頃（small e初期）：Small e、布製ケアラベル（パッチ下に縫い付け）、不均等Vタブ（〜1973年）、Made in USA
+1975〜1981年頃（70年代後期）：Small e、紙製ケアラベル、収縮率表記あり、均等Vタブ
+1981年以降：サイドハンドポケット追加（最重要指標）、ボタン刻印3桁、YKKジッパー一般化
+1980年代中頃〜：海外生産品も登場（Made in ○○各国）
+
+【赤タブ共通】
+Big E（LEVI'S 大文字両面）→ 1971年以前
+不均等V型の赤タブ → 1973年頃まで（70505に固有）
+Small e（片面小文字）→ 1971年以降
+
+【ジッパー共通】
+TALON → 主に1960年代まで
+YKK → 1970年代以降（1981年以降に一般化）
+
+【LVC・復刻品】
+「LVC」「LEVI'S VINTAGE CLOTHING」表記がある場合は復刻品。modelに必ず記載。
+
+写真が不鮮明な場合はconfidenceをLOWにし、unknownに理由を記載。
+複数指標を組み合わせること。単一特徴のみで判断しないこと。
+矛盾する指標がある場合はreasoningで報告すること。
+`;
+
+const JACKET_PROMPT_EN = `
+You are an expert Levi's denim jacket authentication AI covering vintage through current production.
+Return ONLY a JSON object. No markdown, no explanation text.
+
+{
+  "jacket_type": "Type I (506XX) / Type II (507XX) / Type III-3rd (557XX) / Type III-4th (70505) / Unknown",
+  "era": "Estimated era (e.g. Early 1950s / Late 1960s–Early 1970s / Post-1981 etc.)",
+  "model": "Model number (506XX / 507XX / 557XX / 70505 / Unknown)",
+  "factory": "Factory from button stamp (or Unknown)",
+  "country": "Country of manufacture (USA / Japan / Unknown etc.)",
+  "confidence": "HIGH / MID / LOW",
+  "rarity": "Rarity and brief reason",
+  "confirmed": ["Bullet list of indicators confirmed from photos"],
+  "estimated": ["Bullet list of probable but unconfirmed indicators"],
+  "unknown": ["Bullet list of undetermined points due to missing/unclear photos"],
+  "next_steps": "Specific photos that would improve accuracy, if any. Empty string if not needed.",
+  "reasoning": "3-5 sentences citing specific indicators. Report ALL conflicting indicators."
+}
+
+=== STEP 1: TYPE IDENTIFICATION ===
+Count chest pockets:
+  → 1 pocket (left only) = Type I (506XX)
+  → 2 pockets (left + right) = Type II (507XX) or Type III
+
+Check back panel:
+  → Cinch back (pronged metal buckle belt) = Type I (506XX)
+  → Side adjusters (side belt tabs) = Type II (507XX)
+  → No adjusters, clean back = Type III
+
+Distinguish Type III (3rd vs 4th):
+  → Large interior label (~77×56mm) = 557XX (3rd)
+  → Small interior label (~66×37mm) = 70505 (4th)
+  → Lemon yellow thread under pocket flap = 557XX
+  → V-stitch closed at end = 557XX / Open = 70505
+  → Side hand pockets present = 70505 (post-1981)
+
+=== TYPE I (506XX) DATING: 1905–c.1952 ===
+No red tab → pre-1936 (ultra-rare)
+Red tab, "LEVIS" one side only (no R) → 1936+, Type I indicator
+No pocket flap + Big E → 1941–1947 (WWII era)
+Silver cinch buckle → pre-WWII
+Bronze cinch buckle → 1941–1945 (wartime material rationing)
+Donut buttons (laurel leaf or plain) → 1941–1945 (WWII)
+Button: no stamp / nail / letter / single digit → 506XX confirmation
+Selvedge denim (red ear visible on placket back) → confirmed vintage
+
+=== TYPE II (507XX) DATING: 1953–c.1962 ===
+Leather patch (Two Horse Brand) → 1953–mid-1950s
+Paper patch → late 1950s–1962
+Button stamp #17 → early (1953+)
+Button stamp #0 → early 1960s
+Big E both sides (entire production run)
+TALON zipper (dating aid)
+Selvedge denim (confirmed vintage)
+No care label (entire production run, pre-1971)
+
+=== TYPE III-3RD (557XX) DATING: c.1961–1967 ===
+Big E always present
+Large label (~77×56mm) → confirms 557XX
+Lemon yellow thread under flap → early (1961–c.1966)
+Orange thread under flap → late (1966–1967)
+c.1966: "557-70505" double-name transition period
+Bartack: 2-stitch, yellow/orange thread
+V-stitch closed at end
+No care label
+TALON zipper
+Button stamp 1–2 digits
+
+=== TYPE III-4TH (70505) DATING: 1967–present ===
+1966–1968 (transition): Large→small patch, lemon yellow thread, Big E, no care label
+1968–1971 (late Big E): Big E, unequal-V red tab, no care label, orange thread, TALON zipper
+1971–c.1975 (early small e): Small e, cloth care label (sewn under patch), unequal-V tab (until ~1973), Made in USA
+c.1975–1981 (late 70s): Small e, paper care label, shrinkage % noted, even-V tab
+Post-1981: Side hand pockets added (key indicator), 3-digit button stamp, YKK zipper common
+Mid-1980s+: Offshore production begins (Made in [various countries])
+
+=== RED TAB (common) ===
+Big E (LEVI'S uppercase both sides) → pre-1971
+Unequal-V red tab → until c.1973 (70505 specific)
+Small e (one side lowercase) → post-1971
+
+=== ZIPPER (common) ===
+TALON → mainly through 1960s
+YKK → post-1970s (common from post-1981)
+
+=== LVC / REPRODUCTIONS ===
+"LVC" or "LEVI'S VINTAGE CLOTHING" = reproduction. Always note in model field.
+
+Low confidence if photos unclear — explain in unknown field.
+Combine multiple indicators; never rely on single feature.
+Report contradictions in reasoning field.
+`;
+
 function normalizeModel(model: string): string {
-  const match = model.match(/\b(\d{3})\b/);
-  return match ? match[1] : 'unknown';
+  const m5 = model.match(/\b\d{5}\b/);
+  if (m5) return m5[0];
+  const m3 = model.match(/\b\d{3}\b/);
+  return m3 ? m3[0] : 'unknown';
 }
 
 function extractDecade(era: string): string {
@@ -340,7 +530,7 @@ async function savePhotos(images: string[], recordId: string) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { images, locale, slots } = await req.json();
+    const { images, locale, slots, itemType } = await req.json();
 
     if (!images || images.length === 0) {
       return NextResponse.json({ error: 'No images provided' }, { status: 400 });
@@ -352,10 +542,13 @@ export async function POST(req: NextRequest) {
     }
 
     const isJa = locale !== 'en';
-    const systemPrompt = isJa ? SYSTEM_PROMPT_JA : SYSTEM_PROMPT_EN;
-    const userText = isJa
-      ? '上記の写真を鑑定してください。JSONのみ返してください。'
-      : 'Please identify these items. Return JSON only.';
+    const isJacket = itemType === 'jacket';
+    const systemPrompt = isJacket
+      ? (isJa ? JACKET_PROMPT_JA : JACKET_PROMPT_EN)
+      : (isJa ? SYSTEM_PROMPT_JA : SYSTEM_PROMPT_EN);
+    const userText = isJacket
+      ? (isJa ? 'このジャケットを鑑定してください。JSONのみ返してください。' : 'Please identify this jacket. Return JSON only.')
+      : (isJa ? '上記の写真を鑑定してください。JSONのみ返してください。' : 'Please identify these items. Return JSON only.');
 
     // Gemini API リクエスト構築
     const parts: any[] = [{ text: systemPrompt }];
@@ -408,6 +601,8 @@ export async function POST(req: NextRequest) {
           slots_used: slots ?? [],
           model_normalized: normalizeModel(result.model),
           era_decade: extractDecade(result.era),
+          item_type: isJacket ? 'jacket' : 'jeans',
+          jacket_type: result.jacket_type ?? null,
         })
         .select('id')
         .single();

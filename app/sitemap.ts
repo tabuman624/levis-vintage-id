@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/en`, priority: 0.9 },
     { url: `${BASE_URL}/identify`, priority: 0.9 },
     { url: `${BASE_URL}/en/identify`, priority: 0.8 },
+    { url: `${BASE_URL}/jacket`, priority: 0.9 },
+    { url: `${BASE_URL}/en/jacket`, priority: 0.8 },
     { url: `${BASE_URL}/articles`, priority: 0.8 },
     { url: `${BASE_URL}/en/articles`, priority: 0.7 },
     { url: `${BASE_URL}/guide`, priority: 0.7 },

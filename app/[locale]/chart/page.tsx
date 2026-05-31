@@ -473,8 +473,17 @@ export default async function ChartPage({
                   model="506XX"
                   silhouette={t('トラッカージャケット', 'Trucker jacket')}
                   fly={t('— ', '—')}
+                  period={t('1936〜1953年頃', 'c. 1936–1953')}
+                  feature={t('Type Ⅰ。単胸ポケット・シンチバック・Big E', 'Type I. Single pocket, cinch back & Big E')}
+                  rarity={t('★★★★★', '★★★★★')}
+                  accent
+                />
+                <ModelRow
+                  model="507XX"
+                  silhouette={t('トラッカージャケット', 'Trucker jacket')}
+                  fly={t('—', '—')}
                   period={t('1953〜1962年頃', 'c. 1953–1962')}
-                  feature={t('1stジャケット。シンチバック・Big E', '1st trucker. Cinch back & Big E')}
+                  feature={t('Type Ⅱ。双胸ポケット・ウエストプリーツ・Big E', 'Type II. Double chest pockets, waist pleats & Big E')}
                   rarity={t('★★★★★', '★★★★★')}
                   accent
                 />
@@ -482,9 +491,9 @@ export default async function ChartPage({
                   model="557XX"
                   silhouette={t('トラッカージャケット', 'Trucker jacket')}
                   fly={t('—', '—')}
-                  period={t('1962〜1967年頃', 'c. 1962–1967')}
-                  feature={t('2ndジャケット。ポケット追加・Big E', '2nd trucker. Added pocket & Big E')}
-                  rarity={t('★★★★', '★★★★')}
+                  period={t('1962〜現在（Big E期〜1971年）', '1962–present (Big E era pre-1971)')}
+                  feature={t('Type Ⅲ（トラッカー）。Big E期は最高峰の希少品', 'Type III (trucker). Big E era commands top premium')}
+                  rarity={t('★★★★（Big E期）', '★★★★ (Big E era)')}
                 />
               </tbody>
             </table>
@@ -493,6 +502,281 @@ export default async function ChartPage({
             {t(
               '※ 希少度はヴィンテージ市場での流通量の相対評価です（★多いほど希少）。状態・年代・サイズにより大きく異なります。',
               '* Rarity is relative to vintage market availability (more ★ = rarer). Condition, era, and size affect value significantly.'
+            )}
+          </p>
+        </section>
+
+        {/* ═══════════════════════════════════════════
+            SECTION 4: ジャケット Type 判別フローチャート
+        ═══════════════════════════════════════════ */}
+        <section style={{ marginBottom: '80px' }}>
+          <h2 style={{ fontFamily: 'Playfair Display,serif', fontSize: '26px', fontWeight: 'bold', color: '#e8d5a3', marginBottom: '8px', paddingBottom: '12px', borderBottom: '1px solid rgba(232,213,163,0.25)' }}>
+            {t('ジャケット Type 判別フローチャート', 'Jacket Type Identification Flowchart')}
+          </h2>
+          <p style={{ fontSize: '13px', color: 'rgba(184,204,228,0.7)', marginBottom: '32px', fontFamily: 'DM Mono,monospace' }}>
+            {t('Type Ⅰ（506XX）〜Type Ⅲ（557XX）を順番に見分ける', 'Distinguish Type I (506XX) through Type III (557XX) step by step')}
+          </p>
+
+          {/* ── STEP J1: 胸ポケット ── */}
+          <FlowStep
+            step="J1"
+            question={t('胸ポケット（バストポケット）の数を確認', 'Count the chest (bust) pockets')}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <FlowBranch
+                label={t('胸ポケット 1つ（左のみ）', '1 chest pocket (left only)')}
+                result={t('→ Type Ⅰ（506XX）', '→ Type I (506XX)')}
+                color="#c0392b"
+                next={t('1936〜1953年製', 'Made 1936–1953')}
+              />
+              <FlowBranch
+                label={t('胸ポケット 2つ', '2 chest pockets')}
+                result={t('→ Type Ⅱ または Type Ⅲ', '→ Type II or Type III')}
+                color="#2980b9"
+                next={t('STEP J2 へ', 'Go to STEP J2')}
+              />
+            </div>
+            <NoteBox>
+              {t(
+                '💡 506XX（Type Ⅰ）は左胸に1つだけポケットがあります。全体的に丸みのある旧スタイルで、背面にシンチバック（ウエスト調整ベルト）があれば初期仕様です。現存数は極めて少なく市場での遭遇率は稀です。',
+                '💡 506XX (Type I) has a single pocket on the left chest only. Rounded vintage silhouette. A cinch back strap on the rear indicates early spec. Surviving examples are extremely rare in the market.'
+              )}
+            </NoteBox>
+          </FlowStep>
+
+          {/* ── STEP J2: ウエストプリーツ ── */}
+          <FlowStep
+            step="J2"
+            label={t('2ポケット確認済み', '2 pockets confirmed')}
+            question={t('ウエスト〜裾付近の内側にプリーツ（アコーディオン状のひだ）はありますか？', 'Are there accordion-style pleats at the interior waist/hem area?')}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <FlowBranch
+                label={t('プリーツあり', 'Pleats present')}
+                result={t('→ Type Ⅱ（507XX）', '→ Type II (507XX)')}
+                color="#c0392b"
+                next={t('1953〜1962年製', 'Made 1953–1962')}
+              />
+              <FlowBranch
+                label={t('プリーツなし（フラット）', 'No pleats (flat)')}
+                result={t('→ Type Ⅲ（557XX系）', '→ Type III (557XX series)')}
+                color="#2980b9"
+                next={t('STEP J3 へ', 'Go to STEP J3')}
+              />
+            </div>
+            <NoteBox>
+              {t(
+                '⚠️ 507XX（Type Ⅱ）のウエストプリーツは着用時に内側へ折り込まれてフラットに見えます。ジャケットを裏返して裾付近を確認してください。507XXも現存数が少なく、市場でも希少です。',
+                '⚠️ 507XX (Type II) waist pleats fold inward and appear flat when worn. Turn the jacket inside-out and check near the hem. 507XX is also scarce — few examples circulate.'
+              )}
+            </NoteBox>
+          </FlowStep>
+
+          {/* ── STEP J3: Type III 年代絞り込み ── */}
+          <FlowStep
+            step="J3"
+            label={t('Type Ⅲ（557XX系）確認済み', 'Type III (557XX series) confirmed')}
+            question={t('赤タブの表記とケアラベルの有無を確認', 'Check the red tab lettering and presence of care label')}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <FlowBranch
+                label={t('Big E ＋ ケアラベルなし', 'Big E + no care label')}
+                result={t('→ 1962〜1971年（Big E期）', '→ 1962–1971 (Big E era)')}
+                color="#c0392b"
+                next={t('STEP J4 へ', 'Go to STEP J4')}
+              />
+              <FlowBranch
+                label={t('Small e ＋ ケアラベルあり', 'Small e + care label present')}
+                result={t('→ 1971年以降', '→ Post-1971')}
+                color="#2980b9"
+                next={t('STEP J5 へ', 'Go to STEP J5')}
+              />
+            </div>
+          </FlowStep>
+
+          {/* ── STEP J4: Big E 期絞り込み ── */}
+          <FlowStep
+            step="J4"
+            label={t('Big E 期（1962〜1971年）の絞り込み', 'Big E era (1962–1971) narrowing')}
+            question={t('ジッパーブランドとデニム生地を確認', 'Check zipper brand and denim fabric')}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
+              <FlowBranch
+                label={t('TALON ＋ セルビッジ', 'TALON + Selvedge')}
+                result={t('→ 1962〜1971年頃', '→ c. 1962–1971')}
+                color="#c0392b"
+                note={t('最高峰・最希少', 'Top tier, rarest')}
+              />
+              <FlowBranch
+                label={t('TALON ＋ セルビッジなし', 'TALON + No selvedge')}
+                result={t('→ 1967〜1971年頃', '→ c. 1967–1971')}
+                color="#e67e22"
+                note={t('Big E 後期', 'Late Big E')}
+              />
+              <FlowBranch
+                label={t('YKK または不明', 'YKK or unclear')}
+                result={t('→ 1971年前後・移行期', '→ Around 1971, transitional')}
+                color="#7f8c8d"
+              />
+            </div>
+          </FlowStep>
+
+          {/* ── STEP J5: Small e 期絞り込み ── */}
+          <FlowStep
+            step="J5"
+            label={t('Small e 期（1971年以降）の絞り込み', 'Small e era (post-1971) narrowing')}
+            question={t('サイドハンドポケット（脇ポケット）はありますか？', 'Are there side hand pockets?')}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <FlowBranch
+                label={t('サイドポケットなし', 'No side pockets')}
+                result={t('→ 1981年以前', '→ Pre-1981')}
+                color="#27ae60"
+                note={t('セルビッジ確認も推奨', 'Also check for selvedge')}
+              />
+              <FlowBranch
+                label={t('サイドポケットあり', 'Side pockets present')}
+                result={t('→ 1981年以降', '→ Post-1981')}
+                color="#7f8c8d"
+              />
+            </div>
+            <NoteBox>
+              {t(
+                '📅 ケアラベルに日付コードがある場合は製造年月を直接読み取れます。セルビッジあり＋サイドポケットなし＝1971〜1981年の最も確実な組み合わせです。',
+                '📅 If the care label has a date code, read the production month/year directly. Selvedge + no side pockets = the most reliable 1971–1981 combination.'
+              )}
+            </NoteBox>
+          </FlowStep>
+
+          {/* CTA */}
+          <div style={{ background: 'rgba(25,50,88,0.5)', border: '1px dashed rgba(232,213,163,0.25)', borderRadius: '8px', padding: '28px', textAlign: 'center', marginTop: '32px' }}>
+            <p style={{ fontSize: '13px', color: '#b8cce4', marginBottom: '16px', lineHeight: 1.8, fontWeight: 300 }}>
+              {t('ジャケットをAIで自動判定 — 写真を送るだけでType・年代・評価ポイントを解析します', 'AI auto-identifies your jacket — upload photos to get Type, era, and key dating points')}
+            </p>
+            <Link href={p('/identify')} style={{ display: 'inline-block', background: '#c0392b', color: 'white', fontFamily: 'DM Mono,monospace', fontSize: '12px', letterSpacing: '3px', textTransform: 'uppercase', textDecoration: 'none', padding: '13px 28px', borderRadius: '4px' }}>
+              {t('ジャケットをAI鑑定', 'AI Identify Jacket')}
+            </Link>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════
+            SECTION 5: ジャケット年代別仕様比較表
+        ═══════════════════════════════════════════ */}
+        <section style={{ marginBottom: '80px' }}>
+          <h2 style={{ fontFamily: 'Playfair Display,serif', fontSize: '26px', fontWeight: 'bold', color: '#e8d5a3', marginBottom: '8px', paddingBottom: '12px', borderBottom: '1px solid rgba(232,213,163,0.25)' }}>
+            {t('ジャケット年代別仕様比較表', 'Jacket Era Specification Comparison')}
+          </h2>
+          <p style={{ fontSize: '13px', color: 'rgba(184,204,228,0.7)', marginBottom: '28px', fontFamily: 'DM Mono,monospace' }}>
+            {t('Type Ⅰ〜Ⅲ、全5時代の仕様一覧', 'Specifications across all 5 eras — Type I through Type III')}
+          </p>
+
+          <div style={{ overflowX: 'auto', borderRadius: '8px', border: '1px solid rgba(232,213,163,0.15)' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'DM Mono,monospace', fontSize: '12px', minWidth: '900px' }}>
+              <thead>
+                <tr style={{ background: 'rgba(25,50,88,0.8)' }}>
+                  <Th>{t('仕様', 'Spec')}</Th>
+                  <Th accent="#c0392b">{t('Type Ⅰ / 506XX（〜1953）', 'Type I / 506XX (–1953)')}</Th>
+                  <Th accent="#c0392b">{t('Type Ⅱ / 507XX（〜1962）', 'Type II / 507XX (–1962)')}</Th>
+                  <Th accent="#c0392b">{t('Type Ⅲ Big E（〜1971）', 'Type III Big E (–1971)')}</Th>
+                  <Th accent="#2980b9">{t('Type Ⅲ Small e（〜1981）', 'Type III Small e (–1981)')}</Th>
+                  <Th accent="#7f8c8d">{t('Type Ⅲ（1981年〜）', 'Type III (1981+)')}</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <Tr label={t('赤タブ', 'Red Tab')}
+                  cells={[
+                    t('Big E（両面大文字）', 'Big E (both caps)'),
+                    t('Big E（片面大文字）', 'Big E (one side caps)'),
+                    t('Big E（片面大文字）', 'Big E (one side caps)'),
+                    t('Small e', 'Small e'),
+                    t('Small e', 'Small e'),
+                  ]}
+                  highlights={[0, 1, 2]}
+                />
+                <Tr label={t('胸ポケット数', 'Chest Pockets')}
+                  cells={[
+                    t('1つ（左のみ）', '1 (left only)'),
+                    t('2つ', '2'),
+                    t('2つ', '2'),
+                    t('2つ', '2'),
+                    t('2つ', '2'),
+                  ]}
+                  highlights={[0]}
+                />
+                <Tr label={t('ウエストプリーツ', 'Waist Pleats')}
+                  cells={[
+                    t('なし', 'None'),
+                    t('あり（アコーディオン）', 'Yes (accordion)'),
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                  ]}
+                  highlights={[1]}
+                />
+                <Tr label={t('サイドポケット', 'Side Pockets')}
+                  cells={[
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                    t('あり', 'Present'),
+                  ]}
+                />
+                <Tr label={t('ケアラベル', 'Care Label')}
+                  cells={[
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                    t('あり（英→多言語）', 'Yes (EN → multilingual)'),
+                    t('あり（多言語＋日付コード）', 'Yes (multilingual + date code)'),
+                  ]}
+                />
+                <Tr label={t('ジッパーブランド', 'Zipper Brand')}
+                  cells={[
+                    t('Conmar / ボタン', 'Conmar / button'),
+                    t('Conmar → TALON', 'Conmar → TALON'),
+                    t('TALON（数字入り）', 'TALON (with number)'),
+                    t('TALON → YKK 移行', 'TALON → YKK transition'),
+                    t('YKK', 'YKK'),
+                  ]}
+                  highlights={[0, 1, 2]}
+                />
+                <Tr label={t('デニム生地', 'Denim')}
+                  cells={[
+                    t('セルビッジ', 'Selvedge'),
+                    t('セルビッジ', 'Selvedge'),
+                    t('セルビッジ', 'Selvedge'),
+                    t('セルビッジ（〜1981年）', 'Selvedge (until 1981)'),
+                    t('非セルビッジ', 'Non-selvedge'),
+                  ]}
+                  highlights={[0, 1, 2]}
+                />
+                <Tr label={t('シンチバック', 'Cinch Back')}
+                  cells={[
+                    t('あり（初期モデル）', 'Yes (early models)'),
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                    t('なし', 'None'),
+                  ]}
+                  highlights={[0]}
+                />
+                <Tr label={t('希少度', 'Rarity')}
+                  cells={[
+                    t('★★★★★', '★★★★★'),
+                    t('★★★★★', '★★★★★'),
+                    t('★★★★', '★★★★'),
+                    t('★★★', '★★★'),
+                    t('★★', '★★'),
+                  ]}
+                />
+              </tbody>
+            </table>
+          </div>
+          <p style={{ fontSize: '11px', color: 'rgba(184,204,228,0.45)', marginTop: '12px', fontFamily: 'DM Mono,monospace', lineHeight: 1.8 }}>
+            {t(
+              '※ Type Ⅰ・Ⅱは現存数が非常に少なく、市場での流通がほとんどありません。年代境界は厳密ではなく移行期に複数仕様が混在するケースがあります。',
+              '* Type I and II are extremely scarce — rarely found in the market. Era boundaries are approximate; multiple specs often overlap during transition periods.'
             )}
           </p>
         </section>

@@ -10,6 +10,7 @@ export async function generateMetadata(
   const isJa = locale === 'ja';
 
   return {
+    metadataBase: new URL(BASE_URL),
     title: isJa
       ? "リーバイス年代判定・AI鑑定 | LEVI'S VINTAGE ID."
       : "Vintage Levi's AI Identification | LEVI'S VINTAGE ID.",

@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase-server';
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export async function POST(req: NextRequest) {
   try {
     const { id, feedback, affiliate_click } = await req.json();
-    if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+    if (!id || !UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
 
     const updates: Record<string, string> = {};
     if (feedback) updates.feedback = feedback;

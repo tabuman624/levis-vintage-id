@@ -1,8 +1,38 @@
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 import ContactForm from '@/components/ContactForm';
 import Link from 'next/link';
+
+const BASE_URL = 'https://www.levis-id.com';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const isJa = locale === 'ja';
+  const url = isJa ? `${BASE_URL}/contact` : `${BASE_URL}/en/contact`;
+  return {
+    title: isJa
+      ? "お問い合わせ | LEVI'S VINTAGE ID."
+      : "Contact | LEVI'S VINTAGE ID.",
+    description: isJa
+      ? '鑑定結果のご質問、誤りの報告、ご意見・ご要望はこちらからお気軽にどうぞ。通常2〜5営業日以内にご返信します。'
+      : 'Questions about identification results, error reports, or feedback — contact us here. We typically respond within 2–5 business days.',
+    alternates: {
+      canonical: url,
+      languages: {
+        'ja': `${BASE_URL}/contact`,
+        'en': `${BASE_URL}/en/contact`,
+      },
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  return [{ locale: 'ja' }, { locale: 'en' }];
+}
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

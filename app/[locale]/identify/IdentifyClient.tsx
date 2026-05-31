@@ -3,16 +3,14 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
-
-const MERCARI_LINK = "https://px.a8.net/svt/ejp?a8mat=4B3MEQ+DIF60I+5LNQ+5YJRM";
-const EBAY_BASE = "https://www.ebay.com/sch/i.html?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339152643&toolid=10001&mkevt=1&_nkw=";
+import { MERCARI_LINK, EBAY_BASE, A8_PIXEL, IMAGE_MAX_PX, IMAGE_QUALITY } from '@/lib/constants';
 
 type ItemType = 'jeans' | 'jacket';
 
-export default function IdentifyClient({ locale }: { locale: string }) {
+export default function IdentifyClient({ locale, fixedType }: { locale: string; fixedType?: ItemType }) {
   const t = (ja: string, en: string) => locale === 'ja' ? ja : en;
 
-  const [itemType, setItemType] = useState<ItemType>('jeans');
+  const [itemType, setItemType] = useState<ItemType>(fixedType ?? 'jeans');
   const [requiredImages, setRequiredImages] = useState<(string|null)[]>([null, null]);
   const [optionalImages, setOptionalImages] = useState<(string|null)[]>(Array(6).fill(null));
   const [loading, setLoading] = useState(false);
@@ -55,15 +53,14 @@ export default function IdentifyClient({ locale }: { locale: string }) {
     const img = new Image();
     const url = URL.createObjectURL(file);
     img.onload = () => {
-      const MAX = 800;
       let w = img.width, h = img.height;
-      if (w > MAX || h > MAX) {
-        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
-        else { w = Math.round(w * MAX / h); h = MAX; }
+      if (w > IMAGE_MAX_PX || h > IMAGE_MAX_PX) {
+        if (w > h) { h = Math.round(h * IMAGE_MAX_PX / w); w = IMAGE_MAX_PX; }
+        else { w = Math.round(w * IMAGE_MAX_PX / h); h = IMAGE_MAX_PX; }
       }
       canvas.width = w; canvas.height = h;
       canvas.getContext('2d')!.drawImage(img, 0, 0, w, h);
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+      const dataUrl = canvas.toDataURL('image/jpeg', IMAGE_QUALITY);
       if (isRequired) {
         const next = [...requiredImages]; next[idx] = dataUrl; setRequiredImages(next);
       } else {
@@ -82,9 +79,15 @@ export default function IdentifyClient({ locale }: { locale: string }) {
     if (!requiredImages.some(Boolean)) { setError(errorMsg); return; }
 
     const photos: string[] = [];
+    const JEANS_REQ_KEYS = ['red_tab', 'care_label'];
+    const JEANS_OPT_KEYS = ['zipper_or_button_fly', 'button_back_stamp', 'back_pocket_stitch_rivet', 'outseam_selvedge', 'waistband_patch', 'other'];
+    const JACKET_REQ_KEYS = ['front_view', 'red_tab_or_inner_label'];
+    const JACKET_OPT_KEYS = ['back_view', 'rear_waist_patch', 'button_back_stamp', 'zipper_brand', 'chest_pocket_flap', 'care_label'];
+    const reqKeys = itemType === 'jeans' ? JEANS_REQ_KEYS : JACKET_REQ_KEYS;
+    const optKeys = itemType === 'jeans' ? JEANS_OPT_KEYS : JACKET_OPT_KEYS;
     const slotsUsed: string[] = [];
-    requiredImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(`required_${i}`); } });
-    optionalImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(`optional_${i}`); } });
+    requiredImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(reqKeys[i]); } });
+    optionalImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(optKeys[i]); } });
 
     setError(''); setLoading(true); setResult(null); setRecordId(null); setFeedback(null);
     try {
@@ -99,7 +102,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
       if (data._id) setRecordId(data._id);
       document.getElementById('result')?.scrollIntoView({ behavior: 'smooth' });
     } catch (e: any) {
-      setError(t('エラー: ', 'Error: ') + e.message);
+      setError(e.message || t('エラーが発生しました', 'An error occurred'));
     } finally { setLoading(false); }
   };
 
@@ -158,9 +161,11 @@ export default function IdentifyClient({ locale }: { locale: string }) {
 
         {/* ヘッダー */}
         <div className="text-center mb-10">
-          <p className="font-mono text-[10px] tracking-[4px] text-stitch uppercase mb-4">{t('AI 鑑定', 'AI IDENTIFICATION')}</p>
+          <p className="font-mono text-[10px] tracking-[4px] text-stitch uppercase mb-4">
+            {fixedType === 'jacket' ? t('ジャケット AI 鑑定', 'JACKET AI IDENTIFICATION') : t('AI 鑑定', 'AI IDENTIFICATION')}
+          </p>
           <h1 className="font-playfair font-bold text-[#f0ebe0] mb-4" style={{fontSize:'clamp(28px,5vw,48px)'}}>
-            <span className="text-rust">LEVI&apos;S</span> VINTAGE ID.
+            <span className="text-rust">LEVI&apos;S</span> {fixedType === 'jacket' ? 'JACKET ID.' : 'VINTAGE ID.'}
           </h1>
           <p className="text-sm text-fade font-light">
             {itemType === 'jeans'
@@ -169,23 +174,25 @@ export default function IdentifyClient({ locale }: { locale: string }) {
           </p>
         </div>
 
-        {/* タブ */}
-        <div className="flex gap-8 border-b border-stitch/20 mb-8">
-          {(['jeans', 'jacket'] as const).map(type => (
-            <button
-              key={type}
-              onClick={() => switchTab(type)}
-              className={`pb-3 font-mono text-[11px] tracking-[3px] uppercase transition-colors relative ${
-                itemType === type ? 'text-stitch' : 'text-fade/40 hover:text-fade/70'
-              }`}
-            >
-              {type === 'jeans' ? t('ジーンズ', 'JEANS') : t('ジャケット', 'JACKET')}
-              {itemType === type && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-stitch rounded-full" />
-              )}
-            </button>
-          ))}
-        </div>
+        {/* タブ（fixedType が指定されている場合は非表示） */}
+        {!fixedType && (
+          <div className="flex gap-8 border-b border-stitch/20 mb-8">
+            {(['jeans', 'jacket'] as const).map(type => (
+              <button
+                key={type}
+                onClick={() => switchTab(type)}
+                className={`pb-3 font-mono text-[11px] tracking-[3px] uppercase transition-colors relative ${
+                  itemType === type ? 'text-stitch' : 'text-fade/40 hover:text-fade/70'
+                }`}
+              >
+                {type === 'jeans' ? t('ジーンズ', 'JEANS') : t('ジャケット', 'JACKET')}
+                {itemType === type && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-stitch rounded-full" />
+                )}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* カテゴリバッジ */}
         <div className="flex flex-wrap gap-2 mb-7">
@@ -405,7 +412,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
                     {t('メルカリで検索', 'Search Mercari')}
                   </a>
                 </div>
-                <img src="https://www10.a8.net/0.gif?a8mat=4B3MEQ+DIF60I+5LNQ+5YJRM" width="1" height="1" alt="" style={{display:'block'}} />
+                <img src={A8_PIXEL} width="1" height="1" alt="" style={{display:'block'}} />
               </div>
             </div>
             <p className="font-mono text-[9px] text-fade/50 text-center mt-4 leading-relaxed">

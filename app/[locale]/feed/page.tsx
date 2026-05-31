@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -5,6 +6,47 @@ import StitchLine from '@/components/StitchLine';
 import { supabaseAdmin } from '@/lib/supabase-server';
 
 export const revalidate = 60;
+
+const BASE_URL = 'https://www.levis-id.com';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const isJa = locale === 'ja';
+  const url = isJa ? `${BASE_URL}/feed` : `${BASE_URL}/en/feed`;
+  return {
+    title: isJa
+      ? "リアルタイム鑑定フィード｜世界中のLevi's鑑定結果 | LEVI'S VINTAGE ID."
+      : "Live Identification Feed — Vintage Levi's Identified Worldwide | LEVI'S VINTAGE ID.",
+    description: isJa
+      ? "世界中のユーザーがAI鑑定したヴィンテージLevi'sのリアルタイムフィード。モデル・年代・信頼度・製造国を一覧表示。"
+      : "Real-time feed of vintage Levi's identified by users around the world. Showing model, era, confidence level, and country of manufacture.",
+    openGraph: {
+      title: isJa
+        ? "リアルタイム鑑定フィード | LEVI'S VINTAGE ID."
+        : "Live Identification Feed | LEVI'S VINTAGE ID.",
+      description: isJa
+        ? "世界中のユーザーがAI鑑定したヴィンテージLevi'sのリアルタイムフィード。"
+        : "Real-time feed of vintage Levi's identified by users worldwide.",
+      url,
+      siteName: "LEVI'S VINTAGE ID.",
+      locale: isJa ? 'ja_JP' : 'en_US',
+      type: 'website',
+    },
+    alternates: {
+      canonical: url,
+      languages: {
+        'ja': `${BASE_URL}/feed`,
+        'en': `${BASE_URL}/en/feed`,
+      },
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  return [{ locale: 'ja' }, { locale: 'en' }];
+}
 
 const COUNTRY_FLAGS: Record<string, string> = {
   'USA': '🇺🇸', 'Japan': '🇯🇵', 'Mexico': '🇲🇽',

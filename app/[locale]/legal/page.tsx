@@ -1,6 +1,36 @@
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
+
+const BASE_URL = 'https://www.levis-id.com';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const isJa = locale === 'ja';
+  const url = isJa ? `${BASE_URL}/legal` : `${BASE_URL}/en/legal`;
+  return {
+    title: isJa
+      ? "プライバシーポリシー・免責事項 | LEVI'S VINTAGE ID."
+      : "Privacy Policy & Disclaimer | LEVI'S VINTAGE ID.",
+    description: isJa
+      ? "LEVI'S VINTAGE ID.のプライバシーポリシー、免責事項、Google AdSense・アフィリエイトリンクに関する情報。"
+      : "Privacy Policy, disclaimer, and information on Google AdSense and affiliate links for LEVI'S VINTAGE ID.",
+    alternates: {
+      canonical: url,
+      languages: {
+        'ja': `${BASE_URL}/legal`,
+        'en': `${BASE_URL}/en/legal`,
+      },
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  return [{ locale: 'ja' }, { locale: 'en' }];
+}
 
 export default async function LegalPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

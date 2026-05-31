@@ -1,5 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createHash } from 'crypto';
 import { supabaseAdmin } from '@/lib/supabase-server';
+
+const RATE_LIMIT_PER_HOUR = 10;
+const MAX_IMAGES = 10;
+
+function getIpHash(req: NextRequest): string {
+  const ip =
+    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+    req.headers.get('x-real-ip') ||
+    'unknown';
+  return createHash('sha256')
+    .update(ip + (process.env.RATE_LIMIT_SALT ?? 'levis-id'))
+    .digest('hex')
+    .slice(0, 16);
+}
+
+async function checkRateLimit(ipHash: string): Promise<boolean> {
+  const windowStart = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const { count } = await supabaseAdmin
+    .from('rate_limits')
+    .select('*', { count: 'exact', head: true })
+    .eq('ip_hash', ipHash)
+    .gte('created_at', windowStart);
+  return (count ?? 0) < RATE_LIMIT_PER_HOUR;
+}
+
+async function recordRequest(ipHash: string) {
+  await supabaseAdmin.from('rate_limits').insert({ ip_hash: ipHash });
+  // 古いレコードを非同期で掃除（1時間超）
+  const cutoff = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  supabaseAdmin.from('rate_limits').delete().lt('created_at', cutoff).then(() => {});
+}
 
 // ===== 型定義 =====
 interface IdentifyResult {
@@ -530,10 +562,23 @@ async function savePhotos(images: string[], recordId: string) {
 
 export async function POST(req: NextRequest) {
   try {
+    const ipHash = getIpHash(req);
+    const allowed = await checkRateLimit(ipHash);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: '鑑定回数の上限に達しました。1時間後に再度お試しください。' },
+        { status: 429 }
+      );
+    }
+
     const { images, locale, slots, itemType } = await req.json();
 
     if (!images || images.length === 0) {
       return NextResponse.json({ error: 'No images provided' }, { status: 400 });
+    }
+
+    if (images.length > MAX_IMAGES) {
+      return NextResponse.json({ error: `画像は最大${MAX_IMAGES}枚までです。` }, { status: 400 });
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
@@ -550,12 +595,15 @@ export async function POST(req: NextRequest) {
       ? (isJa ? 'このジャケットを鑑定してください。JSONのみ返してください。' : 'Please identify this jacket. Return JSON only.')
       : (isJa ? '上記の写真を鑑定してください。JSONのみ返してください。' : 'Please identify these items. Return JSON only.');
 
+    await recordRequest(ipHash);
+
     // Gemini API リクエスト構築
     const parts: any[] = [{ text: systemPrompt }];
 
-    for (const image of images) {
-      // dataURL → base64 + mimeType
-      const [header, data] = image.split(',');
+    for (let i = 0; i < images.length; i++) {
+      const slotName = (slots as string[])?.[i] || `image_${i + 1}`;
+      parts.push({ text: isJa ? `[写真${i + 1}: ${slotName}]` : `[Photo ${i + 1}: ${slotName}]` });
+      const [header, data] = images[i].split(',');
       const mimeType = header.match(/:(.*?);/)?.[1] || 'image/jpeg';
       parts.push({ inline_data: { mime_type: mimeType, data } });
     }
@@ -569,7 +617,7 @@ export async function POST(req: NextRequest) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           contents: [{ parts }],
-          generationConfig: { temperature: 0.2, maxOutputTokens: 2048 },
+          generationConfig: { temperature: 0.2, maxOutputTokens: 2048, responseMimeType: 'application/json' },
         }),
       }
     );

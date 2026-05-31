@@ -1,8 +1,53 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 import { ARTICLES } from '@/lib/articles';
+
+const BASE_URL = 'https://www.levis-id.com';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const isJa = locale === 'ja';
+  const url = isJa ? `${BASE_URL}/articles` : `${BASE_URL}/en/articles`;
+  return {
+    title: isJa
+      ? "ヴィンテージLevi's 記事一覧｜年代判定・型番・ジャケットガイド | LEVI'S VINTAGE ID."
+      : "Vintage Levi's Articles — Dating, Model & Jacket Guides | LEVI'S VINTAGE ID.",
+    description: isJa
+      ? "ヴィンテージLevi'sの年代判定・型番別ガイド・ジャケット鑑定・価値・売買まで。Big E・501XX・506XX・557XXなど30本以上の専門記事。"
+      : "Comprehensive guides on vintage Levi's dating, model identification, jacket authentication, value, and buying. 30+ expert articles covering Big E, 501XX, 506XX, 557XX, and more.",
+    keywords: isJa
+      ? ['ヴィンテージリーバイス', '年代判定', '型番', 'Big E', '501XX', '506XX', '557XX', 'ジャケット', '価値', '売買', '鑑定ガイド']
+      : ['vintage levis', 'dating guide', 'model number', 'Big E', '501XX', '506XX', '557XX', 'jacket', 'value'],
+    openGraph: {
+      title: isJa
+        ? "ヴィンテージLevi's 記事一覧 | LEVI'S VINTAGE ID."
+        : "Vintage Levi's Articles | LEVI'S VINTAGE ID.",
+      description: isJa
+        ? "ヴィンテージLevi'sの年代判定・型番別ガイド・ジャケット鑑定・価値・売買まで30本以上の専門記事。"
+        : "30+ expert articles on vintage Levi's dating, model guides, jacket authentication, and value.",
+      url,
+      siteName: "LEVI'S VINTAGE ID.",
+      locale: isJa ? 'ja_JP' : 'en_US',
+      type: 'website',
+    },
+    alternates: {
+      canonical: url,
+      languages: {
+        'ja': `${BASE_URL}/articles`,
+        'en': `${BASE_URL}/en/articles`,
+      },
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  return [{ locale: 'ja' }, { locale: 'en' }];
+}
 
 export default async function ArticlesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

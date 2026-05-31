@@ -7,18 +7,22 @@ export default function Header({ locale }: { locale: string }) {
   const pathname = usePathname();
 
   const jaPath = pathname.startsWith('/en/')
-    ? pathname.slice(3)
+    ? `/ja${pathname.slice(3)}`
     : pathname === '/en'
-    ? '/'
-    : pathname;
+    ? '/ja'
+    : pathname.startsWith('/ja')
+    ? pathname
+    : `/ja${pathname}`;
 
   const enPath = pathname.startsWith('/en')
     ? pathname
-    : pathname === '/'
+    : pathname.startsWith('/ja/')
+    ? `/en${pathname.slice(3)}`
+    : pathname === '/ja'
     ? '/en'
     : `/en${pathname}`;
 
-  const homeHref = locale === 'ja' ? '/' : '/en';
+  const homeHref = locale === 'ja' ? '/ja' : '/en';
 
   return (
     <header className="sticky top-0 z-50 flex justify-between items-center px-8 py-5 border-b border-white/10 bg-[#1a2a3a]/40 backdrop-blur-xl">
@@ -28,44 +32,44 @@ export default function Header({ locale }: { locale: string }) {
       </Link>
 
       <nav className="hidden md:flex gap-6 items-center">
-        <Link href={locale === 'ja' ? '/guide' : '/en/guide'}
+        <Link href={locale === 'ja' ? '/ja/guide' : '/en/guide'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('撮影ガイド', 'Guide')}
         </Link>
-        <Link href={locale === 'ja' ? '/articles' : '/en/articles'}
+        <Link href={locale === 'ja' ? '/ja/articles' : '/en/articles'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('記事一覧', 'Articles')}
         </Link>
-        <Link href={locale === 'ja' ? '/timeline' : '/en/timeline'}
+        <Link href={locale === 'ja' ? '/ja/timeline' : '/en/timeline'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('年表', 'Timeline')}
         </Link>
-        <Link href={locale === 'ja' ? '/glossary' : '/en/glossary'}
+        <Link href={locale === 'ja' ? '/ja/glossary' : '/en/glossary'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('用語集', 'Glossary')}
         </Link>
-        <Link href={locale === 'ja' ? '/chart' : '/en/chart'}
+        <Link href={locale === 'ja' ? '/ja/chart' : '/en/chart'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('判定チャート', 'Chart')}
         </Link>
-        <Link href={locale === 'ja' ? '/faq' : '/en/faq'}
+        <Link href={locale === 'ja' ? '/ja/faq' : '/en/faq'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           FAQ
         </Link>
-        <Link href={locale === 'ja' ? '/about' : '/en/about'}
+        <Link href={locale === 'ja' ? '/ja/about' : '/en/about'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('このサービスについて', 'About')}
         </Link>
-        <Link href={locale === 'ja' ? '/feed' : '/en/feed'}
+        <Link href={locale === 'ja' ? '/ja/feed' : '/en/feed'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-rust animate-pulse" />
           {t('フィード', 'Feed')}
         </Link>
-        <Link href={locale === 'ja' ? '/jacket' : '/en/jacket'}
+        <Link href={locale === 'ja' ? '/ja/jacket' : '/en/jacket'}
           className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
           {t('ジャケット', 'Jacket')}
         </Link>
-        <Link href={locale === 'ja' ? '/identify' : '/en/identify'}
+        <Link href={locale === 'ja' ? '/ja/identify' : '/en/identify'}
           className="font-mono text-[10px] tracking-widest text-[#1a2a3a] bg-stitch px-4 py-2 rounded hover:bg-[#f0ebe0] transition-colors uppercase">
           {t('今すぐ鑑定', 'Identify')}
         </Link>

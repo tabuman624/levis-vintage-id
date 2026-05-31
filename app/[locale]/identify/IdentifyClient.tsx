@@ -9,23 +9,30 @@ const EBAY_BASE = "https://www.ebay.com/sch/i.html?mkcid=1&mkrid=711-53200-19255
 
 export default function IdentifyClient({ locale }: { locale: string }) {
   const t = (ja: string, en: string) => locale === 'ja' ? ja : en;
-  const [images, setImages] = useState<(string|null)[]>(Array(8).fill(null));
+  const [requiredImages, setRequiredImages] = useState<(string|null)[]>([null, null]);
+  const [optionalImages, setOptionalImages] = useState<(string|null)[]>(Array(6).fill(null));
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
+  const [recordId, setRecordId] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<'helpful' | 'not_helpful' | null>(null);
 
-  const slots = locale === 'ja'
-    ? ['赤タブ\n(必須・両面)','ケアラベル\n(必須・全体)','ジッパー/\nボタンフライ','ボタン裏\n(刻印番号)','バックポケット\n(ステッチ+リベット)','アウトシーム\nセルビッジ','パッチ\n(ウエスト裏)','その他\n(シンチ・糸色等)']
-    : ['Red Tab\n(req.·both)','Care Label\n(req.·full)','Zipper/\nButton Fly','Button Back\n(stamp)','Back Pocket\n(stitch+rivet)','Outseam/\nSelvedge','Patch\n(waistband)','Other\n(cinch·thread)'];
+  const requiredSlots = locale === 'ja'
+    ? ['赤タブ\n(両面)', 'ケアラベル\n(全体)']
+    : ['Red Tab\n(both sides)', 'Care Label\n(full)'];
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+  const optionalSlots = locale === 'ja'
+    ? ['ジッパー/\nボタンフライ', 'ボタン裏\n(刻印番号)', 'バックポケット\n(ステッチ+リベット)', 'アウトシーム\nセルビッジ', 'パッチ\n(ウエスト裏)', 'その他\n(シンチ・糸色等)']
+    : ['Zipper/\nButton Fly', 'Button Back\n(stamp)', 'Back Pocket\n(stitch+rivet)', 'Outseam/\nSelvedge', 'Patch\n(waistband)', 'Other\n(cinch·thread)'];
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>, idx: number, isRequired: boolean) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const canvas = document.createElement('canvas');
     const img = new Image();
     const url = URL.createObjectURL(file);
     img.onload = () => {
-      const MAX = 1024;
+      const MAX = 800;
       let w = img.width, h = img.height;
       if (w > MAX || h > MAX) {
         if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
@@ -33,31 +40,65 @@ export default function IdentifyClient({ locale }: { locale: string }) {
       }
       canvas.width = w; canvas.height = h;
       canvas.getContext('2d')!.drawImage(img, 0, 0, w, h);
-      const next = [...images];
-      next[idx] = canvas.toDataURL('image/jpeg', 0.8);
-      setImages(next);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+      if (isRequired) {
+        const next = [...requiredImages];
+        next[idx] = dataUrl;
+        setRequiredImages(next);
+      } else {
+        const next = [...optionalImages];
+        next[idx] = dataUrl;
+        setOptionalImages(next);
+      }
       URL.revokeObjectURL(url);
     };
     img.src = url;
   };
 
   const analyze = async () => {
-    const photos = images.filter(Boolean);
-    if (!photos.length) { setError(t('写真を1枚以上アップロードしてください','Please upload at least one photo')); return; }
-    setError(''); setLoading(true); setResult(null);
+    if (!requiredImages.some(Boolean)) {
+      setError(t('赤タブまたはケアラベルの写真を1枚以上アップロードしてください', 'Please upload at least one required photo (Red Tab or Care Label)'));
+      return;
+    }
+    const photos: string[] = [];
+    const slotsUsed: string[] = [];
+    requiredImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(`required_${i}`); } });
+    optionalImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(`optional_${i}`); } });
+
+    setError(''); setLoading(true); setResult(null); setRecordId(null); setFeedback(null);
     try {
       const res = await fetch('/api/identify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ images: photos, locale }),
+        body: JSON.stringify({ images: photos, slots: slotsUsed, locale }),
       });
       if (!res.ok) throw new Error((await res.json()).error);
       const data = await res.json();
       setResult(data);
+      if (data._id) setRecordId(data._id);
       document.getElementById('result')?.scrollIntoView({ behavior: 'smooth' });
     } catch (e: any) {
       setError(t('エラー: ','Error: ') + e.message);
     } finally { setLoading(false); }
+  };
+
+  const sendFeedback = async (value: 'helpful' | 'not_helpful') => {
+    if (!recordId || feedback) return;
+    setFeedback(value);
+    fetch('/api/identify/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: recordId, feedback: value }),
+    }).catch(() => {});
+  };
+
+  const trackClick = (platform: 'ebay' | 'mercari') => {
+    if (!recordId) return;
+    fetch('/api/identify/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: recordId, affiliate_click: platform }),
+    }).catch(() => {});
   };
 
   const confidenceClass = result?.confidence === 'HIGH'
@@ -87,32 +128,66 @@ export default function IdentifyClient({ locale }: { locale: string }) {
           <p className="text-sm text-fade font-light">{t('写真をアップロードして、年代・型番・製造工場をAIが判定します','Upload photos to identify era, model & factory with AI')}</p>
         </div>
 
-        <p className="font-mono text-[10px] tracking-[3px] text-stitch/80 uppercase mb-3">{t('写真をアップロード（多いほど精度UP）','UPLOAD PHOTOS — More = better accuracy')}</p>
-        <div className="grid grid-cols-4 gap-2 mb-6">
-          {images.map((img, i) => (
-            <div key={i} className={`aspect-square rounded-md flex flex-col items-center justify-center relative overflow-hidden cursor-pointer transition-all ${img ? 'border border-stitch/60' : 'border border-dashed border-stitch/25 bg-[#1a2a3a]/30 hover:border-stitch/50'}`}>
+        {/* 必須セクション */}
+        <div className="mb-2 flex items-center gap-2">
+          <p className="font-mono text-[10px] tracking-[3px] text-stitch/80 uppercase">{t('必須（1枚以上）', 'REQUIRED — Upload at least one')}</p>
+          <span className="font-mono text-[8px] tracking-[1px] bg-rust/20 text-rust border border-rust/30 rounded-full px-2 py-0.5">
+            {t('最重要ポイント', 'KEY PHOTOS')}
+          </span>
+        </div>
+        <div className="grid grid-cols-2 gap-2 mb-5">
+          {requiredImages.map((img, i) => (
+            <div key={i} className={`aspect-square rounded-md flex flex-col items-center justify-center relative overflow-hidden cursor-pointer transition-all ${img ? 'border border-stitch/60' : 'border border-dashed border-rust/40 bg-[#1a2a3a]/30 hover:border-rust/60'}`}>
               {img ? (
                 <>
                   <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover rounded-md" />
                   <div className="absolute inset-0 bg-[#1a2a3a]/70 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center rounded-md"
-                    onClick={() => { const n=[...images]; n[i]=null; setImages(n); }}>
+                    onClick={() => { const n=[...requiredImages]; n[i]=null; setRequiredImages(n); }}>
                     <span className="font-mono text-[9px] text-rust">✕ {t('削除','Remove')}</span>
                   </div>
                 </>
               ) : (
                 <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer">
-                  <span className="text-stitch/40 text-xl mb-1">＋</span>
-                  <span className="font-mono text-[8px] text-fade/70 text-center px-1 leading-tight whitespace-pre-line">{slots[i]}</span>
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFile(e, i)} />
+                  <span className="text-rust/50 text-xl mb-1">＋</span>
+                  <span className="font-mono text-[8px] text-fade/70 text-center px-1 leading-tight whitespace-pre-line">{requiredSlots[i]}</span>
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFile(e, i, true)} />
                 </label>
               )}
             </div>
           ))}
         </div>
 
+        {/* 任意セクション */}
+        <p className="font-mono text-[10px] tracking-[3px] text-stitch/50 uppercase mb-2">{t('任意（追加で精度UP）', 'OPTIONAL — Improves accuracy')}</p>
+        <div className="grid grid-cols-3 gap-2 mb-6">
+          {optionalImages.map((img, i) => (
+            <div key={i} className={`aspect-square rounded-md flex flex-col items-center justify-center relative overflow-hidden cursor-pointer transition-all ${img ? 'border border-stitch/60' : 'border border-dashed border-stitch/20 bg-[#1a2a3a]/20 hover:border-stitch/40'}`}>
+              {img ? (
+                <>
+                  <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover rounded-md" />
+                  <div className="absolute inset-0 bg-[#1a2a3a]/70 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center rounded-md"
+                    onClick={() => { const n=[...optionalImages]; n[i]=null; setOptionalImages(n); }}>
+                    <span className="font-mono text-[9px] text-rust">✕ {t('削除','Remove')}</span>
+                  </div>
+                </>
+              ) : (
+                <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer">
+                  <span className="text-stitch/30 text-xl mb-1">＋</span>
+                  <span className="font-mono text-[8px] text-fade/50 text-center px-1 leading-tight whitespace-pre-line">{optionalSlots[i]}</span>
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFile(e, i, false)} />
+                </label>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <p className="font-mono text-[9px] text-fade/40 text-center mb-4 leading-relaxed">
+          {t('送信することで、AI精度改善のための写真保存に同意したものとみなします。', 'By submitting, you agree to photos being stored to improve AI accuracy.')}
+        </p>
+
         {error && <p className="text-rust font-mono text-xs mb-4 bg-rust/10 border border-rust/25 rounded px-4 py-3">{error}</p>}
 
-        <button onClick={analyze} disabled={loading || !images.some(Boolean)}
+        <button onClick={analyze} disabled={loading || !requiredImages.some(Boolean)}
           className="w-full py-5 rounded font-mono text-sm tracking-[4px] uppercase bg-rust text-white transition-all hover:bg-red-500 disabled:opacity-40 disabled:cursor-not-allowed mb-10">
           {loading ? (
             <span className="flex items-center justify-center gap-3">
@@ -150,10 +225,80 @@ export default function IdentifyClient({ locale }: { locale: string }) {
               </div>
               <div className="px-6 pb-4">
                 <div className="h-px bg-stitch/10 mb-4" />
-                <p className="text-xs text-[#f0ebe0]/80 leading-loose font-light">
-                  <strong className="text-stitch">{t('■ 判定根拠','■ Reasoning')}</strong><br /><br />
+
+                {/* 確定 / 推定 / 不明 */}
+                <div className="grid grid-cols-1 gap-3 mb-4">
+                  {result.confirmed?.length > 0 && (
+                    <div className="bg-green-500/5 border border-green-500/20 rounded px-4 py-3">
+                      <div className="font-mono text-[8px] tracking-[2px] text-green-400 uppercase mb-2">{t('確定','CONFIRMED')}</div>
+                      <ul className="space-y-1">
+                        {result.confirmed.map((item: string, i: number) => (
+                          <li key={i} className="text-xs text-[#f0ebe0]/80 font-light flex gap-2">
+                            <span className="text-green-400 shrink-0">✓</span>{item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {result.estimated?.length > 0 && (
+                    <div className="bg-stitch/5 border border-stitch/20 rounded px-4 py-3">
+                      <div className="font-mono text-[8px] tracking-[2px] text-stitch uppercase mb-2">{t('推定','ESTIMATED')}</div>
+                      <ul className="space-y-1">
+                        {result.estimated.map((item: string, i: number) => (
+                          <li key={i} className="text-xs text-[#f0ebe0]/80 font-light flex gap-2">
+                            <span className="text-stitch shrink-0">〜</span>{item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {result.unknown?.length > 0 && (
+                    <div className="bg-[#1a2a3a]/30 border border-stitch/10 rounded px-4 py-3">
+                      <div className="font-mono text-[8px] tracking-[2px] text-fade/60 uppercase mb-2">{t('不明・写真不足','UNKNOWN')}</div>
+                      <ul className="space-y-1">
+                        {result.unknown.map((item: string, i: number) => (
+                          <li key={i} className="text-xs text-[#f0ebe0]/50 font-light flex gap-2">
+                            <span className="shrink-0">—</span>{item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                {result.next_steps && (
+                  <div className="bg-rust/5 border border-rust/20 rounded px-4 py-3 mb-4">
+                    <div className="font-mono text-[8px] tracking-[2px] text-rust uppercase mb-1">{t('精度を上げるには','IMPROVE ACCURACY')}</div>
+                    <p className="text-xs text-[#f0ebe0]/70 font-light leading-relaxed">→ {result.next_steps}</p>
+                  </div>
+                )}
+
+                <div className="h-px bg-stitch/10 mb-4" />
+                <p className="text-xs text-[#f0ebe0]/70 leading-loose font-light">
+                  <strong className="text-stitch/80">{t('■ 総合判定','■ Summary')}</strong><br /><br />
                   {result.reasoning}
                 </p>
+              </div>
+
+              {/* フィードバック */}
+              <div className="px-6 pb-5 border-t border-stitch/10 pt-4">
+                <p className="font-mono text-[9px] tracking-[2px] text-stitch/70 uppercase mb-3">
+                  {t('この結果は正確でしたか？', 'Was this result accurate?')}
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => sendFeedback('helpful')}
+                    className={`font-mono text-[10px] border rounded px-4 py-2 transition-colors ${feedback === 'helpful' ? 'bg-green-500/20 border-green-500/50 text-green-400' : 'border-stitch/20 text-fade/60 hover:border-green-500/40 hover:text-green-400'}`}
+                  >
+                    {feedback === 'helpful' ? t('✓ 正確だった', '✓ Accurate') : t('👍 正確だった', '👍 Accurate')}
+                  </button>
+                  <button
+                    onClick={() => sendFeedback('not_helpful')}
+                    className={`font-mono text-[10px] border rounded px-4 py-2 transition-colors ${feedback === 'not_helpful' ? 'bg-rust/20 border-rust/50 text-rust' : 'border-stitch/20 text-fade/60 hover:border-rust/40 hover:text-rust'}`}
+                  >
+                    {feedback === 'not_helpful' ? t('✓ 違う気がする', '✓ Not quite') : t('👎 違う気がする', '👎 Not quite')}
+                  </button>
+                </div>
               </div>
 
               {/* アフィリエイトリンク */}
@@ -166,6 +311,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
                     href={ebaySearchUrl}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
+                    onClick={() => trackClick('ebay')}
                     className="font-mono text-[10px] border border-stitch/25 text-stitch hover:bg-stitch/10 rounded px-4 py-2 transition-colors"
                   >
                     {t('eBayで類似品を見る','Find on eBay')}
@@ -174,6 +320,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
                     href={MERCARI_LINK}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
+                    onClick={() => trackClick('mercari')}
                     className="font-mono text-[10px] border border-rust/25 text-red-400 hover:bg-rust/10 rounded px-4 py-2 transition-colors"
                   >
                     {t('メルカリで検索','Search Mercari')}

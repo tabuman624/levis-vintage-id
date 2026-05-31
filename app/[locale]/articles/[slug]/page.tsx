@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 import { ARTICLES, getArticle } from '@/lib/articles';
 
-const BASE_URL = 'https://levis-id.com';
+const BASE_URL = 'https://www.levis-id.com';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> }

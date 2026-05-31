@@ -18,8 +18,8 @@ export async function generateMetadata(
       : "Complete glossary of 28 vintage Levi's terms: Big E, selvedge, TALON 42, arcuate, care label, 501XX, LVC, and more.",
     alternates: {
       languages: {
-        ja: 'https://levis-id.com/glossary',
-        en: 'https://levis-id.com/en/glossary',
+        ja: 'https://www.levis-id.com/glossary',
+        en: 'https://www.levis-id.com/en/glossary',
       },
     },
   };
@@ -317,7 +317,7 @@ function buildJsonLd(isJa: boolean) {
     '@context': 'https://schema.org',
     '@type': 'DefinedTermSet',
     name: isJa ? "ヴィンテージLevi's用語集" : "Vintage Levi's Glossary",
-    url: isJa ? 'https://levis-id.com/glossary' : 'https://levis-id.com/en/glossary',
+    url: isJa ? 'https://www.levis-id.com/glossary' : 'https://www.levis-id.com/en/glossary',
     hasDefinedTerm: TERMS.map(t => ({
       '@type': 'DefinedTerm',
       name: isJa ? t.termJa : t.termEn,

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import '../globals.css';
 
-const BASE_URL = 'https://levis-vintage-id.vercel.app';
+const BASE_URL = 'https://www.levis-id.com';
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -96,7 +96,7 @@ export default async function LocaleLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "LEVI'S VINTAGE ID.",
-              "url": "https://levis-id.com",
+              "url": "https://www.levis-id.com",
               "description": locale === 'ja'
                 ? "写真をアップロードするだけでヴィンテージLevi'sの年代・型番・製造工場をAIが鑑定する無料サービス。"
                 : "Free AI service that identifies vintage Levi's era, model, and factory from your photos.",
@@ -104,13 +104,13 @@ export default async function LocaleLayout({
               "publisher": {
                 "@type": "Organization",
                 "name": "LEVI'S VINTAGE ID.",
-                "url": "https://levis-id.com"
+                "url": "https://www.levis-id.com"
               },
               "potentialAction": {
                 "@type": "SearchAction",
                 "target": {
                   "@type": "EntryPoint",
-                  "urlTemplate": "https://levis-id.com/articles"
+                  "urlTemplate": "https://www.levis-id.com/articles"
                 },
                 "query-input": "required name=search_term_string"
               }

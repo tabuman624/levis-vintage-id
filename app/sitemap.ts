@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { ARTICLES } from '@/lib/articles';
 
-const BASE_URL = 'https://levis-id.com';
+const BASE_URL = 'https://www.levis-id.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
@@ -33,6 +33,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as const,
   }));
 
+  const dynamicPages = [
+    { url: `${BASE_URL}/feed`, priority: 0.8 },
+    { url: `${BASE_URL}/en/feed`, priority: 0.7 },
+  ].map(page => ({
+    ...page,
+    lastModified: new Date(),
+    changeFrequency: 'hourly' as const,
+  }));
+
   const articlePages = ARTICLES.flatMap(article => [
     {
       url: `${BASE_URL}/articles/${article.slug}`,
@@ -48,5 +57,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]);
 
-  return [...staticPages, ...articlePages];
+  return [...staticPages, ...dynamicPages, ...articlePages];
 }

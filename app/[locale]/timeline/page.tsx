@@ -18,8 +18,8 @@ export async function generateMetadata(
       : "From 1873 founding to 2002 Made in USA end. Levi's changes that directly affect identification — Big E, care label, selvedge, TALON, date codes — presented as a historical timeline.",
     alternates: {
       languages: {
-        ja: 'https://levis-id.com/timeline',
-        en: 'https://levis-id.com/en/timeline',
+        ja: 'https://www.levis-id.com/timeline',
+        en: 'https://www.levis-id.com/en/timeline',
       },
     },
   };
@@ -335,11 +335,11 @@ export default async function TimelinePage({ params }: { params: Promise<{ local
     description: isJa
       ? 'Big E・ケアラベル・セルビッジ・TALON・日付コードなど鑑定に直結するLevi\'sの変遷を年表で解説。'
       : "Levi's changes that directly affect identification presented as a historical timeline.",
-    url: isJa ? 'https://levis-id.com/timeline' : 'https://levis-id.com/en/timeline',
+    url: isJa ? 'https://www.levis-id.com/timeline' : 'https://www.levis-id.com/en/timeline',
     datePublished: '2026-05-24',
     dateModified: '2026-05-24',
-    author: { '@type': 'Organization', name: "LEVI'S VINTAGE ID.", url: 'https://levis-id.com' },
-    publisher: { '@type': 'Organization', name: "LEVI'S VINTAGE ID.", url: 'https://levis-id.com' },
+    author: { '@type': 'Organization', name: "LEVI'S VINTAGE ID.", url: 'https://www.levis-id.com' },
+    publisher: { '@type': 'Organization', name: "LEVI'S VINTAGE ID.", url: 'https://www.levis-id.com' },
   };
 
   return (

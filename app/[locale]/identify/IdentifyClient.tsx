@@ -187,22 +187,27 @@ export default function IdentifyClient({ locale }: { locale: string }) {
           ))}
         </div>
 
-        {/* ジャケットタイプバッジ */}
-        {itemType === 'jacket' && (
-          <div className="flex flex-wrap gap-2 mb-7">
-            {[
-              ['Type I', '506XX', '1905〜1952'],
-              ['Type II', '507XX', '1953〜1962'],
-              ['Type III', '557XX / 70505', '1962〜'],
-            ].map(([type, model, era]) => (
-              <div key={type} className="bg-[#1a2a3a]/40 border border-stitch/20 rounded px-3 py-1.5 text-center">
-                <span className="font-mono text-[9px] text-stitch block">{type}</span>
-                <span className="font-mono text-[8px] text-rust block">{model}</span>
-                <span className="font-mono text-[7px] text-fade/60 block">{era}</span>
-              </div>
-            ))}
-          </div>
-        )}
+        {/* カテゴリバッジ */}
+        <div className="flex flex-wrap gap-2 mb-7">
+          {(itemType === 'jeans'
+            ? [
+                [t('Big E era', 'Big E era'), '501 / 505 etc.', t('〜1971年', '〜1971')],
+                [t('Small e era', 'Small e era'), '501 / 505 etc.', t('1971〜2002年', '1971〜2002')],
+                [t('現行品', 'Current'), '511 / 512 etc.', t('2003年〜', '2003〜')],
+              ]
+            : [
+                ['Type I', '506XX', t('1905〜1952年', '1905〜1952')],
+                ['Type II', '507XX', t('1953〜1962年', '1953〜1962')],
+                ['Type III', '557XX / 70505', t('1962年〜', '1962〜')],
+              ]
+          ).map(([label, model, era]) => (
+            <div key={label} className="bg-[#1a2a3a]/40 border border-stitch/20 rounded px-3 py-1.5 text-center">
+              <span className="font-mono text-[9px] text-stitch block">{label}</span>
+              <span className="font-mono text-[8px] text-rust block">{model}</span>
+              <span className="font-mono text-[7px] text-fade/60 block">{era}</span>
+            </div>
+          ))}
+        </div>
 
         {/* 必須セクション */}
         <div className="mb-2 flex items-center gap-2">
@@ -210,7 +215,7 @@ export default function IdentifyClient({ locale }: { locale: string }) {
             {t('必須（1枚以上）', 'REQUIRED — Upload at least one')}
           </p>
           <span className="font-mono text-[8px] tracking-[1px] bg-rust/20 text-rust border border-rust/30 rounded-full px-2 py-0.5">
-            {itemType === 'jeans' ? t('最重要ポイント', 'KEY PHOTOS') : t('Type判別に必要', 'FOR TYPE ID')}
+            {t('最重要ポイント', 'KEY PHOTOS')}
           </span>
         </div>
         <div className="grid grid-cols-2 gap-2 mb-5">

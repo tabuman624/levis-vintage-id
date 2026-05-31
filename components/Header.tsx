@@ -65,10 +65,6 @@ export default function Header({ locale }: { locale: string }) {
           <span className="w-1.5 h-1.5 rounded-full bg-rust animate-pulse" />
           {t('フィード', 'Feed')}
         </Link>
-        <Link href={locale === 'ja' ? '/ja/jacket' : '/en/jacket'}
-          className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
-          {t('ジャケット', 'Jacket')}
-        </Link>
         <Link href={locale === 'ja' ? '/ja/identify' : '/en/identify'}
           className="font-mono text-[10px] tracking-widest text-[#1a2a3a] bg-stitch px-4 py-2 rounded hover:bg-[#f0ebe0] transition-colors uppercase">
           {t('今すぐ鑑定', 'Identify')}

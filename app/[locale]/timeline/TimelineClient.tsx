@@ -332,8 +332,12 @@ export default function TimelineClient({ locale }: { locale: string }) {
         {t('歴史年表', 'Historical Timeline')}
       </p>
       <h1 className="font-playfair font-bold text-[#f0ebe0] mb-4" style={{ fontSize: 'clamp(26px,5vw,42px)' }}>
-        {t("Levi'sの変遷", "Levi's Through the Decades")}
-        <span className="block text-stitch font-mono text-base tracking-widest mt-2">1873 — 2002</span>
+        {activeTab === 'jeans'
+          ? t('ジーンズの変遷', "Jeans Through the Decades")
+          : t('ジャケットの変遷', 'Jackets Through the Decades')}
+        <span className="block text-stitch font-mono text-base tracking-widest mt-2">
+          {activeTab === 'jeans' ? '1873 — 2002' : '1936 — 2002'}
+        </span>
       </h1>
       <p className="text-sm text-[#b8cce4] font-light leading-loose mb-8">
         {t(

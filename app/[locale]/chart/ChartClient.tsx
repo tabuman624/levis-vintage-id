@@ -61,7 +61,7 @@ export default function ChartClient({ locale }: { locale: string }) {
           {/* SECTION 1: フローチャート */}
           <section style={{ marginBottom: '80px' }}>
             <h2 style={{ fontFamily: 'Playfair Display,serif', fontSize: '26px', fontWeight: 'bold', color: '#e8d5a3', marginBottom: '8px', paddingBottom: '12px', borderBottom: '1px solid rgba(232,213,163,0.25)' }}>
-              {t('年代判定フローチャート', 'Era Identification Flowchart')}
+              {t('ジーンズ 年代判定フローチャート', 'Jeans Dating Flowchart')}
             </h2>
             <p style={{ fontSize: '13px', color: 'rgba(184,204,228,0.7)', marginBottom: '32px', fontFamily: 'DM Mono,monospace' }}>
               {t('STEP 1 から順番に確認してください', 'Follow from STEP 1 in order')}
@@ -120,7 +120,7 @@ export default function ChartClient({ locale }: { locale: string }) {
           {/* SECTION 2: 年代別仕様比較表 */}
           <section style={{ marginBottom: '80px' }}>
             <h2 style={{ fontFamily: 'Playfair Display,serif', fontSize: '26px', fontWeight: 'bold', color: '#e8d5a3', marginBottom: '8px', paddingBottom: '12px', borderBottom: '1px solid rgba(232,213,163,0.25)' }}>
-              {t('年代別仕様比較表', 'Era Specification Comparison')}
+              {t('ジーンズ 年代別仕様比較表', 'Jeans Era Comparison')}
             </h2>
             <p style={{ fontSize: '13px', color: 'rgba(184,204,228,0.7)', marginBottom: '28px', fontFamily: 'DM Mono,monospace' }}>
               {t('主要4時代の仕様変化まとめ（501を基準）', 'Key spec changes across 4 major eras — based on 501')}

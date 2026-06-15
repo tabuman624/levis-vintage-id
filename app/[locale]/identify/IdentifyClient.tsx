@@ -1,9 +1,23 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 import { MERCARI_LINK, EBAY_BASE, A8_PIXEL, IMAGE_MAX_PX, IMAGE_QUALITY } from '@/lib/constants';
+import { getPriceRange } from '@/lib/prices';
+
+type HistoryEntry = {
+  id: string;
+  timestamp: number;
+  era: string;
+  model: string;
+  confidence: 'HIGH' | 'MID' | 'LOW';
+  itemType: 'jeans' | 'jacket';
+  jacketType?: string;
+};
+
+const HISTORY_KEY = 'levis_history';
+const HISTORY_MAX = 20;
 
 type ItemType = 'jeans' | 'jacket';
 
@@ -16,6 +30,14 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(HISTORY_KEY);
+      if (stored) setHistory(JSON.parse(stored));
+    } catch {}
+  }, []);
 
   const switchTab = (type: ItemType) => {
     if (type === itemType) return;
@@ -95,6 +117,20 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
       if (!res.ok) throw new Error((await res.json()).error);
       const data = await res.json();
       setResult(data);
+      const entry: HistoryEntry = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        timestamp: Date.now(),
+        era: data.era,
+        model: data.model,
+        confidence: data.confidence,
+        itemType,
+        jacketType: data.jacket_type,
+      };
+      setHistory(prev => {
+        const next = [entry, ...prev].slice(0, HISTORY_MAX);
+        try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+        return next;
+      });
       document.getElementById('result')?.scrollIntoView({ behavior: 'smooth' });
     } catch (e: any) {
       setError(e.message || t('エラーが発生しました', 'An error occurred'));
@@ -294,6 +330,21 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
                     <div className="text-sm font-medium text-[#f0ebe0]">{result[key] || '—'}</div>
                   </div>
                 ))}
+                {(() => {
+                  const price = getPriceRange(result.model || '', result.era || '', itemType, locale);
+                  if (!price) return null;
+                  return (
+                    <div className="col-span-2 bg-stitch/5 border border-stitch/20 rounded px-4 py-3">
+                      <div className="font-mono text-[8px] tracking-[2px] text-stitch/70 uppercase mb-1">
+                        {t('参考相場', 'MARKET PRICE RANGE')}
+                      </div>
+                      <div className="text-base font-bold text-stitch">{price.range}</div>
+                      <div className="font-mono text-[9px] text-fade/50 mt-1 leading-relaxed">
+                        ※ {locale === 'ja' ? price.noteJa : price.noteEn}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
               <div className="px-6 pb-4">
                 <div className="h-px bg-stitch/10 mb-4" />
@@ -372,6 +423,51 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
               {t('※ 本鑑定はAIによる推定です。正確性を保証するものではありません。本サービスはLevi Strauss & Co.とは無関係の独立サービスです。',
                 '※ Results are AI estimates only. Not guaranteed. Independent of Levi Strauss & Co.')}
             </p>
+          </div>
+        )}
+
+        {history.length > 0 && (
+          <div className="mt-12">
+            <div className="flex items-center justify-between mb-4">
+              <p className="font-mono text-[10px] tracking-[3px] text-stitch/80 uppercase">
+                {t('あなたの鑑定履歴', 'YOUR HISTORY')}
+              </p>
+              <button
+                onClick={() => {
+                  setHistory([]);
+                  try { localStorage.removeItem(HISTORY_KEY); } catch {}
+                }}
+                className="font-mono text-[9px] text-fade/40 hover:text-rust transition-colors"
+              >
+                {t('履歴を削除', 'Clear')}
+              </button>
+            </div>
+            <div className="space-y-2">
+              {history.map((entry) => {
+                const confColor = entry.confidence === 'HIGH'
+                  ? 'text-green-400 border-green-500/30'
+                  : entry.confidence === 'MID'
+                  ? 'text-stitch border-stitch/30'
+                  : 'text-fade/50 border-white/10';
+                const date = new Date(entry.timestamp);
+                const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`;
+                return (
+                  <div key={entry.id} className="flex items-center gap-3 bg-[#1a2a3a]/30 border border-stitch/10 rounded-lg px-4 py-3">
+                    <span className="font-mono text-[9px] text-fade/30 shrink-0 w-10">{dateStr}</span>
+                    <span className="font-mono text-[8px] text-rust/70 shrink-0">
+                      {entry.itemType === 'jacket' ? t('ジャケット', 'JACKET') : t('ジーンズ', 'JEANS')}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-[#f0ebe0]/80 truncate">{entry.model}</p>
+                      <p className="font-mono text-[8px] text-fade/50 truncate">{entry.era}</p>
+                    </div>
+                    <span className={`font-mono text-[8px] border rounded-full px-2 py-0.5 shrink-0 ${confColor}`}>
+                      {entry.confidence}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
 

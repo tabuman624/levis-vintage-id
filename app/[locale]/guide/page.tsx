@@ -17,7 +17,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
       title: t('赤タブ（Red Tab）', 'Red Tab'),
       why: t('両面大文字「LEVIS」なら1971年以前のBig E。最重要ポイントです。', 'Both sides uppercase "LEVIS" = pre-1971 Big E. Most critical point.'),
       tip: t('タブを引き出して両面を接写。ピントが合っているか確認してください。', 'Pull out the tab and shoot both sides close-up. Check focus carefully.'),
-      image: "/images/guide/Levi's_501_jeans_'big_E'_Red_Tab_(2025-12-19)_3.jpg",
+      image: "/images/guide/levis-501-big-e-red-tab.jpg",
       credit: null,
     },
     {
@@ -67,7 +67,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
       title: t('バックポケット（ステッチ）', 'Back Pocket Stitching'),
       why: t('アルキュエートステッチの糸色で年代判定。黄色糸→1970年代中頃以前確定。', 'Arcuate stitch thread color dates the piece. Yellow thread = pre-mid-1970s confirmed.'),
       tip: t('ポケット全体と糸の色がわかるよう自然光で撮影。', 'Shoot the full pocket in natural light so thread color is clearly visible.'),
-      image: "/images/guide/Levi's_501_Raw's_Story_-4.jpg",
+      image: "/images/guide/levis-501-arcuate-stitch.jpg",
       credit: '© carianoff / Wikimedia Commons / CC BY-SA 2.0',
     },
     {
@@ -77,7 +77,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
       title: t('パッチ（ウエスト裏）', 'Back Patch'),
       why: t('本革パッチ→1954年以前確定。素材と状態が年代と価値を示す。', 'Leather patch = pre-1954 confirmed. Material and condition indicate era and value.'),
       tip: t('パッチ全体の文字が読めるよう正面から撮影。', 'Shoot straight-on so all text on the patch is readable.'),
-      image: "/images/guide/Levi's_501_Two_Horses_patch_(2025-12-19)_5.jpg",
+      image: "/images/guide/levis-501-two-horses-patch.jpg",
       credit: null,
     },
   ];

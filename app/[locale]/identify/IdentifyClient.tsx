@@ -4,8 +4,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 import { MERCARI_LINK, EBAY_BASE, A8_PIXEL, IMAGE_MAX_PX, IMAGE_QUALITY } from '@/lib/constants';
-import { getPriceRange } from '@/lib/prices';
-
 type HistoryEntry = {
   id: string;
   timestamp: number;
@@ -330,21 +328,6 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
                     <div className="text-sm font-medium text-[#f0ebe0]">{result[key] || '—'}</div>
                   </div>
                 ))}
-                {(() => {
-                  const price = getPriceRange(result.model || '', result.era || '', itemType, locale);
-                  if (!price) return null;
-                  return (
-                    <div className="col-span-2 bg-stitch/5 border border-stitch/20 rounded px-4 py-3">
-                      <div className="font-mono text-[8px] tracking-[2px] text-stitch/70 uppercase mb-1">
-                        {t('参考相場', 'MARKET PRICE RANGE')}
-                      </div>
-                      <div className="text-base font-bold text-stitch">{price.range}</div>
-                      <div className="font-mono text-[9px] text-fade/50 mt-1 leading-relaxed">
-                        ※ {locale === 'ja' ? price.noteJa : price.noteEn}
-                      </div>
-                    </div>
-                  );
-                })()}
               </div>
               <div className="px-6 pb-4">
                 <div className="h-px bg-stitch/10 mb-4" />

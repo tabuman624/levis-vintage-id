@@ -16,8 +16,6 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
-  const [recordId, setRecordId] = useState<string | null>(null);
-  const [feedback, setFeedback] = useState<'helpful' | 'not_helpful' | null>(null);
 
   const switchTab = (type: ItemType) => {
     if (type === itemType) return;
@@ -26,8 +24,6 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
     setOptionalImages(Array(6).fill(null));
     setResult(null);
     setError('');
-    setRecordId(null);
-    setFeedback(null);
   };
 
   const requiredSlots = itemType === 'jeans'
@@ -89,7 +85,7 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
     requiredImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(reqKeys[i]); } });
     optionalImages.forEach((img, i) => { if (img) { photos.push(img); slotsUsed.push(optKeys[i]); } });
 
-    setError(''); setLoading(true); setResult(null); setRecordId(null); setFeedback(null);
+    setError(''); setLoading(true); setResult(null);
     try {
       const res = await fetch('/api/identify', {
         method: 'POST',
@@ -99,30 +95,10 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
       if (!res.ok) throw new Error((await res.json()).error);
       const data = await res.json();
       setResult(data);
-      if (data._id) setRecordId(data._id);
       document.getElementById('result')?.scrollIntoView({ behavior: 'smooth' });
     } catch (e: any) {
       setError(e.message || t('エラーが発生しました', 'An error occurred'));
     } finally { setLoading(false); }
-  };
-
-  const sendFeedback = async (value: 'helpful' | 'not_helpful') => {
-    if (!recordId || feedback) return;
-    setFeedback(value);
-    fetch('/api/identify/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: recordId, feedback: value }),
-    }).catch(() => {});
-  };
-
-  const trackClick = (platform: 'ebay' | 'mercari') => {
-    if (!recordId) return;
-    fetch('/api/identify/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: recordId, affiliate_click: platform }),
-    }).catch(() => {});
   };
 
   const confidenceClass = result?.confidence === 'HIGH'
@@ -273,10 +249,6 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
           ))}
         </div>
 
-        <p className="font-mono text-[9px] text-fade/40 text-center mb-4 leading-relaxed">
-          {t('送信することで、AI精度改善のための写真保存に同意したものとみなします。', 'By submitting, you agree to photos being stored to improve AI accuracy.')}
-        </p>
-
         {error && <p className="text-rust font-mono text-xs mb-4 bg-rust/10 border border-rust/25 rounded px-4 py-3">{error}</p>}
 
         <button onClick={analyze} disabled={loading || !requiredImages.some(Boolean)}
@@ -378,23 +350,6 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
                 </p>
               </div>
 
-              {/* フィードバック */}
-              <div className="px-6 pb-5 border-t border-stitch/10 pt-4">
-                <p className="font-mono text-[9px] tracking-[2px] text-stitch/70 uppercase mb-3">
-                  {t('この結果は正確でしたか？', 'Was this result accurate?')}
-                </p>
-                <div className="flex gap-2">
-                  <button onClick={() => sendFeedback('helpful')}
-                    className={`font-mono text-[10px] border rounded px-4 py-2 transition-colors ${feedback === 'helpful' ? 'bg-green-500/20 border-green-500/50 text-green-400' : 'border-stitch/20 text-fade/60 hover:border-green-500/40 hover:text-green-400'}`}>
-                    {feedback === 'helpful' ? t('✓ 正確だった', '✓ Accurate') : t('👍 正確だった', '👍 Accurate')}
-                  </button>
-                  <button onClick={() => sendFeedback('not_helpful')}
-                    className={`font-mono text-[10px] border rounded px-4 py-2 transition-colors ${feedback === 'not_helpful' ? 'bg-rust/20 border-rust/50 text-rust' : 'border-stitch/20 text-fade/60 hover:border-rust/40 hover:text-rust'}`}>
-                    {feedback === 'not_helpful' ? t('✓ 違う気がする', '✓ Not quite') : t('👎 違う気がする', '👎 Not quite')}
-                  </button>
-                </div>
-              </div>
-
               {/* アフィリエイトリンク */}
               <div className="px-6 pb-5 border-t border-stitch/10 pt-4">
                 <p className="font-mono text-[9px] tracking-[2px] text-stitch/70 uppercase mb-3">
@@ -402,12 +357,10 @@ export default function IdentifyClient({ locale, fixedType }: { locale: string; 
                 </p>
                 <div className="flex gap-3 flex-wrap">
                   <a href={ebaySearchUrl} target="_blank" rel="nofollow noopener noreferrer"
-                    onClick={() => trackClick('ebay')}
                     className="font-mono text-[10px] border border-stitch/25 text-stitch hover:bg-stitch/10 rounded px-4 py-2 transition-colors">
                     {t('eBayで類似品を見る', 'Find on eBay')}
                   </a>
                   <a href={MERCARI_LINK} target="_blank" rel="nofollow noopener noreferrer"
-                    onClick={() => trackClick('mercari')}
                     className="font-mono text-[10px] border border-rust/25 text-red-400 hover:bg-rust/10 rounded px-4 py-2 transition-colors">
                     {t('メルカリで検索', 'Search Mercari')}
                   </a>

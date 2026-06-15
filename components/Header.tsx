@@ -26,7 +26,7 @@ export default function Header({ locale }: { locale: string }) {
 
   const homeHref = locale === 'ja' ? '/ja' : '/en';
 
-  const navLinks = [
+  const navLinks: { href: string; label: string }[] = [
     { href: locale === 'ja' ? '/ja/guide'    : '/en/guide',    label: t('撮影ガイド', 'Guide') },
     { href: locale === 'ja' ? '/ja/articles' : '/en/articles', label: t('記事一覧', 'Articles') },
     { href: locale === 'ja' ? '/ja/timeline' : '/en/timeline', label: t('年表', 'Timeline') },
@@ -34,7 +34,6 @@ export default function Header({ locale }: { locale: string }) {
     { href: locale === 'ja' ? '/ja/chart'    : '/en/chart',    label: t('判定チャート', 'Chart') },
     { href: locale === 'ja' ? '/ja/faq'      : '/en/faq',      label: 'FAQ' },
     { href: locale === 'ja' ? '/ja/about'    : '/en/about',    label: t('このサービスについて', 'About') },
-    { href: locale === 'ja' ? '/ja/feed'     : '/en/feed',     label: t('フィード', 'Feed'), live: true },
   ];
 
   const identifyHref = locale === 'ja' ? '/ja/identify' : '/en/identify';
@@ -49,10 +48,9 @@ export default function Header({ locale }: { locale: string }) {
 
         {/* デスクトップナビ */}
         <nav className="hidden md:flex gap-6 items-center">
-          {navLinks.map(({ href, label, live }) => (
+          {navLinks.map(({ href, label }) => (
             <Link key={href} href={href}
-              className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase flex items-center gap-1.5">
-              {live && <span className="w-1.5 h-1.5 rounded-full bg-rust animate-pulse" />}
+              className="font-mono text-[10px] tracking-widest text-fade hover:text-stitch transition-colors uppercase">
               {label}
             </Link>
           ))}
@@ -96,11 +94,10 @@ export default function Header({ locale }: { locale: string }) {
       {/* モバイルメニュー */}
       {menuOpen && (
         <nav className="md:hidden border-t border-white/10 px-6 pb-4">
-          {navLinks.map(({ href, label, live }) => (
+          {navLinks.map(({ href, label }) => (
             <Link key={href} href={href}
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 font-mono text-[11px] tracking-widest text-fade hover:text-stitch uppercase py-3.5 border-b border-white/5 last:border-0 transition-colors">
-              {live && <span className="w-1.5 h-1.5 rounded-full bg-rust animate-pulse flex-shrink-0" />}
+              className="font-mono text-[11px] tracking-widest text-fade hover:text-stitch uppercase py-3.5 border-b border-white/5 last:border-0 transition-colors block">
               {label}
             </Link>
           ))}

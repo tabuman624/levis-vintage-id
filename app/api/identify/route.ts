@@ -1,37 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createHash } from 'crypto';
-import { supabaseAdmin } from '@/lib/supabase-server';
 
-const RATE_LIMIT_PER_HOUR = 10;
 const MAX_IMAGES = 10;
-
-function getIpHash(req: NextRequest): string {
-  const ip =
-    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown';
-  return createHash('sha256')
-    .update(ip + (process.env.RATE_LIMIT_SALT ?? 'levis-id'))
-    .digest('hex')
-    .slice(0, 16);
-}
-
-async function checkRateLimit(ipHash: string): Promise<boolean> {
-  const windowStart = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-  const { count } = await supabaseAdmin
-    .from('rate_limits')
-    .select('*', { count: 'exact', head: true })
-    .eq('ip_hash', ipHash)
-    .gte('created_at', windowStart);
-  return (count ?? 0) < RATE_LIMIT_PER_HOUR;
-}
-
-async function recordRequest(ipHash: string) {
-  await supabaseAdmin.from('rate_limits').insert({ ip_hash: ipHash });
-  // 古いレコードを非同期で掃除（1時間超）
-  const cutoff = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-  supabaseAdmin.from('rate_limits').delete().lt('created_at', cutoff).then(() => {});
-}
 
 // ===== 型定義 =====
 interface IdentifyResult {
@@ -519,58 +488,8 @@ Combine multiple indicators; never rely on single feature.
 Report contradictions in reasoning field.
 `;
 
-function normalizeModel(model: string): string {
-  const m5 = model.match(/\b\d{5}\b/);
-  if (m5) return m5[0];
-  const m3 = model.match(/\b\d{3}\b/);
-  return m3 ? m3[0] : 'unknown';
-}
-
-function extractDecade(era: string): string {
-  if (/現行品|current/i.test(era)) return 'current';
-  for (const d of ['1920','1930','1940','1950','1960','1970','1980','1990','2000','2010','2020']) {
-    if (era.includes(d)) return `${d.slice(0, 3)}0s`;
-  }
-  return 'unknown';
-}
-
-async function savePhotos(images: string[], recordId: string) {
-  const month = new Date().toISOString().slice(0, 7);
-  const photoPaths: string[] = [];
-
-  for (let i = 0; i < images.length; i++) {
-    const [header, base64] = images[i].split(',');
-    const mimeType = header.match(/:(.*?);/)?.[1] || 'image/jpeg';
-    const ext = mimeType === 'image/png' ? 'png' : 'jpg';
-    const path = `${month}/${recordId}/${i}.${ext}`;
-    const buffer = Buffer.from(base64, 'base64');
-
-    const { error } = await supabaseAdmin.storage
-      .from('identifications')
-      .upload(path, buffer, { contentType: mimeType, upsert: false });
-
-    if (!error) photoPaths.push(path);
-  }
-
-  if (photoPaths.length > 0) {
-    await supabaseAdmin
-      .from('identifications')
-      .update({ photo_urls: photoPaths })
-      .eq('id', recordId);
-  }
-}
-
 export async function POST(req: NextRequest) {
   try {
-    const ipHash = getIpHash(req);
-    const allowed = await checkRateLimit(ipHash);
-    if (!allowed) {
-      return NextResponse.json(
-        { error: '鑑定回数の上限に達しました。1時間後に再度お試しください。' },
-        { status: 429 }
-      );
-    }
-
     const { images, locale, slots, itemType } = await req.json();
 
     if (!images || images.length === 0) {
@@ -595,9 +514,6 @@ export async function POST(req: NextRequest) {
       ? (isJa ? 'このジャケットを鑑定してください。JSONのみ返してください。' : 'Please identify this jacket. Return JSON only.')
       : (isJa ? '上記の写真を鑑定してください。JSONのみ返してください。' : 'Please identify these items. Return JSON only.');
 
-    await recordRequest(ipHash);
-
-    // Gemini API リクエスト構築
     const parts: any[] = [{ text: systemPrompt }];
 
     for (let i = 0; i < images.length; i++) {
@@ -632,39 +548,7 @@ export async function POST(req: NextRequest) {
     const clean = text.replace(/```json|```/g, '').trim();
     const result: IdentifyResult = JSON.parse(clean);
 
-    // DBレコードを先に挿入してIDを取得
-    let recordId: string | null = null;
-    try {
-      const { data } = await supabaseAdmin
-        .from('identifications')
-        .insert({
-          era: result.era,
-          model: result.model,
-          factory: result.factory,
-          country: result.country,
-          confidence: result.confidence,
-          rarity: result.rarity,
-          locale: isJa ? 'ja' : 'en',
-          image_count: images.length,
-          slots_used: slots ?? [],
-          model_normalized: normalizeModel(result.model),
-          era_decade: extractDecade(result.era),
-          item_type: isJacket ? 'jacket' : 'jeans',
-          jacket_type: result.jacket_type ?? null,
-        })
-        .select('id')
-        .single();
-      recordId = data?.id ?? null;
-    } catch (e) {
-      console.error('DB insert error:', e);
-    }
-
-    // 写真はレスポンス後に非同期保存
-    if (recordId) {
-      savePhotos(images, recordId).catch((e) => console.error('Photo save error:', e));
-    }
-
-    return NextResponse.json({ ...result, _id: recordId });
+    return NextResponse.json(result);
   } catch (error: any) {
     console.error('Identify API error:', error);
     return NextResponse.json(

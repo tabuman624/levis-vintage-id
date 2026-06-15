@@ -4,10 +4,34 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StitchLine from '@/components/StitchLine';
 
-export const metadata: Metadata = {
-  title: "このサービスについて | LEVI'S VINTAGE ID.",
-  description: 'LEVI\'S VINTAGE ID.はGoogle Gemini AIを使用したヴィンテージLevi\'sジーンズの年代・型番・製造工場を無料で鑑定するサービスです。鑑定の根拠・方法論・AI精度・免責事項を詳しく解説。',
-};
+const BASE_URL = 'https://www.levis-id.com';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
+  const isJa = locale === 'ja';
+  const url = isJa ? `${BASE_URL}/about` : `${BASE_URL}/en/about`;
+  return {
+    title: isJa
+      ? "このサービスについて | LEVI'S VINTAGE ID."
+      : "About | LEVI'S VINTAGE ID.",
+    description: isJa
+      ? "LEVI'S VINTAGE ID.はGoogle Gemini AIを使用したヴィンテージLevi'sジーンズの年代・型番・製造工場を無料で鑑定するサービスです。鑑定の根拠・方法論・AI精度・免責事項を詳しく解説。"
+      : "LEVI'S VINTAGE ID. is a free AI service using Google Gemini to identify vintage Levi's jeans by era, model, and factory. Learn about our methodology, AI accuracy, and disclaimer.",
+    alternates: {
+      canonical: url,
+      languages: {
+        'ja': `${BASE_URL}/about`,
+        'en': `${BASE_URL}/en/about`,
+      },
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  return [{ locale: 'ja' }, { locale: 'en' }];
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

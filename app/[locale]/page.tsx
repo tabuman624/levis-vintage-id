@@ -31,7 +31,7 @@ export default async function TopPage({ params }: { params: Promise<{ locale: st
 
   const features = [
     { titleJa: '完全無料', titleEn: 'Free to Use', descJa: '登録・課金なしで利用できます。', descEn: 'No sign-up or payment required.' },
-    { titleJa: 'プライバシー保護', titleEn: 'Privacy First', descJa: '写真はAI精度改善目的のみに使用されます。', descEn: 'Photos are used solely to improve AI accuracy.' },
+    { titleJa: 'プライバシー保護', titleEn: 'Privacy First', descJa: '写真はAI処理後に保存されません。', descEn: 'Photos are never stored after AI processing.' },
     { titleJa: '日英対応', titleEn: 'Bilingual', descJa: '日本語・英語に対応しています。', descEn: 'Available in Japanese and English.' },
     { titleJa: '複数ポイント照合', titleEn: 'Multi-Point Analysis', descJa: 'タブ・ジッパー・ラベルを組み合わせて精度UP。', descEn: 'Combines multiple points for higher accuracy.' },
   ];
